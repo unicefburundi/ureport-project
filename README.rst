@@ -20,10 +20,12 @@ necessary requirements::
     source ureport_project-env/bin/activate
     cd ureport_project
     pip install -r requirements/base.txt
+    pip install -r requirements/requires.txt
 
 Run syncdb::
 
     python manage.py syncdb
+    python manage.py migrate
 
 You should now be able to run the development server::
 
