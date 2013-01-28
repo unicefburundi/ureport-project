@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html lang="en">
+<head>
+    <title>Ureport - {% block page_title %}Voice Matters{% endblock %}</title>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}ureport/stylesheets/ureport_home.css?11">
+    {% endblock %}
+    <script type="text/javascript" src="{{ STATIC_URL }}ureport/javascripts/jquery.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}ureport/javascripts/ureport.min.js?41"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}ureport/javascripts/jquery-ui.js"></script>
+
+
+         <script type="text/javascript">
+
+              var _gaq = _gaq || [];
+              _gaq.push(['_setAccount', 'UA-23521720-1']);
+              _gaq.push(['_trackPageview']);
+
+              (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+              })();
+
+            </script>
+{% block top_js %}
+{% endblock %}
+
+</head>
+<body>
+    <div class="container container-fluid" style="background-color:#ffffff;">
+        <div class="banner">
+            <a href="/">
+            <span class="brand">UReport</span>
+            <span class="tagline">VOICE MATTERS</span>
+            </a>
+            {% load humanize %}
+            <span id="span_info"><span id="span_total">{{ total_ureporters|intcomma }}</span> members to date</span>
+        </div>
+        <div id="flash_container"></div>
+        <div class="content">
+            {% block content %}
+                <!--  MAIN CONTENT GOES HERE -->
+            {% endblock %}
+        </div>
+
+        <div class="sidebar">
+            <div class="nav-side">
+                <ul>
+                <li><a href="/">HOME</a></li>
+                <li><a href="/#poll_results">POLL RESULTS</a></li>
+                <li><a href="/about_ureport/">ABOUT UREPORT</a></li>
+                <li><a href="/join/">HOW TO JOIN</a></li>
+                </ul>
+            </div>
+
+            {% block sidecontent %}
+
+
+            <div class="intro">
+                <p>
+                    Ureport is a free SMS-based system that allows young Burundians to speak out on what's happening
+                    in communities across the country, and work together with other community leaders for positive change.
+                </p>
+            </div>
+            <div class="join">
+                <a href="/signup"> <img src="{{ STATIC_URL }}ureport/images/join_us.png"/></a>
+            </div>
+                {% if quote %}
+                    <div class="quotebox">
+                        <div class="quote_head">
+                        <div class="title">
+                            YOUR SAY:
+                        </div>
+                        <div class="topquote">
+                            {{ quote.question }}
+                        </div>
+                            </div>
+                        <div class="bottomquote">
+                            {{ quote.quote }}
+                        </div>
+                        <div class="quoted">
+                            {{ quote.quoted }}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endblock %}
+        </div>
+
+	    <div class="footer">
+	       <div class="sponsors">
+	           Supported by:
+	           <img src="{{ STATIC_URL }}ureport/images/unicef_logo.png"/>
+	           <img src="{{ STATIC_URL }}ureport/images/brac_logo.png"/>
+	           <img src="{{ STATIC_URL }}ureport/images/scouts_logo.png"/>
+	           <img src="{{ STATIC_URL }}ureport/images/cou_logo.png"/>
+	           <img src="{{ STATIC_URL }}ureport/images/gem_logo.png"/>
+	       </div>
+	       <div class="footerlinks">
+	           <div class="nav-bottom">
+                <ul>
+	                <li class="first"><a href="/">HOME</a></li>
+	                <li><a href="/#poll_results">POLL RESULTS</a></li>
+	                <li><a href="about_ureport">ABOUT UREPORT</a></li>
+	                <li><a href="/join/">HOW TO JOIN</a></li>
+	                <!-- <li><a href="#">SITE MAP</a></li>
+	                <li><a href="#">CONTACT US</a></li> -->
+	                {% if user.is_authenticated %}
+	                   <li><a href="{% url ureport-polls %}">POLL ADMIN</a></li>
+	                   <li><a href="{% url messagelog %}">MESSAGE LOG</a></li>
+	                   <li><a href="{% url ureport-contact %}">UREPORTERS</a></li>
+	                   <li><a href="{% url flaggedmessages %}">FLAGGED MESSAGES</a></li>
+                        <li><a href="{% url classifier %}">MESSAGE CLASSIFICATION</a></li>
+                    <li><a href="{% url alerts %}">Real Time</a></li>
+	                {% else %}
+	                   <li><a href="/accounts/login">LOGIN</a></li>
+	                {% endif %}
+                </ul>
+	           </div>
+	           <p>Copyright &copy; 2010 - 2011 UNICEF et al.</p>
+	        </div>
+	    </div>
+    </div>
+        <script type="text/javascript" src="{{ STATIC_URL }}rapidsms/javascripts/collapse.js"></script>
+
+
+{% block javascripts %}
+
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,85 @@
+{% load ureport %}
+<tr id="{{msg.pk}}">
+    <td>
+        {%for  m  in msg.details.all%}
+
+        {%if m.attribute.name == "replied"%}
+
+        {{m.attribute.name}}
+        {%endif%}
+        {%if m.attribute.name == "forwarded"%}
+
+        {{m.attribute.name}}
+        {%endif%}
+
+        {%endfor%}
+    </td>
+    <td>{{ msg.text }}</td>
+    <td>{{ msg.date|date:"m/d/Y H:i:s" }}</td>
+    <td>{{ msg.connection.contact.name }}</td>
+    {%if can_view_number %}
+    <td><a href="/messagehistory/{{ msg.connection.pk }}/">{{ msg.connection.identity }}</a></td>
+    {%endif%}
+    <td>{{ msg.connection.contact.reporting_location }}</td>
+    <td>{%if can_forward %}
+        <a id="msg_rep_link" href="/sendmessage/?forward=true&msg={{msg.pk}}" class="btn msg_rep"
+           data-remote=true>Foward</a>
+        {%endif%}
+        <a style="margin-top:3px; "
+                                          href="/sendmessage/?reply=true&msg={{msg.pk}}"
+                                          class="btn msg_send" id="msg_send_link" data-remote=true>Reply</a>
+    </td>
+    <td>
+
+
+        <ul class='star-rating' id="rate{{msg.pk}}">
+
+            {%for d in  msg.details.all%}
+            {% if d.attribute.name == "rating" %}
+
+
+            <li><a href='javascript:void(0)' class="rate{{d.value}}"
+
+                   title="{{d.description}}">{{d.value}} </a></li>
+            {% set alert = True %}
+            {%endif%}
+            {%endfor%}
+
+            {%if not alert%}
+
+            <li><a href='./?rating=1&msg={{msg.pk}}'  onclick="bind_ajax(this,'rate{{msg.pk}}');"
+                   data-remote=true title='Requires Attention' class='one-star star'>1</a></li>
+            <li><a href='./?rating=2&msg={{msg.pk}}' onclick="bind_ajax(this,'rate{{msg.pk}}');"
+                   data-remote=true title='Moderate' class='two-stars star'>2</a></li>
+            <li><a href='./?rating=3&msg={{msg.pk}}' onclick="bind_ajax(this,'rate{{msg.pk}}');"
+                   data-remote=true title='Important' class='three-stars star'>3</a></li>
+            <li><a href='./?rating=4&msg={{msg.pk}}' onclick="bind_ajax(this,'rate{{msg.pk}}');"
+                   data-remote=true title='Urgent' class='four-stars star star'>4</a></li>
+            <li><a href='./?rating=5&msg={{msg.pk}}' onclick="bind_ajax(this,'rate{{msg.pk}}');"
+                   data-remote=true title='Very Urgent' class='five-stars star '>5</a></li>
+            {%endif%}
+
+        </ul>
+        <a href="/uncapture/{{msg.pk}}/" data-remote=True class="btn">Delete</a>
+
+
+        <ul style="list-style: none;">
+
+            <li class="dropdown" id="menu2">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
+                    <span >Assign</span>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    {% for poll in assign_polls %}
+                    <li><a href="/assign/{{msg.pk}}/{{poll.pk}}/" data-remote=True >{{ poll.name }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+
+
+    </td>
+
+</tr>
