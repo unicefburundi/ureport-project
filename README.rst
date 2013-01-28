@@ -22,6 +22,7 @@ necessary requirements::
     pip install -r requirements/base.txt
     pip install -r requirements/requires.txt
 
+    git submodule update --init
 Run syncdb::
 
     python manage.py syncdb
