@@ -1,0 +1,42 @@
+[submodule "ureport_project/rapidsms_ureport"]
+	path = ureport_project/rapidsms_ureport
+	url = https://github.com/unicefburundi/rapidsms-ureport.git
+[submodule "ureport_project/rapidsms_polls"]
+	path = ureport_project/rapidsms_polls
+	url = https://github.com/unicefburundi/rapidsms-polls.git
+[submodule "ureport_project/django_eav"]
+	path = ureport_project/django_eav
+	url = https://github.com/unicefburundi/django-eav.git
+[submodule "ureport_project/rapidsms_generic"]
+	path = ureport_project/rapidsms_generic
+	url = https://github.com/unicefburundi/rapidsms-generic.git
+[submodule "ureport_project/rapidsms_httprouter_src"]
+	path = ureport_project/rapidsms_httprouter_src
+	url = https://github.com/unicefburundi/rapidsms-httprouter.git
+[submodule "ureport_project/rapidsms_script"]
+	path = ureport_project/rapidsms_script
+	url = https://github.com/unicefburundi/rapidsms-script.git
+[submodule "ureport_project/rapidsms_unregister"]
+	path = ureport_project/rapidsms_unregister
+	url = https://github.com/unicefburundi/rapidsms-unregister.git
+[submodule "ureport_project/rapidsms_uganda_ussd"]
+	path = ureport_project/rapidsms_uganda_ussd
+	url = https://github.com/unicefburundi/rapidsms-uganda-ussd.git
+[submodule "ureport_project/rapidsms_uganda_common"]
+	path = ureport_project/rapidsms_uganda_common
+	url = https://github.com/unicefburundi/rapidsms-uganda-common.git
+[submodule "ureport_project/rapidsms_xforms_src"]
+	path = ureport_project/rapidsms_xforms_src
+	url = https://github.com/unicefburundi/rapidsms-xforms.git
+[submodule "ureport_project/rapidsms_contact"]
+	path = ureport_project/rapidsms_contact
+	url = https://github.com/unicefburundi/rapidsms-contact.git
+[submodule "ureport_project/rapidsms_geoserver"]
+	path = ureport_project/rapidsms_geoserver
+	url = https://github.com/unicefburundi/rapidsms-geoserver.git
+[submodule "ureport_project/rapidsms_message_classifier"]
+	path = ureport_project/rapidsms_message_classifier
+	url = https://github.com/unicefburundi/rapidsms-message-classifier.git
+[submodule "ureport_project/rapidsms_auth"]
+	path = ureport_project/rapidsms_auth
+	url = https://github.com/unicefburundi/rapidsms-auth.git
