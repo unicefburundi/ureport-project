@@ -214,6 +214,7 @@ INSTALLED_APPS = (
     "django_nose",
     "django_extensions",
     "djtables",
+    "djcelery",
     "rapidsms",
     "rapidsms.contrib.handlers",
     "rapidsms.contrib.default",
