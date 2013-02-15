@@ -13,6 +13,7 @@ from contact.urls import urlpatterns as contact_urls
 from generic.urls import urlpatterns as generic_urls
 from ussd.urls import urlpatterns as ussd_urls
 from message_classifier.urls import urlpatterns as class_urls
+from rapidsms.backends.kannel.views import KannelBackendView
 
 
 urlpatterns = patterns('',
@@ -31,6 +32,8 @@ urlpatterns = patterns('',
     (r'^messaging/', include('rapidsms.contrib.messaging.urls')),
     (r'^registration/', include('rapidsms.contrib.registration.urls')),
     (r'^scheduler/', include('rapidsms.contrib.scheduler.urls')),
+    url(r"^backend/kannel-fake-smsc/$", KannelBackendView.as_view(backend_name="kannel-fake-smsc")),
+    url(r"^backend/smsbu/$", KannelBackendView.as_view(backend_name="smsbu")),
     url(r'^$', direct_to_template, {'template':'ureport/home.html'}, name="new_home"),
     url(r'^join/$', direct_to_template, {'template':'ureport/how_to_join.html'}),
     url(r'^about_ureport/$', direct_to_template, {'template':'ureport/about.html'}),
