@@ -8,6 +8,7 @@
 .coverage
 .vagrant
 */settings/local.py
+localsettings.py
 public/static/
 public/media/
 *-env/
