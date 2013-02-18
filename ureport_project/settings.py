@@ -7,7 +7,7 @@ PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__),
 PROJECT_ROOT = os.path.abspath(os.path.join(PROJECT_PATH, os.pardir))
 
 paths = [
-         "rapidsms/rapidsms",
+         "rapidsms",
          "rapidsms_ureport",
          "rapidsms_polls",
          "django_eav",
