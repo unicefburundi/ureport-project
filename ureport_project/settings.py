@@ -249,12 +249,12 @@ INSTALLED_APPS = (
 RAPIDSMS_ROUTER = "rapidsms.router.db.DatabaseRouter"
 
 INSTALLED_BACKENDS = {
-    "message_tester": {
-        "ENGINE": "rapidsms.backends.bucket",
-    },
+#    "message_tester": {
+#        "ENGINE": "rapidsms.backends.bucket",
+#    },
     # other backends, if any
     "kannel-fake-smsc" : {
-        "ENGINE":  "rapidsms.backends.kannel",
+        "ENGINE":  "rapidsms.backends.kannel.outgoing",
         "sendsms_url": "http://127.0.0.1:13013/cgi-bin/sendsms",
         "sendsms_params": {"smsc": "FAKE",
                            "from": "155", # not set automatically by SMSC
@@ -265,7 +265,7 @@ INSTALLED_BACKENDS = {
         "encode_errors": "ignore", # strip out unknown (unicode) characters
     },
     "smsbu" : {
-        "ENGINE":  "rapidsms.backends.kannel",
+        "ENGINE":  "rapidsms.backends.kannel.outgoing",
         "sendsms_url": "http://gateway.smbu.bi/sendsms",
         "sendsms_params": {"smsc": "smbu",
                            "user": "unicef",
@@ -281,7 +281,7 @@ INSTALLED_BACKENDS = {
     },
                       
     "leom" : {
-        "ENGINE":  "rapidsms.backends.kannel",
+        "ENGINE":  "rapidsms.backends.kannel.outgoing",
         "sendsms_url": "http://127.0.0.1:13013/cgi-bin/sendsms",
         "sendsms_params": {"smsc": "leo-modem",
                            "from": "+SIMphonenumber", # not set automatically by SMSC
