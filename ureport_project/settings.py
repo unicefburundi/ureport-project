@@ -276,6 +276,19 @@ INSTALLED_BACKENDS = {
         "charset": "ascii",
         "encode_errors": "ignore", # strip out unknown (unicode) characters
     },
+                      
+    "leom" : {
+        "ENGINE":  "rapidsms.backends.kannel",
+        "sendsms_url": "http://127.0.0.1:13013/cgi-bin/sendsms",
+        "sendsms_params": {"smsc": "leo-modem",
+                           "from": "+SIMphonenumber", # not set automatically by SMSC
+                           "username": "rapidsms",
+                           },
+                           #"password": "CHANGE-ME"}, # or set in localsettings.py
+        "coding": 0,
+        "charset": "ascii",
+        "encode_errors": "ignore", # strip out unknown (unicode) characters
+    },
 }
 
 SMS_APPS = [
