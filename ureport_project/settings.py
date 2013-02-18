@@ -284,7 +284,7 @@ INSTALLED_BACKENDS = {
         "ENGINE":  "rapidsms.backends.kannel.outgoing",
         "sendsms_url": "http://127.0.0.1:13013/cgi-bin/sendsms",
         "sendsms_params": {"smsc": "leo-modem",
-                           "from": "+SIMphonenumber", # not set automatically by SMSC
+                           "from": "+25771577883", # not set automatically by SMSC
                            "username": "rapidsms",
                            },
                            #"password": "CHANGE-ME"}, # or set in localsettings.py
