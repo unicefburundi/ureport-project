@@ -246,6 +246,8 @@ INSTALLED_APPS = (
     "south",
 )
 
+RAPIDSMS_ROUTER = "rapidsms.router.db.DatabaseRouter"
+
 INSTALLED_BACKENDS = {
     "message_tester": {
         "ENGINE": "rapidsms.backends.bucket",
