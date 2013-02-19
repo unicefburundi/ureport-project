@@ -248,52 +248,6 @@ INSTALLED_APPS = (
 
 RAPIDSMS_ROUTER = "rapidsms.router.db.DatabaseRouter"
 
-INSTALLED_BACKENDS = {
-#    "message_tester": {
-#        "ENGINE": "rapidsms.backends.bucket",
-#    },
-    # other backends, if any
-    "kannel-fake-smsc" : {
-        "ENGINE":  "rapidsms.backends.kannel.outgoing",
-        "sendsms_url": "http://127.0.0.1:13013/cgi-bin/sendsms",
-        "sendsms_params": {"smsc": "FAKE",
-                           "from": "155", # not set automatically by SMSC
-                           "username": "rapidsms",
-                           }, # KANNEL_PASSWORD set in localsettings.py
-        "coding": 0,
-        "charset": "ascii",
-        "encode_errors": "ignore", # strip out unknown (unicode) characters
-    },
-    "smsbu" : {
-        "ENGINE":  "rapidsms.backends.kannel.outgoing",
-        "sendsms_url": "http://gateway.smbu.bi/sendsms",
-        "sendsms_params": {"smsc": "smbu",
-                           "user": "unicef",
-                           "password": "burundi155",
-                           "sender": "155",
-                           "msisdn": "",
-                           "from": "155", # not set automatically by SMSC
-                           "username": "rapidsms",
-                           }, # KANNEL_PASSWORD set in localsettings.py
-        "coding": 0,
-        "charset": "ascii",
-        "encode_errors": "ignore", # strip out unknown (unicode) characters
-    },
-                      
-    "leom" : {
-        "ENGINE":  "rapidsms.backends.kannel.outgoing",
-        "sendsms_url": "http://127.0.0.1:13013/cgi-bin/sendsms",
-        "sendsms_params": {"smsc": "leo-modem",
-                           "from": "+25771577883", # not set automatically by SMSC
-                           "username": "rapidsms",
-                           },
-                           #"password": "CHANGE-ME"}, # or set in localsettings.py
-        "coding": 0,
-        "charset": "ascii",
-        "encode_errors": "ignore", # strip out unknown (unicode) characters
-    },
-}
-
 SMS_APPS = [
     "echo",
     "ureport",
