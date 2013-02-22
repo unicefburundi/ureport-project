@@ -214,6 +214,7 @@ INSTALLED_APPS = (
     # External apps
     "django_nose",
     "django_extensions",
+    "uni_form",
     "djtables",
     "djcelery",
     "rapidsms",
