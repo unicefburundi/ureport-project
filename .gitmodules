@@ -1,9 +1,9 @@
 [submodule "ureport_project/rapidsms_ureport"]
 	path = ureport_project/rapidsms_ureport
-	url = https://github.com/asseym/rapidsms-ureport.git
+	url = https://github.com/unicefburundi/rapidsms-ureport.git
 [submodule "ureport_project/rapidsms_polls"]
 	path = ureport_project/rapidsms_polls
-	url = https://github.com/asseym/rapidsms-polls.git
+	url = https://github.com/unicefburundi/rapidsms-polls.git
 [submodule "ureport_project/django_eav"]
 	path = ureport_project/django_eav
 	url = https://github.com/asseym/django-eav.git
@@ -12,13 +12,13 @@
 	url = https://github.com/asseym/rapidsms-generic.git
 [submodule "ureport_project/rapidsms_httprouter_src"]
 	path = ureport_project/rapidsms_httprouter_src
-	url = https://github.com/asseym/rapidsms-httprouter.git
+	url = https://github.com/unicefburundi/rapidsms-httprouter.git
 [submodule "ureport_project/rapidsms_script"]
 	path = ureport_project/rapidsms_script
 	url = https://github.com/asseym/rapidsms-script.git
 [submodule "ureport_project/rapidsms_unregister"]
 	path = ureport_project/rapidsms_unregister
-	url = https://github.com/asseym/rapidsms-unregister.git
+	url = https://github.com/unicefburundi/rapidsms-unregister.git
 [submodule "ureport_project/rapidsms_uganda_ussd"]
 	path = ureport_project/rapidsms_uganda_ussd
 	url = https://github.com/asseym/rapidsms-uganda-ussd.git
