@@ -22,6 +22,7 @@ paths = [
          "rapidsms_geoserver",
          "rapidsms_message_classifier",
          "rapidsms_auth",
+         "android_relay_backend",
          ]
          
 filedir = os.path.dirname(__file__)
@@ -229,13 +230,14 @@ INSTALLED_APPS = (
     "rapidsms.contrib.registration",
 #    "rapidsms.contrib.scheduler",
     "rapidsms.contrib.echo",
-    "rapidsms.router.db",
+#    "rapidsms.router.db",
+    "andrelay",
     "auth",
     "ureport",
     "poll",
     "eav",
     "generic",
-#    "rapidsms_httprouter",
+    "rapidsms_httprouter",
     "script",
     "unregister",
     "ussd",
