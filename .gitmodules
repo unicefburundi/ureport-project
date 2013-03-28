@@ -27,7 +27,7 @@
 	url = https://github.com/asseym/rapidsms-uganda-common.git
 [submodule "ureport_project/rapidsms_xforms_src"]
 	path = ureport_project/rapidsms_xforms_src
-	url = https://github.com/asseym/rapidsms-xforms.git
+	url = https://github.com/unicefburundi/rapidsms-xforms.git
 [submodule "ureport_project/rapidsms_contact"]
 	path = ureport_project/rapidsms_contact
 	url = https://github.com/asseym/rapidsms-contact.git
@@ -36,7 +36,7 @@
 	url = https://github.com/asseym/rapidsms-geoserver.git
 [submodule "ureport_project/rapidsms_message_classifier"]
 	path = ureport_project/rapidsms_message_classifier
-	url = https://github.com/asseym/rapidsms-message-classifier.git
+	url = https://github.com/unicefburundi/rapidsms-message-classifier.git
 [submodule "ureport_project/rapidsms_auth"]
 	path = ureport_project/rapidsms_auth
 	url = https://github.com/asseym/rapidsms-auth.git
