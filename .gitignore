@@ -13,3 +13,7 @@ public/static/
 public/media/
 *-env/
 rapidsms.log
+*.log
+*.pot
+*.pyc
+local_settings.py
