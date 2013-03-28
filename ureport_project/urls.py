@@ -6,7 +6,7 @@ from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import password_change
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from rapidsms_httprouter.urls import urlpatterns as router_urls
+#from rapidsms_httprouter.urls import urlpatterns as router_urls
 from ureport.urls import urlpatterns as ureport_urls
 from contact.urls import urlpatterns as contact_urls
 #from tracking.urls import urlpatterns as tracking_urls
@@ -46,7 +46,7 @@ urlpatterns = patterns('',
     url('^accounts/change_password', login_required(password_change), {'template_name':'ureport/change_password.html', 'post_change_redirect':'/'}),
     (r'^polls/', include('poll.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) +\
-    router_urls + ureport_urls + contact_urls + generic_urls + ussd_urls + class_urls 
+    ureport_urls + contact_urls + generic_urls + ussd_urls + class_urls 
 
 #In development, static files should be served from app static directories
 urlpatterns += staticfiles_urlpatterns()
