@@ -40,6 +40,3 @@
 [submodule "ureport_project/rapidsms_auth"]
 	path = ureport_project/rapidsms_auth
 	url = https://github.com/asseym/rapidsms-auth.git
-[submodule "ureport_project/rapidsms"]
-	path = ureport_project/rapidsms
-	url = https://github.com/asseym/rapidsms.git
