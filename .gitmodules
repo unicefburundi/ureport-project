@@ -30,7 +30,7 @@
 	url = https://github.com/unicefburundi/rapidsms-xforms.git
 [submodule "ureport_project/rapidsms_contact"]
 	path = ureport_project/rapidsms_contact
-	url = https://github.com/asseym/rapidsms-contact.git
+	url = https://github.com/unicefburundi/rapidsms-contact.git
 [submodule "ureport_project/rapidsms_geoserver"]
 	path = ureport_project/rapidsms_geoserver
 	url = https://github.com/asseym/rapidsms-geoserver.git
