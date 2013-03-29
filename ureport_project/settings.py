@@ -22,6 +22,7 @@ paths = [
          "rapidsms_geoserver",
          "rapidsms_message_classifier",
          "rapidsms_auth",
+         "rapidsms_maintenance",
          ]
          
 filedir = os.path.dirname(__file__)
@@ -244,6 +245,7 @@ INSTALLED_APPS = (
     "contact",
     "geoserver",
     "message_classifier",
+    "maintenance",
     "south",
 )
 
@@ -257,6 +259,7 @@ RAPIDSMS_ROUTER = "rapidsms.router.db.DatabaseRouter"
 
 SMS_APPS = [
     "echo",
+    "maintenance",
 #    "ureport",
 #    "script",
     "poll",
