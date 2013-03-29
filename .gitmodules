@@ -12,7 +12,7 @@
 	url = https://github.com/unicefburundi/rapidsms-generic.git
 [submodule "ureport_project/rapidsms_httprouter_src"]
 	path = ureport_project/rapidsms_httprouter_src
-	url = https://github.com/unicefburundi/rapidsms-httprouter.git
+	url = https://github.com/nyaruka/rapidsms-httprouter.git
 [submodule "ureport_project/rapidsms_script"]
 	path = ureport_project/rapidsms_script
 	url = https://github.com/unicefburundi/rapidsms-script.git
