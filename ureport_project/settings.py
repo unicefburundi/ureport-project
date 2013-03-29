@@ -249,12 +249,18 @@ INSTALLED_APPS = (
     "south",
 )
 
+#SOUTH_MIGRATION_MODULES = {
+#    'rapidsms': 'ureport.migrations',
+#    'rapidsms.locations': 'ureport.migrations',
+#    'rapidsms.locations.nested': 'ureport.migrations',
+#}
+
 RAPIDSMS_ROUTER = "rapidsms.router.db.DatabaseRouter"
 
 SMS_APPS = [
     "echo",
-    "ureport",
-    "script",
+#    "ureport",
+#    "script",
     "poll",
     "unregister",
 ]
