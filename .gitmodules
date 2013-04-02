@@ -43,3 +43,6 @@
 [submodule "ureport_project/rapidsms_maintenance"]
 	path = ureport_project/rapidsms_maintenance
 	url = https://github.com/unicefburundi/rapidsms-maintenance.git
+[submodule "ureport_project/rapidsms_httprouter_sc"]
+	path = ureport_project/rapidsms_httprouter_sc
+	url = https://github.com/unicefburundi/rapidsms-httprouter.git

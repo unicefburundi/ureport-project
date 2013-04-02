@@ -12,7 +12,7 @@ paths = [
          "rapidsms_polls",
          "django_eav",
          "rapidsms_generic",
-         "rapidsms_httprouter_src",
+         "rapidsms_httprouter_sc",
          "rapidsms_script",
          "rapidsms_unregister",
          "rapidsms_uganda_ussd",
