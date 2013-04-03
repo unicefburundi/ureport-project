@@ -16,6 +16,8 @@ from message_classifier.urls import urlpatterns as class_urls
 from rapidsms.backends.kannel.views import KannelBackendView
 #from andrelay.views import CustomHttpBackendView
 
+admin.autodiscover()
+
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
