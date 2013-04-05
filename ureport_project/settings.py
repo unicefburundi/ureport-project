@@ -231,6 +231,7 @@ INSTALLED_APPS = (
 #    "rapidsms.contrib.scheduler",
     "rapidsms.contrib.echo",
 #    "rapidsms.router.db",
+    "tastypie",
     "auth",
     "rapidsms_httprouter",
     "poll",
