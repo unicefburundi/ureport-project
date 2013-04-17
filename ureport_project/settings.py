@@ -7,7 +7,7 @@ PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__),
 PROJECT_ROOT = os.path.abspath(os.path.join(PROJECT_PATH, os.pardir))
 
 paths = [
-         "rapidsms",
+#         "rapidsms",
          "rapidsms_ureport",
          "rapidsms_polls",
          "django_eav",
@@ -23,6 +23,7 @@ paths = [
          "rapidsms_message_classifier",
          "rapidsms_auth",
          "rapidsms_maintenance",
+         "rapidsms_migrations",
          ]
          
 filedir = os.path.dirname(__file__)
@@ -231,6 +232,7 @@ INSTALLED_APPS = (
 #    "rapidsms.contrib.scheduler",
     "rapidsms.contrib.echo",
 #    "rapidsms.router.db",
+    "rmigrations",
     "tastypie",
     "auth",
     "rapidsms_httprouter",
