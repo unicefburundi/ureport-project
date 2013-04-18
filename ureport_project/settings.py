@@ -24,6 +24,7 @@ paths = [
          "rapidsms_auth",
          "rapidsms_maintenance",
          "rapidsms_migrations",
+         "rapidsms_locmigrations",
          ]
          
 filedir = os.path.dirname(__file__)
@@ -218,6 +219,7 @@ INSTALLED_APPS = (
     "django_extensions",
     "uni_form",
     "djtables",
+    "rapidsms.contrib.locations",
     "rapidsms",
     "rmigrations",
     "djcelery",
@@ -225,7 +227,6 @@ INSTALLED_APPS = (
     "rapidsms.contrib.default",
 #    "rapidsms.contrib.export",
     "rapidsms.contrib.httptester",
-    "rapidsms.contrib.locations",
     "rapidsms.contrib.locations.nested",
     "rapidsms.contrib.messagelog",
     "rapidsms.contrib.messaging",
@@ -233,6 +234,7 @@ INSTALLED_APPS = (
 #    "rapidsms.contrib.scheduler",
     "rapidsms.contrib.echo",
 #    "rapidsms.router.db",
+    "lmigrations",
     "tastypie",
     "auth",
     "rapidsms_httprouter",
