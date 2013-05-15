@@ -110,7 +110,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -120,7 +120,7 @@ SECRET_KEY = '(^^87m6)e+&amp;^uv+jp()s50vxky#m-sn=+ni0gt9f95skezw2$4'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    'django.template.loaders.eggs.Loader',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -131,6 +131,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.i18n',
     'django.core.context_processors.static',
+    "generic.context_processors.map_params",
+#    "uganda_common.context_processors.authtabs",
+    "ureport.context_processors.voices",
 )
 
 MIDDLEWARE_CLASSES = (
@@ -140,6 +143,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+#    "uganda_common.middleware.accessmiddleware.accessmiddleware.AccessMiddleWare",
 )
 
 ROOT_URLCONF = 'ureport_project.urls'
