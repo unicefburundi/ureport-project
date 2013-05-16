@@ -151,9 +151,9 @@ ROOT_URLCONF = 'ureport_project.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'ureport_project.wsgi.application'
 
-TEMPLATE_DIRS = (
-    os.path.join(PROJECT_PATH, 'templates'),
-)
+#TEMPLATE_DIRS = (
+#    os.path.join(PROJECT_PATH, 'templates'),
+#)
 
 FIXTURE_DIRS = (
     os.path.join(PROJECT_PATH, 'fixtures'),
