@@ -105,17 +105,17 @@ function deselect_everything(count) {
 
 function disable_enter() {
     if ($.browser.mozilla) {
-        $('#filters input:text_fr').keypress(function(event) {
+        $('#filters input:text').keypress(function(event) {
             if (event.keyCode == 13) return false;
         });
-        $('#actions input:text_fr').keypress(function(event) {
+        $('#actions input:text').keypress(function(event) {
             if (event.keyCode == 13) return false;
         });
     } else {
-        $('#filters input:text_fr').keydown(function(event) {
+        $('#filters input:text').keydown(function(event) {
             if (event.keyCode == 13) return false;
         });
-        $('#actions input:text_fr').keydown(function(event) {
+        $('#actions input:text').keydown(function(event) {
             if (event.keyCode == 13) return false;
         });
     }
