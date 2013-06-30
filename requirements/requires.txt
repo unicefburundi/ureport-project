@@ -17,5 +17,5 @@ python-memcached
 nltk
 httplib2
 djtables
-django-tastypie
+django-tastypie>=0.9.15
 mock

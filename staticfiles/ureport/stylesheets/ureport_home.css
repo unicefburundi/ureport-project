@@ -7,9 +7,9 @@ body{
     color:#333333;
 }
 
-a {
-	color:#00638a;
-}
+/**
+ * 	Layout
+ */
 
 .container {
     width: 960px;
@@ -25,6 +25,44 @@ a {
 	border-bottom: solid 3px #bbd8e7;
 	
 }
+
+div.content {
+	position:relative;
+    float: left;
+    top:94px;
+    width: 660px;
+    padding: 0px;
+}
+
+div#poll_results_transparent{
+	background: url('../images/carte_bg.png') no-repeat right top;
+	position:absolute;
+	align:right;
+	top:0px;
+	left:587px;
+	float:right;
+	z-index:10000;
+	width:373px;
+	height:400px;	
+}
+
+div.sidebar {
+	position:relative;
+	margin-top:500px;
+	width: 260px;
+	float: right;
+	padding: 0px 0px 0px 10px;
+	border-left: 1px solid #CCCCCC;
+}
+
+/**
+ * 	Formatting
+ */
+
+a {
+	color:#00638a;
+}
+
 .banner a{
     text-decoration: none;
 }
@@ -35,12 +73,6 @@ a {
     float: right;
     margin-right: 10px;
     margin-top: 10px;
-}
-
-.content {
-    float: left;
-    width: 660px;
-    padding: 10px;
 }
 
 .why-join{
@@ -91,30 +123,8 @@ div.why-placeholder span {
 .image_ban {
 	float: left;
 	margin-left: 5%;
+	z-index:10000;
 	}
-
-.tagline {
-	position:absolute;
-	bottom: 2px;
-	left: 21em;
-	font-size: 8px;
-	color: white;
-}
-.taglin {
-	position:absolute;
-	bottom: 2px;
-	left: 21em;
-	font-size: 8px;
-	color: white;
-}
-
-.sidebar {
-	margin-top:20px;
-	width: 260px;
-	float: right;
-	padding: 0px 0px 0px 10px;
-	border-left: 1px solid #CCCCCC;
-}
 
 .nav-side ul{
     list-style-type: none;
@@ -521,7 +531,7 @@ ul.tabs .tab-label {
 	font-weight:bold;
 	text-align:left; 
 	font-size:0.8em; 
-	border-right:1px solid #ffffff;
+	border-right:1px solid #FFFFFF;
 	border-bottom: none;
 	border-top: none;
 	border-left: none;
@@ -536,6 +546,10 @@ ul.tabs .tab-label {
 }
 
 .nav ul li a:link, a:visited {
+	color:#FFFFFF;
+}
+
+.nva ul li a:visited {
 	color:#FFFFFF;
 }
 
@@ -559,18 +573,48 @@ ul.tabs .tab-label {
     float: right;
     margin-right:10px;
 }
-	
-/*ul.tabs li.selected .tab-label { 
-	position:relative;
-	border-bottom:none;
-	top:1px;
-	padding-bottom:4px;
-	padding-top:10px;
-	border-left:2px ;
+
+/*****
+ * Poll and Poll Results Sidebar
+ */
+
+div.poll-details {
+	padding: 28px;
+	color: #003300;
+}
+
+div.poll-date {
+    font-size: 1.5em;
+    font-weight:bold;
+}	
+
+div.poll-question {
+	margin-bottom:5px;
 	margin-top:5px;
-	/* background:white url("g2.jpg") repeat-x left top;
-	font-weight:bold;  
-}*/
+	font-size:1.5em;
+	font-weight:bold;
+}
+
+div.poll-responses {
+	font-size: 1.6em;
+	font-weight:bold;
+}
+
+div.poll-responses p {
+	line-height:150%;
+}
+
+div.poll-responses span.params {
+	font-family:"Arial Narrow" Geneva, Arial, Helvetica, sans-serif;
+	/*font-family:Tahoma, Geneva, Arial, Helvetica, sans-serif;*/
+	font-size: 1.8em;
+	color:#00A8FF;
+}
+
+div.poll-responses span.participants {
+	font-size: 1.4em;
+	font-weight:bold;
+}
 
 #say{
 		background: #00AFEE;
