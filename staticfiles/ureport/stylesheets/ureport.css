@@ -468,6 +468,7 @@ select {
   white-space: nowrap;
 }
 .dropdown-menu li > a:hover,
+.dropdown-menu li > a:visited,
 .dropdown-menu .active > a,
 .dropdown-menu .active > a:hover {
   color: #ffffff;
@@ -549,6 +550,7 @@ select {
 .nav-tabs > li > a:hover {
   border-color: #eeeeee #eeeeee #dddddd;
 }
+
 .tab-content {
   display: table;
   width: 100%;
