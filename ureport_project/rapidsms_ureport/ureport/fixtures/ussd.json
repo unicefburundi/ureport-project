@@ -1,0 +1,355 @@
+[
+    {
+        "pk": 177,
+        "model": "eav.attribute",
+        "fields": {
+            "description": null,
+            "created": "2012-02-20 22:18:18",
+            "datatype": "text",
+            "enum_group": null,
+            "required": false,
+            "site": 1,
+            "modified": "2012-02-22 13:15:55",
+            "type": null,
+            "slug": "poll_poll_186",
+            "name": "latest_poll"
+        }
+    },
+    {
+        "pk": 97,
+        "model": "eav.attribute",
+        "fields": {
+            "description": "The location associated with a particular contact",
+            "created": "2011-04-28 18:45:42",
+            "datatype": "object",
+            "enum_group": null,
+            "required": false,
+            "site": 2,
+            "modified": "2011-04-28 18:45:42",
+            "type": null,
+            "slug": "contact_location",
+            "name": "Location"
+        }
+    }
+  ,
+    {
+        "pk": 178,
+        "model": "eav.attribute",
+        "fields": {
+            "description": null,
+            "created": "2012-02-20 22:18:30",
+            "datatype": "text",
+            "enum_group": null,
+            "required": false,
+            "site": 1,
+            "modified": "2012-02-20 22:40:39",
+            "type": null,
+            "slug": "poll_question3",
+            "name": "send_report"
+        }
+    },
+
+    {
+        "pk": "ussd_root3",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 17,
+            "parent": "ussd_root",
+            "level": 1,
+            "label": "Poll Results",
+            "lft": 4,
+            "tree_id": 1,
+            "order": 2
+        }
+    },
+    {
+        "pk": "send_report",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 19,
+            "parent": "ussd_root",
+            "level": 1,
+            "label": "Send Report",
+            "lft": 18,
+            "tree_id": 1,
+            "order": 3
+        }
+    },
+    {
+        "pk": "ussd_root",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 20,
+            "parent": null,
+            "level": 0,
+            "label": "Ignored",
+            "lft": 1,
+            "tree_id": 1,
+            "order": 1
+        }
+    },
+    {
+        "pk": "report_response",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 2,
+            "parent": null,
+            "level": 0,
+            "label": "",
+            "lft": 1,
+            "tree_id": 3,
+            "order": 0
+        }
+    },
+    {
+        "pk": "ussd_root2",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 2,
+            "parent": null,
+            "level": 0,
+            "label": "Thanks For your response",
+            "lft": 1,
+            "tree_id": 4,
+            "order": 0
+        }
+    },
+    {
+        "pk": "question_response",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 2,
+            "parent": null,
+            "level": 0,
+            "label": "thanks",
+            "lft": 1,
+            "tree_id": 2,
+            "order": 0
+        }
+    },
+    {
+        "pk": "weekly_poll",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 3,
+            "parent": "ussd_root",
+            "level": 1,
+            "label": "This Week's Poll",
+            "lft": 2,
+            "tree_id": 1,
+            "order": 1
+        }
+    },
+    {
+        "pk": "res1",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 16,
+            "parent": "ussd_root3",
+            "level": 2,
+            "label": "FGM - Culture",
+            "lft": 13,
+            "tree_id": 1,
+            "order": 1
+        }
+    },
+    {
+        "pk": "res2",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 12,
+            "parent": "ussd_root3",
+            "level": 2,
+            "label": "FGM - Awareness",
+            "lft": 9,
+            "tree_id": 1,
+            "order": 2
+        }
+    },
+    {
+        "pk": "res3",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 8,
+            "parent": "ussd_root3",
+            "level": 2,
+            "label": "Solar Power Equip Availability",
+            "lft": 5,
+            "tree_id": 1,
+            "order": 3
+        }
+    },
+    {
+        "pk": "res11",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 15,
+            "parent": "res1",
+            "level": 3,
+            "label": "no:62% unknown:16% yes:21% uncategorized:0% ",
+            "lft": 14,
+            "tree_id": 1,
+            "order": 1
+        }
+    },
+    {
+        "pk": "res31",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 7,
+            "parent": "res3",
+            "level": 3,
+            "label": "no:49% yes:49% uncategorized:1% ",
+            "lft": 6,
+            "tree_id": 1,
+            "order": 1
+        }
+    },
+    {
+        "pk": "res21",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 11,
+            "parent": "res2",
+            "level": 3,
+            "label": "no:14% unknown:8% yes:76% ",
+            "lft": 10,
+            "tree_id": 1,
+            "order": 1
+        }
+    },
+    {
+        "pk": "ussd_root3",
+        "model": "ussd.menu",
+        "fields": {}
+    },
+    {
+        "pk": "ussd_root",
+        "model": "ussd.menu",
+        "fields": {}
+    },
+    {
+        "pk": "ussd_root2",
+        "model": "ussd.menu",
+        "fields": {}
+    },
+    {
+        "pk": "res1",
+        "model": "ussd.menu",
+        "fields": {}
+    },
+    {
+        "pk": "res2",
+        "model": "ussd.menu",
+        "fields": {}
+    },
+    {
+        "pk": "res3",
+        "model": "ussd.menu",
+        "fields": {}
+    },
+    {
+        "pk": "res11",
+        "model": "ussd.menu",
+        "fields": {}
+    },
+    {
+        "pk": "res31",
+        "model": "ussd.menu",
+        "fields": {}
+    },
+    {
+        "pk": "res21",
+        "model": "ussd.menu",
+        "fields": {}
+    },
+    {
+        "pk": "send_report",
+        "model": "ussd.question",
+        "fields": {
+            "question_text": "Enter Message:",
+            "next": "report_response"
+        }
+    },
+    {
+        "pk": "weekly_poll",
+        "model": "ussd.question",
+        "fields": {
+            "question_text": "6th Feb is day of zero tolerance to female circumcision.We know its illegal but is still practiced so is the culture more important than the law?1.YES or 2.NO\r\n",
+            "next": "question_response"
+        }
+    },
+    {
+        "pk": "send_report",
+        "model": "ussd.field",
+        "fields": {
+            "field": 178
+        }
+    },
+    {
+        "pk": "weekly_poll",
+        "model": "ussd.field",
+        "fields": {
+            "field": 177
+        }
+    },
+    {
+        "pk": "report_response",
+        "model": "ussd.stubscreen",
+        "fields": {
+            "terminal": true,
+            "text": "Thanks For Your Response"
+        }
+    },
+    {
+        "pk": "question_response",
+        "model": "ussd.stubscreen",
+        "fields": {
+            "terminal": true,
+            "text": "Cultural practices are important to our identity, but when they violate human rights or risk death they should be stopped."
+        }
+    },
+
+    {
+        "pk": 34,
+        "model": "rapidsms_xforms.xform",
+        "fields": {
+            "name": "poll",
+            "keyword": "poll",
+            "created": "2012-02-20 22:17:38",
+            "restrict_message": null,
+            "modified": "2012-02-20 22:40:22",
+            "site": 1,
+            "owner": 1,
+            "separator": null,
+            "restrict_to": [],
+            "active": true,
+            "command_prefix": "+",
+            "response": "thanks for your response",
+            "keyword_prefix": null,
+            "description": ""
+        }
+    },
+    {
+        "pk": 177,
+        "model": "rapidsms_xforms.xformfield",
+        "fields": {
+            "field_type": "text",
+            "question": "6th Feb is day of zero tolerance to female circumcision.We know its illegal but is still practiced so is the culture more important than the law?1.Yes 2. No",
+            "command": "poll_186",
+            "order": 1,
+            "xform": 34
+        }
+    },
+    {
+        "pk": 178,
+        "model": "rapidsms_xforms.xformfield",
+        "fields": {
+            "field_type": "text",
+            "question": "Enter Message:",
+            "command": "question3",
+            "order": 3,
+            "xform": 34
+        }
+    }
+]

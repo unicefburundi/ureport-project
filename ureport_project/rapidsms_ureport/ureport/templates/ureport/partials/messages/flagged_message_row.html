@@ -1,0 +1,23 @@
+{% extends 'generic/partials/partial_row.html' %}
+{% block remaining_row_content %}
+{% load extra_tags %}
+<td>{{ object.message.connection_id }}</td>
+<td>
+    <span >
+    {{ object.message.text }}
+    </span>
+</td>
+<td>
+    <span class="small">
+        {{ object.message.date|date:"m/d/Y H:i:s" }}
+    </span>
+</td>
+
+<td>
+
+
+ <a href="/flags/{{ object.flag.pk }}/messages/"/> {{ object.flag.name }}</a>
+
+
+</td>
+{% endblock %}

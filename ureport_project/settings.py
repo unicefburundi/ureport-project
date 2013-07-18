@@ -120,7 +120,7 @@ SECRET_KEY = '(^^87m6)e+&amp;^uv+jp()s50vxky#m-sn=+ni0gt9f95skezw2$4'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-    'django.template.loaders.eggs.Loader',
+#     'django.template.loaders.eggs.Loader',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -151,9 +151,9 @@ ROOT_URLCONF = 'ureport_project.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'ureport_project.wsgi.application'
 
-#TEMPLATE_DIRS = (
-#    os.path.join(PROJECT_PATH, 'templates'),
-#)
+TEMPLATE_DIRS = (
+#     os.path.join(PROJECT_PATH, 'templates'),
+)
 
 FIXTURE_DIRS = (
     os.path.join(PROJECT_PATH, 'fixtures'),
@@ -228,7 +228,6 @@ INSTALLED_APPS = (
     "rmigrations",
     "djcelery",
     "rapidsms.contrib.handlers",
-    "rapidsms.contrib.default",
 #    "rapidsms.contrib.export",
     "rapidsms.contrib.httptester",
     "rapidsms.contrib.locations.nested",
@@ -237,6 +236,7 @@ INSTALLED_APPS = (
     "rapidsms.contrib.registration",
 #    "rapidsms.contrib.scheduler",
     "rapidsms.contrib.echo",
+    "rapidsms.contrib.default",
     "lmigrations",
     "tastypie",
     "auth",

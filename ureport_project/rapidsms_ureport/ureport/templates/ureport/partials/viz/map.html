@@ -1,0 +1,12 @@
+<div id="map_{{ poll.pk }}" class="mapmodule init">
+</div>
+<div id="map_layers">
+    <ul class="key">
+    </ul>
+</div>
+<script language="javascript">
+    $(document).ready(function() {
+        init_map('map_{{ poll.pk }}', {{ min_lat }}, {{ max_lat }}, {{ min_lon }}, {{ max_lon }}, {% autoescape off %}{{ colors }}{% endautoescape %});
+        plot_layer('map_{{ poll.pk }}', 'Poll Results', '{% url "poll.views.stats" poll.pk 1 %}', '{% url "poll.views.stats" poll.pk 1 %}');
+    });
+</script>

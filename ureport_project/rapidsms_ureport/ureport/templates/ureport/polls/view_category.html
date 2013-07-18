@@ -1,0 +1,23 @@
+<td class="category_name_col">
+    {{ category.name }}
+</td>
+<td class="category_response_col">{{ category.response }}</td>
+
+</td>
+<td class="category_default_col">
+    {% if category.default %}
+    <img style="vertical-alignment:bottom;padding-top:7px" src="{{ STATIC_URL }}rapidsms/icons/silk/accept.png" alt="This category is default"/>
+    {% else %}
+    &nbsp;
+    {% endif %}
+</td>
+        <td>
+            <a href="javascript:void(0)" onclick="ajax_loading(this);$('#view_rules').load('/category/{{category.pk}}/rules/view/',function() { $('.ajax_loading').remove();$('#view_rules').show();$('#view_rules').effect('highlight', {}, 3000);});" class="btn">View Rules</a>
+        </td>
+        <td>
+            <a href="javascript:void(0)" onclick="ajax_loading(this);$('#edit_category').load('/category/{{category.pk}}/edit/',function() { $('.ajax_loading').remove();$('#edit_category').show();$('#edit_category').effect('highlight', {}, 3000);});" class="btn">Edit</a>
+        </td>
+        <td>
+            <a  href="/category/{{category.pk}}/delete/" onclick="$(this).parent().parent().hide()" data-remote=true>Delete</a>
+        </td>
+

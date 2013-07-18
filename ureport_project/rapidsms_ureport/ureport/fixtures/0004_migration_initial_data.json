@@ -1,0 +1,886 @@
+[
+	{
+        "pk": 1, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "admin"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "sites.site",
+        "fields": {
+            "domain": "ureport.rapidsms.org",
+            "name": "uReport"
+        }
+    },
+
+    {
+        "pk": 34,
+        "model": "rapidsms_xforms.xform",
+        "fields": {
+            "name": "poll",
+            "keyword": "poll",
+            "created": "2012-02-20 22:17:38",
+            "restrict_message": null,
+            "modified": "2012-02-20 22:40:22",
+            "site": 1,
+            "owner": 1,
+            "separator": null,
+            "restrict_to": [],
+            "active": true,
+            "command_prefix": "+",
+            "response": "thanks for your response",
+            "keyword_prefix": null,
+            "description": ""
+        }
+    },
+
+    {
+        "pk": "res31",
+        "model": "ussd.menu",
+        "fields": {}
+    },
+    {
+        "pk": "res3",
+        "model": "ussd.menu",
+        "fields": {}
+    },
+    {
+        "pk": "res21",
+        "model": "ussd.menu",
+        "fields": {}
+    },
+    {
+        "pk": "res2",
+        "model": "ussd.menu",
+        "fields": {}
+    },
+    {
+        "pk": "res11",
+        "model": "ussd.menu",
+        "fields": {}
+    },
+    {
+        "pk": "res1",
+        "model": "ussd.menu",
+        "fields": {}
+    },
+    {
+        "pk": "ussd_root3",
+        "model": "ussd.menu",
+        "fields": {}
+    },
+    {
+        "pk": "ussd_root",
+        "model": "ussd.menu",
+        "fields": {}
+    },
+    {
+        "pk": "ussd_root2",
+        "model": "ussd.menu",
+        "fields": {}
+    },
+
+    {
+        "pk": "weekly_poll",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 3,
+            "parent": "ussd_root",
+            "level": 1,
+            "label": "This Week's Poll",
+            "lft": 2,
+            "tree_id": 1,
+            "order": 1
+        }
+    },
+    {
+        "pk": "res31",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 7,
+            "parent": "res3",
+            "level": 3,
+            "label": "no:72% unknown:9% yes:17%",
+            "lft": 6,
+            "tree_id": 1,
+            "order": 1
+        }
+    },
+    {
+        "pk": "res3",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 8,
+            "parent": "ussd_root3",
+            "level": 2,
+            "label": "PCV - Immunisation",
+            "lft": 5,
+            "tree_id": 1,
+            "order": 3
+        }
+    },
+    {
+        "pk": "res21",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 11,
+            "parent": "res2",
+            "level": 3,
+            "label": "no:17% Other:5% yes:76%",
+            "lft": 10,
+            "tree_id": 1,
+            "order": 1
+        }
+    },
+    {"pk": "res2",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 12,
+            "parent": "ussd_root3",
+            "level": 2,
+            "label": "VAC #1",
+            "lft": 9,
+            "tree_id": 1,
+            "order": 2
+        }
+    },
+    {
+        "pk": "res11",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 15,
+            "parent": "res1",
+            "level": 3,
+            "label": "0 responses",
+            "lft": 14,
+            "tree_id": 1,
+            "order": 1
+        }
+    },
+    {
+        "pk": "res1",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 16,
+            "parent": "ussd_root3",
+            "level": 2,
+            "label": "CODES-Kyanamukaka",
+            "lft": 13,
+            "tree_id": 1,
+            "order": 1
+        }
+    },
+    {
+        "pk": "ussd_root3",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 17,
+            "parent": "ussd_root",
+            "level": 1,
+            "label": "Poll Results",
+            "lft": 4,
+            "tree_id": 1,
+            "order": 2
+        }
+    },
+    {
+        "pk": "send_report",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 19,
+            "parent": "ussd_root",
+            "level": 1,
+            "label": "Send Report",
+            "lft": 18,
+            "tree_id": 1,
+            "order": 3
+        }
+    },
+    {
+        "pk": "ussd_root",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 20,
+            "parent": null,
+            "level": 0,
+            "label": "Ignored",
+            "lft": 1,
+            "tree_id": 1,
+            "order": 1
+        }
+    },
+    {
+        "pk": "question_response",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 2,
+            "parent": null,
+            "level": 0,
+            "label": "thanks",
+            "lft": 1,
+            "tree_id": 2,
+            "order": 0
+        }
+    },
+    {
+        "pk": "report_response",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 2,
+            "parent": null,
+            "level": 0,
+            "label": "",
+            "lft": 1,
+            "tree_id": 3,
+            "order": 0
+        }
+    },
+    {
+        "pk": "ussd_root2",
+        "model": "ussd.screen",
+        "fields": {
+            "rght": 2,
+            "parent": null,
+            "level": 0,
+            "label": "Thanks For your response",
+            "lft": 1,
+            "tree_id": 4,
+            "order": 0
+        }
+    },
+
+    {
+        "pk": 122,
+        "model": "poll.poll",
+        "fields": {
+            "default_response": "",
+            "name": "contactdistrict",
+            "end_date": null,
+            "contacts": [],
+            "messages": [],
+            "question": "Its important to know which District you'll be reporting on so we can work together to try & resolve issues in your community!Reply ONLY with your district.",
+            "sites": [],
+            "user": 1,
+            "type": "district",
+            "start_date": null,
+            "response_type": "a"
+        }
+    },
+    {
+        "pk": 124,
+        "model": "poll.poll",
+        "fields": {
+            "default_response": "",
+            "name": "contactage",
+            "end_date": null,
+            "contacts": [],
+            "messages": [],
+            "question": "What is your age?",
+            "sites": [],
+            "user": 1,
+            "type": "n",
+            "start_date": null,
+            "response_type": "a"
+        }
+    },
+    {
+        "pk": 125,
+        "model": "poll.poll",
+        "fields": {
+            "default_response": "",
+            "name": "contactgender",
+            "end_date": null,
+            "contacts": [],
+            "messages": [],
+            "question": "Are you male or female?  Type F for female, and M for Male",
+            "sites": [],
+            "user": 1,
+            "type": "t",
+            "start_date": null,
+            "response_type": "a"
+        }
+    },
+    {
+        "pk": 126,
+        "model": "poll.poll",
+        "fields": {
+            "default_response": "",
+            "name": "contactvillage",
+            "end_date": null,
+            "contacts": [],
+            "messages": [],
+            "question": "Which village in the district will you be reporting from? Please respond ONLY with the name of your village.",
+            "sites": [],
+            "user": 1,
+            "type": "l",
+            "start_date": null,
+            "response_type": "a"
+        }
+    },
+    {
+        "pk": 121,
+        "model": "poll.poll",
+        "fields": {
+            "default_response": "",
+            "name": "youthgroup",
+            "end_date": null,
+            "contacts": [],
+            "messages": [],
+            "question": "How did you hear about U REPORT?",
+            "sites": [],
+            "user": 1,
+            "type": "t",
+            "start_date": null,
+            "response_type": "a"
+        }
+    },
+    {
+        "pk": 179,
+        "model": "poll.category",
+        "fields": {
+            "error_category": false,
+            "name": "female",
+            "color": "",
+            "priority": null,
+            "default": false,
+            "poll": 125,
+            "response": null
+        }
+    },
+    {
+        "pk": 178,
+        "model": "poll.category",
+        "fields": {
+            "error_category": false,
+            "name": "male",
+            "color": "",
+            "priority": null,
+            "default": false,
+            "poll": 125,
+            "response": null
+        }
+    },
+    {
+        "pk": 130,
+        "model": "poll.rule",
+        "fields": {
+            "regex": "^\\\\s*(m|mal|male|ma|ekile)(\\\\s|[^a-zA-Z]|$)",
+            "category": 178,
+            "rule_string": "^\\\\s*(m|mal|male|ma|ekile)(\\\\s|[^a-zA-Z]|$)",
+            "rule_type": "r"
+        }
+    },
+    {
+        "pk": 174,
+        "model": "poll.rule",
+        "fields": {
+            "regex": "^\\\\s*(l|laco|lacoo|lac)(\\\\s|[^a-zA-Z]|$)",
+            "category": 178,
+            "rule_string": "^\\\\s*(l|laco|lacoo|lac)(\\\\s|[^a-zA-Z]|$)",
+            "rule_type": "r"
+        }
+    },
+
+    {
+        "pk": 131,
+        "model": "poll.rule",
+        "fields": {
+            "regex": "^\\\\s*(f|fem|female|fe|aberu)(\\\\s|[^a-zA-Z]|$)",
+            "category": 179,
+            "rule_string": "^\\\\s*(f|fem|female|fe|aberu)(\\\\s|[^a-zA-Z]|$)",
+            "rule_type": "r"
+        }
+    },
+    {
+        "pk": 175,
+        "model": "poll.rule",
+        "fields": {
+            "regex": "^\\\\s*(d|dak|dakoo|dako)(\\\\s|[^a-zA-Z]|$)",
+            "category": 179,
+            "rule_string": "^\\\\s*(d|dak|dakoo|dako)(\\\\s|[^a-zA-Z]|$)",
+            "rule_type": "r"
+        }
+    },
+
+
+    {
+        "pk": 2,
+        "model": "sites.site",
+        "fields": {
+            "domain": "ureport.rapidsms.org",
+            "name": "uReport"
+        }
+    },
+    {
+        "pk": "ureport_autoreg",
+        "model": "script.script",
+        "fields": {
+            "enabled": true,
+            "name": "uReport autoregistration script",
+            "sites": [2]
+        }
+    },
+
+    {
+        "pk": 33,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg",
+            "retry_offset": null,
+            "rule": "w",
+            "email": null,
+            "num_tries": null,
+            "start_offset": 0,
+            "message": "Welcome to U-report, where you can SPEAK UP and BE HEARD on what is happening in your community-it's FREE! ",
+            "poll": null,
+            "order": 0,
+            "giveup_offset": 60
+        }
+    },
+    {
+        "pk": 35,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg",
+            "retry_offset": null,
+            "rule": "w",
+            "email": null,
+            "num_tries": null,
+            "start_offset": 60,
+            "message": "U-report is a FREE SMS text message system that is sent to your phone.  U-report is sponsored by UNICEF and other partners.",
+            "poll": null,
+            "order": 2,
+            "giveup_offset": 60
+        }
+    },
+    {
+        "pk": 37,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg",
+            "retry_offset": null,
+            "rule": "w",
+            "email": null,
+            "num_tries": null,
+            "start_offset": 60,
+            "message": "U-report gives you a chance to speak out on issues in your community & share opinions with youth around Uganda!Best responses&results shared through the media!",
+            "poll": null,
+            "order": 4,
+            "giveup_offset": 60
+        }
+    },
+    {
+        "pk": 42,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg",
+            "retry_offset": null,
+            "rule": "w",
+            "email": null,
+            "num_tries": null,
+            "start_offset": 60,
+            "message": "CONGRATULATIONS!!! You are now a registered member of U-report! With U-report, you can make a real difference!  Speak Up and Be Heard! from UNICEF",
+            "poll": null,
+            "order": 9,
+            "giveup_offset": 0
+        }
+    },
+    {
+        "pk": 73,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg",
+            "retry_offset": 3600,
+            "rule": "R",
+            "email": null,
+            "num_tries": 1,
+            "start_offset": 0,
+            "message": "",
+            "poll": 121,
+            "order": 1,
+            "giveup_offset": 3600
+        }
+    },
+    {
+        "pk": 74,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg",
+            "retry_offset": 3600,
+            "rule": "M",
+            "email": null,
+            "num_tries": 1,
+            "start_offset": 0,
+            "message": "",
+            "poll": 122,
+            "order": 3,
+            "giveup_offset": 3600
+        }
+    },
+    {
+        "pk": 76,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg",
+            "retry_offset": 3600,
+            "rule": "M",
+            "email": null,
+            "num_tries": 1,
+            "start_offset": 60,
+            "message": "",
+            "poll": 124,
+            "order": 6,
+            "giveup_offset": 3600
+        }
+    },
+    {
+        "pk": 77,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg",
+            "retry_offset": 3600,
+            "rule": "R",
+            "email": null,
+            "num_tries": 1,
+            "start_offset": 60,
+            "message": "",
+            "poll": 125,
+            "order": 7,
+            "giveup_offset": 3600
+        }
+    },
+    {
+        "pk": 78,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg",
+            "retry_offset": 3600,
+            "rule": "R",
+            "email": null,
+            "num_tries": 1,
+            "start_offset": 0,
+            "message": "",
+            "poll": 126,
+            "order": 8,
+            "giveup_offset": 3600
+        }
+    },
+    {
+        "pk": "ureport_autoreg_luo",
+        "model": "script.script",
+        "fields": {
+            "enabled": true,
+            "name": "Ureport Autoreg Luo",
+            "sites": [2]
+        }
+    },
+    {
+        "pk": 79,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg_luo",
+            "retry_offset": null,
+            "rule": "w",
+            "email": null,
+            "num_tries": null,
+            "start_offset": 0,
+            "message": "Apwoyo bino I U-report ka ma itwero LOK, ki bene ki roomo WINYI pi gin matye ka time i kabedo ma megi. ME MONO ",
+            "poll": null,
+            "order": 0,
+            "giveup_offset": 60
+        }
+    },
+    {
+        "pk": 80,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg_luo",
+            "retry_offset": null,
+            "rule": "w",
+            "email": null,
+            "num_tries": null,
+            "start_offset": 60,
+            "message": "U-report obedo waraga ma ki cwalo i cim me cing kun bedo MI MONO. U-report jo ma gu culu pire en atye UNICEF ki jo makene ma gitiyo kedegi",
+            "poll": null,
+            "order": 2,
+            "giveup_offset": 60
+        }
+    },
+    {
+        "pk": 81,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg_luo",
+            "retry_offset": null,
+            "rule": "w",
+            "email": null,
+            "num_tries": null,
+            "start_offset": 60,
+            "message": "U-report mini kare me lok ikum jami matime i kama in ibedo iyee.  Lagam mabejo kibiketo ne I karatac me ngec.",
+            "poll": null,
+            "order": 4,
+            "giveup_offset": 60
+        }
+    },
+    {
+        "pk": 82,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg_luo",
+            "retry_offset": null,
+            "rule": "w",
+            "email": null,
+            "num_tries": null,
+            "start_offset": 60,
+            "message": "Apwoyo indong itye ikim joo me u-report. Iromo kelo aloka loka.  Lok dogi pire tek",
+            "poll": null,
+            "order": 9,
+            "giveup_offset": 0
+        }
+    },
+    {
+        "pk": 83,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg_luo",
+            "retry_offset": 3600,
+            "rule": "R",
+            "email": null,
+            "num_tries": 1,
+            "start_offset": 0,
+            "message": "",
+            "poll": 121,
+            "order": 1,
+            "giveup_offset": 3600
+        }
+    },
+    {
+        "pk": 84,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg_luo",
+            "retry_offset": 3600,
+            "rule": "M",
+            "email": null,
+            "num_tries": 1,
+            "start_offset": 0,
+            "message": "",
+            "poll": 122,
+            "order": 3,
+            "giveup_offset": 3600
+        }
+    },
+    {
+        "pk": 86,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg_luo",
+            "retry_offset": 3600,
+            "rule": "M",
+            "email": null,
+            "num_tries": 1,
+            "start_offset": 60,
+            "message": "",
+            "poll": 124,
+            "order": 6,
+            "giveup_offset": 3600
+        }
+    },
+    {
+        "pk": 87,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg_luo",
+            "retry_offset": 3600,
+            "rule": "R",
+            "email": null,
+            "num_tries": 1,
+            "start_offset": 60,
+            "message": "",
+            "poll": 125,
+            "order": 7,
+            "giveup_offset": 3600
+        }
+    },
+    {
+        "pk": 88,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg_luo",
+            "retry_offset": 3600,
+            "rule": "R",
+            "email": null,
+            "num_tries": 1,
+            "start_offset": 0,
+            "message": "",
+            "poll": 126,
+            "order": 8,
+            "giveup_offset": 3600
+        }
+    },
+
+    {
+        "pk": "ureport_autoreg2",
+        "model": "script.script",
+        "fields": {
+            "enabled": true,
+            "name": "uReport autoregistration script2",
+            "sites": [2]
+        }
+    },
+
+    {
+        "pk": 90,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg2",
+            "retry_offset": null,
+            "rule": "w",
+            "email": null,
+            "num_tries": null,
+            "start_offset": 0,
+            "message": "Welcome to U report where you can SPEAK UP and BE HEARD. U-report is a FREE SMS text message system where you can speak out on issues in your community.",
+            "poll": null,
+            "order": 0,
+            "giveup_offset": 60
+        }
+    },
+    {
+        "pk": 93,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg2",
+            "retry_offset": null,
+            "rule": "w",
+            "email": null,
+            "num_tries": null,
+            "start_offset": 60,
+            "message": "CONGRATULATIONS!!! You are now a registered member of U-report! With U-report, you can make a real difference!  Speak Up and Be Heard! from UNICEF",
+            "poll": null,
+            "order": 7,
+            "giveup_offset": 0
+        }
+    },
+    {
+        "pk": 94,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg2",
+            "retry_offset": 3600,
+            "rule": "R",
+            "email": null,
+            "num_tries": 1,
+            "start_offset": 0,
+            "message": "",
+            "poll": 121,
+            "order": 1,
+            "giveup_offset":
+                3600
+        }
+    },
+    {
+        "pk": 95,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg2",
+            "retry_offset": 3600,
+            "rule": "M",
+            "email": null,
+            "num_tries": 1,
+            "start_offset": 0,
+            "message": "",
+            "poll": 122,
+            "order": 2,
+            "giveup_offset": 3600
+        }
+    },
+    {
+        "pk": 97,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg2",
+            "retry_offset": 3600,
+            "rule": "M",
+            "email": null,
+            "num_tries": 1,
+            "start_offset": 60,
+            "message": "",
+            "poll": 124,
+            "order": 4,
+            "giveup_offset":
+                3600}
+    },
+    {
+        "pk": 98,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg2",
+            "retry_offset": 3600,
+            "rule": "R",
+            "email": null,
+            "num_tries": 1,
+            "start_offset": 60,
+            "message": "",
+            "poll": 125,
+            "order": 5,
+            "giveup_offset": 3600
+        }
+    },
+    {
+        "pk": 99,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "ureport_autoreg2",
+            "retry_offset": 3600,
+            "rule": "R",
+            "email": null,
+            "num_tries": 1,
+            "start_offset": 0,
+            "message": "",
+            "poll": 126,
+            "order": 6,
+            "giveup_offset": 3600
+        }
+    },
+    {
+        "pk": "blacklist_script",
+        "model": "script.script",
+        "fields": {"enabled": false, "name": "Blacklist script", "sites": []}
+    },
+    {
+        "pk": 230,
+        "model": "poll.poll",
+        "fields": {
+            "default_response": "",
+            "name": "blacklist",
+            "end_date": null,
+            "contacts": [],
+            "messages": [],
+            "question": "Your UReport opt out is confirmed.Please dont forget to tell us the reason for quitting.you can always text join to reactivate.",
+            "sites": [],
+            "user": 1,
+            "type": "t",
+            "start_date": null,
+            "response_type": "a"
+        }
+    },
+
+    {
+        "pk": 111,
+        "model": "script.scriptstep",
+        "fields": {
+            "script": "blacklist_script",
+            "retry_offset": null,
+            "rule": "w",
+            "email": null,
+            "num_tries": 1,
+            "start_offset": 0,
+            "message": "",
+            "poll": 230,
+            "order": 1,
+            "giveup_offset": 86400
+        }
+    }
+]

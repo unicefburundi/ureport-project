@@ -1,0 +1,15 @@
+<div class="messagefeed">
+    <table style="width:100%">
+        {% for r in responses %}
+            <tr class="row_{% cycle 'reg' 'alt' %}">
+                <td>{{ r.message.text }}</td>
+                <td style="font-size:8px;white-space:nowrap">{{ r.message.date|date:"m/d/Y H:i" }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+<script language="javascript">
+    window.setTimeout(function() {
+        $('.messagefeed').load('{% url "ureport.views.message_feed" poll.pk %}');
+    },10000);
+</script>

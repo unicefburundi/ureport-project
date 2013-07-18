@@ -1,0 +1,15 @@
+{% extends 'generic/partials/partial_base.html' %}
+{% block partial_base_content %}
+        {% for object in object_list %}
+        	{% if object.mobile %}
+		          {% block item_wrapper %}
+		            <tr class="row_{% cycle 'reg' 'alt' %}">
+		          {% endblock %}
+		          {% include partial_row %}
+		          {% block item_wrapper_close %}
+		            </tr>
+		          {% endblock %}
+		     {% endif %}
+        {% endfor %}
+{% endblock %}
+	

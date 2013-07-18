@@ -1,0 +1,71 @@
+{% extends "generic/partials/partial_base.html" %}
+{% block list_wrapper %}
+    <script type="text/javascript">
+        function deleteResponse(link, url) {
+            if (confirm("Are you sure you want to remove this response from the poll?")) {
+                $.post(url, function(data) {
+                    $(link).parents("tr").remove();
+                }); 
+            }
+        }
+
+        function cancelResponse(link, url) {
+            $(link).parents("tr").load(url);
+        }
+
+        function saveResponse(link, url) {
+            form = $(link).parents("form");
+            form_data = form.serializeArray();
+            $(link).parents("tr").load(url, form_data);
+        }
+
+        function editResponse(link, url) {
+            $(link).parents("tr").load(url);
+        }
+    </script>
+    <style>
+    #id_poll{
+        width:100%;
+        overflow: hidden;
+    }
+    #div_action_1{
+        margin-top:80px;
+        left:10px;
+        height:100px;
+    }
+    #actions{
+        height:220px;
+    }
+    </style>
+    {{ block.super }}
+{% endblock %}
+{% block partial_base_content %}
+<a onclick="$(this).next('.responses_meta').slideToggle(500);$('#collapse_img').toggle();$('#expand_img').toggle();" href="javascript:void(0)">
+ Response rates
+     <img id="collapse_img" style="float:left" src="{{ STATIC_URL }}rapidsms/icons/silk/section_expanded--bright.png" />
+     <img id="expand_img" style="float:left;display:none" src="{{ STATIC_URL }}rapidsms/icons/silk/section_collapsed--bright.png" />
+    </a>
+
+    <div class="responses_meta " style="display:none;">
+
+    <h2 class="collapsed">Responses</h2>
+    <h4>{{ object_list.0.poll.question }}</h4>
+    {% for rate,value in response_rates.items %}
+        <p>{{ rate }} : {{ value.0}} Participants, total responses {{ value.1 }} ({{ value.2|floatformat }}%)</p>
+    {% endfor %}
+    </div>
+    {% block export %}
+    <div class="buttons">
+            <a href="{{ STATIC_URL }}ureport/spreadsheets/poll_{{object_list.0.poll.pk }}.xls">
+            <img src="{{ STATIC_URL }}poll/icons/silk/table_save.png" alt=""/> Export
+        </a>
+    </div>
+        {% endblock %}
+    {% for response in object_list %}
+
+        <tr class="row_{% cycle 'reg' 'alt' %}">
+        <td><input type="checkbox" id="{{response.pk}}" name="results" value="{{ response.pk }}"></td>
+            {% include partial_row %}
+        </tr>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "polls/layout.html" %}
+{% block title %}Poll Status{% endblock %}
+
+{% block content %}
+
+
+<div id="poll-status">
+    <h1>Poll {{ poll.pk }} : "{{ poll.name }}" </h1>
+
+    <table>
+        <thead>
+            <th>Attribute</th><th>Value</th>
+        </thead>
+        <tbody>
+            <tr><td>Viewable?</td><td id="viewable">{{ poll.viewable|yesno }}</td></tr>
+            <tr><td>Start Date</td><td id="start-date">{{ poll.start_date }}</td></tr>
+            <tr><td>End Date</td><td id="end-date">{{ poll.end_date }}</td></tr>
+            <tr><td>#Contacts</td><td id="contact-count">{{ poll.contacts.count }}</td></tr>
+            <tr><td>#Categories</td><td id="category-count">{{ poll.categories.count }}</td></tr>
+            <tr><td>Yes / No Poll?</td><td id="is-yesno">{{ poll.is_yesno_poll|yesno }}  </td></tr>
+        </tbody>
+    </table>
+
+    <div>
+        <h2>Categories</h2>
+        <ul>
+            {% for category in poll.categories.all %}
+            <li class='category'>
+                CATEGORY: {{ category.name }}, {{ category.priority }}
+                <ul>
+                    {% for rule in category.rules.all %}
+                        <li class='rule'> RULE: {{ rule.regex }}, {{ rule.rule_type }}, {{ rule.rule_string }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+
+        </ul>
+    </div>
+
+    <div>
+        <h2>Message Stats for THIS POLL for the {{ message_stats_age_days }} days since {{ message_stats_start_date }}</h2>
+        <table>
+            <thead>
+                <th>Status</th><th>Message count</th>
+            </thead>
+            <tbody>
+            {% for key, value in message_stats.items %}
+                <tr><td>{{ key }}</td><td>{{ value }}</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}

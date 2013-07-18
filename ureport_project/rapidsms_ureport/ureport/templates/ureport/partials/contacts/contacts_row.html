@@ -1,0 +1,38 @@
+{% extends 'generic/partials/partial_row.html' %}
+{% block remaining_row_content %}
+    <td>
+        {% if object.mobile %}
+            <!-- <a href="{% url ureport.views.ureporter_profile object.connection_pk %}"> -->
+            <a href="{% url "profile" object.connection_pk %}">
+        {% endif %}
+        {{ object.name }}
+        {% if object.mobile %}
+            </a>
+        {% endif %}
+    </td>
+    <td>
+        {{ object.mobile}}
+       <!-- <a href="{% url "profile" object.connection_pk %}"> {{ object.connection_pk }}</a> -->
+    </td>
+    <td>
+    {{  object.age.days }}
+    </td>
+    <td>
+    {% if object.gender %}
+    {{ object.gender }}
+    {% endif %}
+    </td>
+    <td>
+    {% if object.language == '' %}
+        en
+        {% else %}
+        {{ object.language }}
+    {% endif %}
+    </td>
+    <td id="row_{{ object.pk }}">{{ object.province }}</td>
+	<td>{{ object.group }}</td>
+	<td>{{ object.questions }}</td>
+	<td>{{ object.responses }}</td>
+	<td>{{ object.incoming }}</td>
+
+{% endblock %}
