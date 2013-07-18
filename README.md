@@ -8,12 +8,9 @@ To setup
 
     git clone https://github.com/unicefburundi/ureport-project.git ureport_project
     cd ureport_project
+    pip install -r requirements/base.txt
+    pip install -r requirements/requires.txt
     git submodule update --init
     python manage.py syncdb
-    python manage.py migrate #this throws some errors at the moment
-    python manage.py migrate rapidsms_httprouter
-    python manage.py migrate poll
-    python manage.py migrate rapidsms_script
-    python manage.py migrate rapidsms_xforms
-    python manage.py migrate
+    python manage.py migrate 
 
