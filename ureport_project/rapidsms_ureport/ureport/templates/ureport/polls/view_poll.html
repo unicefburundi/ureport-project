@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "base.html" %}
 
 {% block stylesheets %}
 	{{ block.super }}
@@ -156,10 +156,8 @@
 
   <div ><h3 style="font-weight: 300;font-size:22px;">{{ poll.name }}({{ poll.contacts.count }} participant{{ poll.contacts.count|pluralize }})</h3>
 </div>
-<div style="color:#666;font-size:16px;"">
-<span class='best_in_place' id='best_in_place_poll_question' data-url='/view_poll/{{poll.pk}}/?edit=true' data-object='poll'
-      data-attribute='question' data-type='input' >{{ poll.question }}</span>
-
+<div style="color:#666;font-size:16px;">
+<span class='best_in_place' id='best_in_place_poll_question' data-url='/view_poll/{{poll.pk}}/?edit=true' data-object='poll' data-attribute='question' data-type='input' >{{ poll.question }}</span>
 </div>
 <div style="border: 1px solid #DDD;
 font-size: 12px;
@@ -168,9 +166,6 @@ margin-right: 10px;
 margin-top: 10px;
 padding: 10px;
 color:#666;">Response:
-
-
-
 
 <span class='best_in_place' id='best_in_place_poll_default_response' data-url='/view_poll/{{poll.pk}}/?edit=true' data-object='poll'
       data-attribute='default_response' data-type='input' >{{ poll.default_response }}</span>

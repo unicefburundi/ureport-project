@@ -16,6 +16,7 @@ from script.models import ScriptProgress, ScriptSession, ScriptResponse
 from script.signals import script_progress_was_completed
 from rapidsms.models import Connection, Backend, Contact
 from rapidsms_httprouter.models import Message
+from ureport.models import PollAttribute, UPoll
 from django.conf import settings
 from ureport.tasks import start_poll
 import datetime
@@ -42,6 +43,8 @@ class PollTest(TestCase):
         access.groups.add(Group.objects.all()[0])
         access.allowed_locations.add(Location.objects.all()[0])
         access.allowed_urls.add(url)
+        
+        PollAttribute.objects.create(key="viewable", key_type="bool")
         
     def register_uReporter(self, lang=None):
         lang = lang if lang else 'fr'    
@@ -188,4 +191,18 @@ class PollTest(TestCase):
         from poll.models import Category, ResponseCategory
         ureporter_response = poll.contacts.filter(name='Tester')[0].responses.order_by('-pk')[0]
         self.assertEquals(ResponseCategory.objects.filter(response=ureporter_response)[0].category.name, poll.categories.filter(name='unknown')[0].name)
+    
+    def testPollViewable(self):
+        settings.START_POLLS_IN_WEB_THREAD = True
+        self.register_uReporter()
+        self.create_poll()
+        poll = UPoll.objects.get(name='test poll')
+        self.client.get('/view_poll/%s/?start=True&poll=True' % poll.pk)
+        self.assertEquals(Message.objects.filter(direction='O', connection=self.connection).count(), 1)
+        self.fake_incoming('I dont know')
+        from poll.models import Category, ResponseCategory
+        ureporter_response = poll.contacts.filter(name='Tester')[0].responses.order_by('-pk')[0]
+        self.assertEquals(ResponseCategory.objects.filter(response=ureporter_response)[0].category.name, poll.categories.filter(name='unknown')[0].name)
+        self.client.get('/view_poll/%s/?viewable=True&poll=True' % poll.pk)
+        self.assertEquals(UPoll.objects.get(name='test poll').viewable, True)
         

@@ -4,14 +4,7 @@
     uReporters - {{ block.super }}
 {% endblock %}
 {% block stylesheets %}
-	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}rapidsms/stylesheets/splits.css" />
-    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}rapidsms/stylesheets/modules.css" />
-    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}rapidsms/stylesheets/tables.css" />
-    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}rapidsms/stylesheets/forms.css" />
-    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}rapidsms/stylesheets/icons.css" />
-    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}rapidsms/stylesheets/base.css" />
-    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.css" />
+    {{ block.super }}
     <link type="text/css" rel="stylesheet" href="{{STATIC_URL}}ureport/stylesheets/ureporters.css"/>
 	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}ureport/stylesheets/ureport.min.css" />
 	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}ureport/stylesheets/modal.css"/>

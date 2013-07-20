@@ -34,6 +34,14 @@ div.content {
     padding: 0px;
 }
 
+div.content-wide {
+	position:relative;
+    float: left;
+    top:94px;
+    width: 100%;
+    padding: 0px;
+}
+
 div#poll_results_transparent{
 	background: url('../images/carte_bg.png') no-repeat right top;
 	position:absolute;
@@ -555,6 +563,16 @@ ul.tabs .tab-label {
 
 .nav ul li a:hover {
 	background-color: #00638A;
+}
+
+.login-logout {
+	float:right;
+	margin-top:-40px;
+	color: #FFFFFF;
+	width:200px;
+	height:20px;
+	background:red;
+	
 }
 .ureporters_info {
 	float:right;

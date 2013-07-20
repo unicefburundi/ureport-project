@@ -219,11 +219,13 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.humanize',
     # External apps
+    "ureport",
     "django_nose",
     "django_extensions",
     "uni_form",
     "djtables",
     "rapidsms.contrib.locations",
+    "maintenance",
     "rapidsms",
     "rmigrations",
     "djcelery",
@@ -245,7 +247,6 @@ INSTALLED_APPS = (
     "poll",
     "script",
     "rapidsms_xforms",
-    "ureport",
     "eav",
     "generic",
     "unregister",
@@ -254,7 +255,6 @@ INSTALLED_APPS = (
     "contact",
     "geoserver",
     "message_classifier",
-    "maintenance",
     "south",
 )
 

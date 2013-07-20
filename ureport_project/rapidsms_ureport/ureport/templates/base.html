@@ -1,0 +1,134 @@
+{% load url from future %}
+{% load i18n %}
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">{# keep this right after <head> #}
+        <title>Ureport - {% block title %}Voice Matters{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        {% block stylesheets %}
+        	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}rapidsms/stylesheets/splits.css" />
+        	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}rapidsms/stylesheets/modules.css" />
+        	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}rapidsms/stylesheets/tables.css" />
+        	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}rapidsms/stylesheets/forms.css" />
+        	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}rapidsms/stylesheets/icons.css" />
+        	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" />
+        	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}rapidsms/stylesheets/base.css" />
+        	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.css" />
+        	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}ureport/stylesheets/ureport_home.css?11" />
+        {% endblock %}
+
+        {% block extra_stylesheets %}
+        {% endblock %}
+
+        {% block javascripts %}
+        <script type="text/javascript" src="{{ STATIC_URL }}rapidsms/javascripts/jquery-1.9.0.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}rapidsms/javascripts/collapse.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}ureport/javascripts/ureport.min.js?41"></script>
+    	<script type="text/javascript" src="{{ STATIC_URL }}ureport/javascripts/jquery-ui.js"></script>
+        {% endblock %}
+        {% block extra_javascript %}
+        {% endblock %}
+        
+        <script type="text/javascript">
+
+              // var _gaq = _gaq || [];
+              // _gaq.push(['_setAccount', 'UA-23521720-1']);
+              // _gaq.push(['_trackPageview']);
+				// 
+              // (function() {
+                // var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                // ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                // var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+              // })();
+
+            </script>
+		{% block top_js %}
+		{% endblock %}
+</head>
+<body>
+    <div class="container container-fluid" style="background-color:#ffffff;">
+        <div class="banner">
+        	<div class="image_ban">
+        		<img src="{{ STATIC_URL }}ureport/images/ureport_logo_1.png" width="100%" height="116" alt="ureport logo" />
+          	</div>
+          	<div class="nav">
+		          <ul class="nav nav-pills">
+		          	<li class="active"><a href="/"><br />ACCUEIL</a></li>
+		  			<li class="active"><a href="/#poll_results/">RÉSULTATS <br />SONDAGES</a></li>
+		  			<li class="active"><a href="/about_ureport/">A PROPOS <br />DE UREPORT</a></li>
+		  			<li class="active"><a href="/join/">COMMENT <br />PARTICIPER</a></li>
+		  			<li class="active"><a href="/media/"><br />MEDIA</a></li>
+				  </ul> 
+		  	</div>
+		  	<div class="login-logout">
+				<ul class="nav pull-right">
+                    {% block admin_link %}
+                        {% if user.is_staff %}
+                            <li>
+                                <a href="{% url 'admin:index' %}">{% trans "Admin" %}</a>
+                            </li>
+                        {% endif %}
+                    {% endblock %}
+                    {% block login_link %}
+                        <li>
+                            {% block auth %}
+                                {% if user.is_authenticated %}
+                                    <a href="{% url 'rapidsms-logout' %}">{% trans "Log out" %} {{ user.username }}</a>
+                                {% else %}
+                                    <a href="{% url 'rapidsms-login' %}">{% trans "Log in" %}</a>
+                                {% endif %}
+                            {% endblock auth %}
+                        </li>
+                    {% endblock %}
+                </ul>
+		  	</div>
+	        <div class="ureporters_info">
+	            <span id="span_total">{{ total_ureporters|intcomma }}</span><br /><span id="span_info" >membres jusqu'à ce jours </span>         
+	        </div>
+        </div>
+        <div class="content-wide">
+        	<!--  MAIN CONTENT GOES HERE -->
+            {% block content %}
+            {% endblock %}
+        </div>
+	    <div id="footer">
+	    	<div class="sponsors_header" >
+	    		Partenaires		 
+	    	</div>
+	      <div class="sponsors_logos">
+	           <img src="{{ STATIC_URL }}ureport/images/unicef_logo.png" alt="unicef logo" />
+	           <img src="{{ STATIC_URL }}ureport/images/gem_logo.png" alt="gem logo" />
+	           <img src="{{ STATIC_URL }}ureport/images/croix_rouge_burundi.png" alt="red cross logo" />
+	           <img src="{{ STATIC_URL }}ureport/images/scouts_burundi.png" alt="scouts logo" />
+	           <img src="{{ STATIC_URL }}ureport/images/girl_scouts.png" alt="girl guides logo" />     
+	       </div>  
+	     </div>
+	       <div class="footerlinks">
+	           <div class="nav-bottom">
+                <ul>
+	                <li class="first"><a href="/">Home</a></li>
+	                 <li><a href="#">Site Map</a></li>
+	                <li><a href="#">Contact Us</a></li>
+	                {% if user.is_authenticated %}
+	                   <li><a href="{% url "ureport-polls" %}">Poll Admin</a></li>
+	                   <li><a href="{% url "messagelog" %}">Message Log</a></li>
+	                   <li><a href="{% url "ureport-contact" %}">uReporters</a></li>
+	                   <li><a href="{% url "flaggedmessages" %}">Flagged Messages</a></li>
+                        <li><a href="{% url "classifier" %}">Message Classification</a></li>
+                    <li><a href="{% url "alerts" %}">Real Time</a></li>
+	                {% else %}
+	                   <li><a href="/accounts/login">LOGIN</a></li>
+	                {% endif %}
+                </ul>
+	           </div>
+	           <p>Copyright &copy; 2010 - 2012 UNICEF et al.</p>
+	        </div>
+	    </div>
+        <script type="text/javascript" src="{{ STATIC_URL }}rapidsms/javascripts/collapse.js"></script>
+</body>
+</html>
