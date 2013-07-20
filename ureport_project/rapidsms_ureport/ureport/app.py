@@ -44,11 +44,12 @@ class App(AppBase):
                     msg_a = MessageDetail.objects.create(message = message.db_message, attribute = alert, value = 'true')
             
             #user can toggle their preferred language
-            if message.connection.contact and message.text.lower() == settings.SCRIPTS[language][0]:
-                contact = message.connection.contact
-                contact.language = language
-                contact.save()
-                return True
+            for lang, lang_verbose in getattr(settings, 'LANGUAGES', None):
+                if message.connection.contact and message.text.lower() == lang:
+                    contact = message.connection.contact
+                    contact.language = lang
+                    contact.save()
+                    return True
 
         #message flagging (needs further investigation)
         flags = Flag.objects.exclude(rule = None).exclude(rule_regex = None)

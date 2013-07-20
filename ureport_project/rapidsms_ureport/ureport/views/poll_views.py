@@ -77,6 +77,11 @@ def view_poll(request, pk):
             poll = Poll.objects.get(pk=pk)
             if getattr(settings, 'START_POLL_MULTI_TX', False):
                 start_poll_multi_tx(poll)
+            elif getattr(settings, 'START_POLLS_IN_WEB_THREAD', False): #Starting poll in the web thread might still be good especially when testing (in development)
+                log.info("[start-poll-in-web-thread] Starting poll [%s] in web thread..." % str(poll.pk))
+                if not poll.start_date:
+                    poll.start()
+                log.info("[poll-in-web-thread-started] Start Ok.")
             else:
                 start_poll_single_tx(poll)
 

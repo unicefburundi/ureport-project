@@ -10,7 +10,8 @@ from ureport_project.rapidsms_ureport.ureport.tests.functional.create_poll_utils
 
 
 class UreportTest(SplinterTestCase):
-    fixtures = ['0004_migration_initial_data.json']
+#     fixtures = ['0004_migration_initial_data.json']
+    fixtures = ['autoreg_data.json']
 
     def setUp(self):
         self.browser = get_browser()
