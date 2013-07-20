@@ -219,7 +219,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.humanize',
     # External apps
-    "ureport",
     "django_nose",
     "django_extensions",
     "uni_form",
@@ -243,6 +242,7 @@ INSTALLED_APPS = (
     "tastypie",
     "auth",
     "rapidsms_httprouter",
+    "ureport",
 #    "rapidsms.router.db",
     "poll",
     "script",
