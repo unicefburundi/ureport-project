@@ -14,31 +14,31 @@ CURRENT POLL
 </h4> -->
 {% if tags %}
 
-    {% include "/ureport/partials/tag_cloud/tag_cloud.html" %}
+    {% include "ureport/partials/tag_cloud/tag_cloud.html" %}
     {% if poll.top_responses.exists %}
-        {% include "/ureport/partials/viz/top_responses.html" %}
+        {% include "ureport/partials/viz/top_responses.html" %}
     {% endif %}
     {% comment %}
-        {% include "/ureport/partials/viz/message_feed.html" %}
+        {% include "ureport/partials/viz/message_feed.html" %}
     {% endcomment %}
 
     {% else %}
     {% ifequal poll.type 't' %}
         <div id="visual_{{ poll.pk }}">
             {% if poll.is_yesno_poll %}
-                {% include "/ureport/partials/viz/choropleth.html" %}
+                {% include "ureport/partials/viz/choropleth.html" %}
             {% else %}
-                {% include "/ureport/partials/viz/multichoice_choropleth.html" %}
+                {% include "ureport/partials/viz/multichoice_choropleth.html" %}
                 {% comment %}
-	                {% include "/ureport/partials/viz/map.html" %}
+	                {% include "ureport/partials/viz/map.html" %}
 	            {% endcomment %}
             {% endif %}
-            {% include "/ureport/partials/viz/piechart.html" %}
+            {% include "ureport/partials/viz/piechart.html" %}
         </div>
     {% else %}
         {% ifequal poll.type 'n' %}
 
-            {% include "/ureport/partials/viz/histogram.html" %}
+            {% include "ureport/partials/viz/histogram.html" %}
 
         {% endifequal %}
     {% endifequal %}
