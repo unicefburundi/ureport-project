@@ -9,7 +9,7 @@ class Migration(DataMigration):
     def forwards(self, orm):
         year_now = datetime.datetime.now().year
         view_sql = """  
-DROP VIEW contacts_export; 
+DROP VIEW IF EXISTS contacts_export; 
 CREATE OR REPLACE VIEW contacts_export as SELECT
 "rapidsms_contact"."id" as id,
 "rapidsms_contact"."name" as name,
