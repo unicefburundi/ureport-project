@@ -36,7 +36,6 @@ def best_visualization(request, poll_id=None):
         rate = poll.responses.count() * 100 / poll.contacts.count()
     except ZeroDivisionError:
         rate = 0
-
     dict_to_render = {
         'poll': poll,
         'polls': [poll],
@@ -44,11 +43,14 @@ def best_visualization(request, poll_id=None):
         'module': module,
         'rate': int(rate),
         }
+    
     if poll.type == Poll.TYPE_TEXT and not  poll.categories.exists():
-        dict_to_render.update({'tags': _get_tags(polls),
+        dict_to_render.update({'tagged': True,
+                               'tags': _get_tags(polls),
                     'responses': _get_responses(poll),
                     'poll_id': poll.pk,
                     })
+
     return render_to_response('ureport/partials/viz/best_visualization.html'
                               , dict_to_render,
                               context_instance=RequestContext(request))

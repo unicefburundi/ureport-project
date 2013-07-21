@@ -1,3 +1,4 @@
+{% load humanize %}
 <!--
 <h4 class="poll-heading">
 <span class="poll-title">
@@ -12,7 +13,7 @@ CURRENT POLL
      {% load humanize %}
     <span style="color:#00638A;font-size:16px;">{{ poll.responses.count|intcomma }}  Responses out of {{ poll.contacts.count|intcomma }} Participants ({{ rate }}%)</span>
 </h4> -->
-{% if tags %}
+{% if tagged %}
 
     {% include "ureport/partials/tag_cloud/tag_cloud.html" %}
     {% if poll.top_responses.exists %}

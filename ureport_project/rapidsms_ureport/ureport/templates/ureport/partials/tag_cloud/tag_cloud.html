@@ -1,3 +1,5 @@
+{% load humanize %}
+
 <div id="tags" class="tags">
 <style type="text/css">
 .delete-tag,.delete-tag-hover{
@@ -137,17 +139,36 @@ tt a {
                 onmouseout="$(this).next().attr('class', 'default')"
             {% endif %}
             rel="tag"
-            class="tag_link" href="javascript:void(0)">{{ tag.tag }}</a>{% if user.is_authenticated %}<span class="default" onmouseover="$(this).attr('class', 'delete-tag-hover')" onmouseout="$(this).attr('class', 'default')" title="remove {{ tag.tag }}" onclick="add_tag( '{% url ureport.views.add_drop_word tag.tag poll.pk %}', '{% url ureport.views.tag_cloud poll.pk %}')"></span>{% endif %}
+            class="tag_link" href="javascript:void(0)">{{ tag.tag }}</a>{% if user.is_authenticated %}<span class="default" onmouseover="$(this).attr('class', 'delete-tag-hover')" onmouseout="$(this).attr('class', 'default')" title="remove {{ tag.tag }}" onclick="add_tag( '{% url "ureport.views.add_drop_word" tag.tag poll.pk %}', '{% url "ureport.views.tag_cloud" poll.pk %}')"></span>{% endif %}
     </tt>
 {%  endfor %}
 </div>
 {% if user.is_authenticated %}
 <p>
-    <a onclick="load_excluded_tags('{% url ureport.views.show_ignored_tags poll_id %}')" href="javascript:void(0)">edit excluded tags</a>
+    <a onclick="load_excluded_tags('{% url "ureport.views.show_ignored_tags" poll_id %}')" href="javascript:void(0)">edit excluded tags</a>
 </p>
 <div id="excluded" style="display:none">
 </div>
 {% endif %}
+</div>
+<div id="poll_results_transparent">
+	<div class="poll-details">
+		<div class="poll-date">
+ 			{{ poll.start_date|date:"d/M/Y" }} : 
+		</div>
+		<div class="poll-question">
+			{{ poll.question }} 
+		</div>
+		<p>&nbsp;</p>
+    	<div class="poll-responses">
+    		<p>
+    			<span class="params">{{ poll.responses.count|intcomma }}</span>
+    			réponses sur <br />
+    			de <span class="params">{{ poll.contacts.count|intcomma }}</span> <br />
+    			<span class="participants">Les participants</span> <span class="params">({{ rate }}%)</span>
+    		</p>
+		</div>
+	</div>
 </div>
 
 
