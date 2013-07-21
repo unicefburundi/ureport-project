@@ -452,12 +452,15 @@ class MassTextForm(ActionForm):
 class NewPollForm(forms.Form): # pragma: no cover
 
     TYPE_YES_NO = 'yn'
-
+    TYPE_CHOICES = [(TYPE_YES_NO, 'Yes/No Question')]   
+    TYPE_CHOICES += [(choice['type'], choice['label']) for choice in Poll.TYPE_CHOICES.values()]
+    
+    print tuple(TYPE_CHOICES)    
+    
     type = forms.ChoiceField(
         required=True,
-        choices=(
-            (TYPE_YES_NO, 'Yes/No Question'),
-        ))
+        choices=tuple(TYPE_CHOICES)
+        )
     response_type = forms.ChoiceField(choices=Poll.RESPONSE_TYPE_CHOICES, widget=RadioSelect,
                                       initial=Poll.RESPONSE_TYPE_ALL)
 

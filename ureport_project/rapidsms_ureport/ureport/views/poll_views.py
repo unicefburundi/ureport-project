@@ -199,7 +199,7 @@ def new_poll(req):
         log.info("[new-poll] - request recieved to create a poll")
         form = NewPollForm(req.POST, request=req)
         groups_form = GroupsFilter(req.POST, request=req)
-        form.updateTypes()
+#         form.updateTypes() #Added to form directly already no need to add them again
         if form.is_valid() and groups_form.is_valid():
             # create our XForm
             question = form.cleaned_data['question_fr']
@@ -276,7 +276,7 @@ def new_poll(req):
     else:
         form = NewPollForm(request=req)
         groups_form = GroupsFilter(request=req)
-        form.updateTypes()
+#         form.updateTypes() #Added to form directly already no need to add them again
 
     log.info("[new_poll] TRANSACTION COMMIT")
     return render_to_response('ureport/new_poll.html', {'form': form, 'groups_form': groups_form},

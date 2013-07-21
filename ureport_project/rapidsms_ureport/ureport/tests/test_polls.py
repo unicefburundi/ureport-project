@@ -59,10 +59,10 @@ class PollTest(TestCase):
         contact.groups.add(Group.objects.filter(name__contains='Red Cross')[0])
         contact.save()
     
-    def create_poll(self):
+    def create_poll(self, poll_type='yn'):
         login = self.client.post('/accounts/login/', {'username': 'admin', 'password': 'admin'})
         self.assertEquals(User.objects.get(username="admin").is_authenticated(), True)
-        values = {'type': 'yn', 
+        values = {'type': poll_type, 
                   'response_type': 'a',
                   'name': 'test poll',
                   'question_fr':'French Question here',
@@ -205,4 +205,11 @@ class PollTest(TestCase):
         self.assertEquals(ResponseCategory.objects.filter(response=ureporter_response)[0].category.name, poll.categories.filter(name='unknown')[0].name)
         self.client.get('/view_poll/%s/?viewable=True&poll=True' % poll.pk)
         self.assertEquals(UPoll.objects.get(name='test poll').viewable, True)
+        
+    def testCreateFreeFormPoll(self):
+        self.register_uReporter()      
+        self.create_poll(poll_type='t')
+        self.assertEquals(Poll.objects.order_by('-pk')[0].name, 'test poll')
+        self.assertEquals(Poll.objects.order_by('-pk')[0].type, 't')
+        self.assertEquals(Translation.objects.get(field='French Question here', language='en').value, 'English Question here')
         
