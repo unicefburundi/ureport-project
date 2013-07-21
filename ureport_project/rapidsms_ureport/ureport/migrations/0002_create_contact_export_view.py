@@ -181,7 +181,7 @@ BEGIN
 END $$;
 
 DROP TRIGGER IF EXISTS update_contact ON rapidsms_contact CASCADE;
-CREATE TRIGGER update_contact AFTER INSERT ON rapidsms_contact FOR EACH ROW EXECUTE contact_update();
+CREATE TRIGGER update_contact AFTER INSERT ON rapidsms_contact FOR EACH ROW EXECUTE PROCEDURE contact_update();
 
 DROP TRIGGER IF EXISTS update_contact_update ON rapidsms_contact CASCADE;
 CREATE TRIGGER update_contact_update AFTER UPDATE ON rapidsms_contact FOR EACH ROW EXECUTE PROCEDURE contact_update();
