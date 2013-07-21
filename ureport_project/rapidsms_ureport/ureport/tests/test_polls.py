@@ -59,9 +59,12 @@ class PollTest(TestCase):
         contact.groups.add(Group.objects.filter(name__contains='Red Cross')[0])
         contact.save()
     
-    def create_poll(self, poll_type='yn'):
+    def create_poll(self, poll_type='yn', grp=None):
         login = self.client.post('/accounts/login/', {'username': 'admin', 'password': 'admin'})
         self.assertEquals(User.objects.get(username="admin").is_authenticated(), True)
+        if not grp:
+            grp = Group.objects.filter(name__contains='Red Cross')[0].pk
+            
         values = {'type': poll_type, 
                   'response_type': 'a',
                   'name': 'test poll',
@@ -71,7 +74,7 @@ class PollTest(TestCase):
                   'default_response_fr':'French default response here',
                   'default_response_en':'English default response here',
                   'default_response_ki':'Kirundi default response here',
-                  'groups': '%s' % Group.objects.filter(name__contains='Red Cross')[0].pk,
+                  'groups': '%s' % grp,
                   'provinces': '%s' % self.bujumbura_province.pk,          
         }
         response = self.client.post('/createpoll/', values, follow=True)
@@ -191,6 +194,20 @@ class PollTest(TestCase):
         from poll.models import Category, ResponseCategory
         ureporter_response = poll.contacts.filter(name='Tester')[0].responses.order_by('-pk')[0]
         self.assertEquals(ResponseCategory.objects.filter(response=ureporter_response)[0].category.name, poll.categories.filter(name='unknown')[0].name)
+        
+    def testPollResponseFreeFormPoll(self):
+        settings.START_POLLS_IN_WEB_THREAD = True
+        self.register_uReporter()
+        self.create_poll(poll_type='t')
+        poll = UPoll.objects.get(name='test poll')
+        self.client.get('/view_poll/%s/?start=True&poll=True' % poll.pk)
+        self.assertEquals(Message.objects.filter(direction='O', connection=self.connection).count(), 1)
+        self.fake_incoming('I dont know')
+        self.assertEquals(Message.objects.filter(direction='I', connection=self.connection).count(), 1)
+        self.assertEquals(Message.objects.filter(direction='I', connection=self.connection)[0].status, 'H')
+        self.assertEquals(Message.objects.filter(direction='I', connection=self.connection)[0].text, 'I dont know')
+        self.assertEquals(Message.objects.filter(direction='I', connection=self.connection)[0].application, 'poll')
+        self.assertEquals(poll.responses.count(), 1)
     
     def testPollViewable(self):
         settings.START_POLLS_IN_WEB_THREAD = True
@@ -212,4 +229,6 @@ class PollTest(TestCase):
         self.assertEquals(Poll.objects.order_by('-pk')[0].name, 'test poll')
         self.assertEquals(Poll.objects.order_by('-pk')[0].type, 't')
         self.assertEquals(Translation.objects.get(field='French Question here', language='en').value, 'English Question here')
+        
+        
         
