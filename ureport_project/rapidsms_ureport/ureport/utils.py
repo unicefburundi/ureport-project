@@ -138,7 +138,7 @@ def retrieve_poll(request, pks=None):
         PollAttribute.objects.filter(key='viewable', values__value='false').values_list('values__poll_id', flat=True))
     not_showing = not_showing
     if pks == 'l':
-        return [Poll.objects.exclude(pk__in=script_polls).exclude(pk__in=not_showing).latest('start_date')]
+        return [Poll.objects.exclude(pk__in=script_polls).exclude(pk__in=not_showing).exclude(start_date=None).latest('start_date')]
 
     else:
         return Poll.objects.filter(pk__in=[pks]).exclude(pk__in=script_polls)
