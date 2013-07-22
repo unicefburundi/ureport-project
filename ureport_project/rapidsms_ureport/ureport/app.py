@@ -49,6 +49,7 @@ class App(AppBase):
                     contact = message.connection.contact
                     contact.language = lang
                     contact.save()
+                    message.respond(getattr(settings,'LANGUAGE_CHANGE_CONFIRMATION','')[lang])
                     return True
 
         #message flagging (needs further investigation)
