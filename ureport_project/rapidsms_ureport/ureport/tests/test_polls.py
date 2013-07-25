@@ -28,6 +28,8 @@ class PollTest(TestCase):
     def setUp(self):
         user = User.objects.get(username="admin")
         user.set_password('admin')
+        user.is_superuser = True
+        user.is_staff = True
         user.save()
         self.backend, _ = Backend.objects.get_or_create(name='test')
         self.connection, _ = Connection.objects.get_or_create(identity='8675309', backend=self.backend)
@@ -229,6 +231,14 @@ class PollTest(TestCase):
         self.assertEquals(Poll.objects.order_by('-pk')[0].name, 'test poll')
         self.assertEquals(Poll.objects.order_by('-pk')[0].type, 't')
         self.assertEquals(Translation.objects.get(field='French Question here', language='en').value, 'English Question here')
+        
+    def testDeletePoll(self):
+        self.register_uReporter()      
+        self.create_poll(poll_type='t')
+        poll = UPoll.objects.get(name='test poll')
+        self.assertEquals(Poll.objects.order_by('-pk')[0].name, 'test poll')
+        self.client.get('/polls/%s/delete' % poll.pk)
+        self.assertEquals(Poll.objects.filter(name='test poll').count(), 0)
         
         
         
