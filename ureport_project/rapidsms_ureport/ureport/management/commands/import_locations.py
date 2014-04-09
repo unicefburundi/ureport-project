@@ -22,9 +22,9 @@ class Command(BaseCommand):
     def handle(self, **options):
         
         countrytype, _ = LocationType.objects.get_or_create(name='Country', slug='country')
-        provincetype, _ = LocationType.objects.get_or_create(name='Province', slug='province')
-        communetype, _ = LocationType.objects.get_or_create(name='Commune', slug='commune')
-        collinetype, _ = LocationType.objects.get_or_create(name='Colline', slug='colline')
+        provincetype, _ = LocationType.objects.get_or_create(name='Province', slug='district')
+        communetype, _ = LocationType.objects.get_or_create(name='Commune', slug='subcounty')
+        collinetype, _ = LocationType.objects.get_or_create(name='Colline', slug='village')
         parent_types = {
             'root_node': None,
             'Province': countrytype,

@@ -70,14 +70,11 @@
             }
         </style>
 {% endblock %}
- {% block extra_js %}
+ {% block extra_javascript %}
   <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}ureport/stylesheets/jquery-ui.css"/>
     <script type="text/javascript" src="{{ STATIC_URL }}ureport/javascripts/jquery-ui.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}ureport/javascripts/dropdown.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}ureport/javascripts/tabs.js"></script>
-
-{% endblock %}
-        {%block top_js %}
 
         <script type="text/javascript">
             function loadViewable(href){
@@ -150,7 +147,7 @@
         </script>
 
 
-        {%endblock %}
+ {%endblock %}
 
 {% block content %}
 

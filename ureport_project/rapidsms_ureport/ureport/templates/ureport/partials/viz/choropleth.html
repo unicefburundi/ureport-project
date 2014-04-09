@@ -14,7 +14,7 @@
     		<p>
     			<span class="params">{{ poll.responses.count|intcomma }}</span>
     			réponses sur <br />
-    			de <span class="params">{{ poll.contacts.count|intcomma }}</span> <br />
+    			<span class="params">{{ poll.contacts.count|intcomma }}</span> <br />
     			<span class="participants">Les participants</span> <span class="params">({{ rate }}%)</span>
     		</p>
 		</div>
@@ -84,6 +84,7 @@
     OpenLayers.Util.onImageLoadErrorColor = "transparent";
     // make OL compute scale according to WMS spec
     OpenLayers.DOTS_PER_INCH = 25.4 / 0.28;
+    OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 
     function init_chmap() {
         // if this is just a coverage or a group of them, disable a few items,
@@ -149,7 +150,7 @@
                 EXCEPTIONS: "text/plain",
                 BBOX: map.getExtent().toBBOX(),
                 SERVICE: "WMS",
-                VERSION: "1.1.1",
+                VERSION: "1.1.0",
 
                 X: Math.round(e.xy.x),
                 Y: Math.round(e.xy.y),
@@ -190,14 +191,10 @@
         th = jQuery(text).find('th');
         jQuery.each(th, function(k, v) {
 
-
-            if (String(jQuery(v).text()) == "province") {
-
-
+            if (String(jQuery(v).text()) == "Province") {
                 render_text = render_text + "<p>Province: " + jQuery(data[k]).text() + "</p>";
             }
             else if (String(jQuery(v).text()) == "yes") {
-
                 render_text = render_text + "<p>Yes: " + Math.round(parseFloat(jQuery(data[k]).text()) * 100) + "%</p>";
             }
             else if (jQuery(v).text() == "no") {
@@ -206,8 +203,6 @@
             else if (jQuery(v).text() == "unknown") {
                 render_text = render_text + "<p>unknown: " + Math.round(parseFloat(jQuery(data[k]).text()) * 100) + "%</p>";
             }
-
-
         });
 
 

@@ -2,6 +2,7 @@
 from django.core.management.base import BaseCommand
 import os
 from ureport.settings import UREPORT_ROOT
+from django.conf import settings
 from django.utils.datastructures import SortedDict
 from poll.models import Poll
 import datetime
@@ -22,10 +23,11 @@ class Command(BaseCommand):
             print 'Working'
             responses = poll.responses.all()
             response_data_list = []
-            excel_file_path = \
-                os.path.join(os.path.join(os.path.join(UREPORT_ROOT,
-                                                       'static'), 'spreadsheets'),
-                             'poll_%d.xlsx' % poll.pk)
+            excel_file_path = os.path.join(os.path.join(settings.MEDIA_ROOT, 'downloads'), 'poll_%d.xlsx' % poll.pk)
+#             excel_file_path = \
+#                 os.path.join(os.path.join(os.path.join(UREPORT_ROOT,
+#                                                        'static'), 'spreadsheets'),
+#                              'poll_%d.xlsx' % poll.pk)
             for response in responses:
 
                 response_export_data = SortedDict()
@@ -59,20 +61,20 @@ class Command(BaseCommand):
                     response_export_data['age'] = 'N/A'
                 if response.contact \
                     and response.contact.reporting_location:
-                    response_export_data['district'] = \
+                    response_export_data['province'] = \
                         response.contact.reporting_location.name
                 else:
-                    response_export_data['district'] = 'N/A'
-                if response.contact and response.contact.village:
-                    response_export_data['village'] = \
-                        response.contact.village_name
+                    response_export_data['province'] = 'N/A'
+                if response.contact and response.contact.colline:
+                    response_export_data['colline'] = \
+                        response.contact.colline_name
                 else:
-                    response_export_data['village'] = 'N/A'
-                if response.contact and response.contact.subcounty:
-                    response_export_data['subcounty'] = \
-                        response.contact.subcounty.name
+                    response_export_data['colline'] = 'N/A'
+                if response.contact and response.contact.commune:
+                    response_export_data['commune'] = \
+                        response.contact.commune.name
                 else:
-                    response_export_data['subcounty'] = 'N/A'
+                    response_export_data['commune'] = 'N/A'
                 if response.contact \
                     and response.contact.groups.count() > 0:
                     gr = list(response.contact.groups.order_by('pk').values_list('name', flat=True))

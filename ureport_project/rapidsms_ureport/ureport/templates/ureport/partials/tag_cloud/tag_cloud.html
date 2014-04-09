@@ -151,6 +151,7 @@ tt a {
 </div>
 {% endif %}
 </div>
+<!-- To be moved to best_visualization.html -->
 <div id="poll_results_transparent">
 	<div class="poll-details">
 		<div class="poll-date">
@@ -164,7 +165,7 @@ tt a {
     		<p>
     			<span class="params">{{ poll.responses.count|intcomma }}</span>
     			réponses sur <br />
-    			de <span class="params">{{ poll.contacts.count|intcomma }}</span> <br />
+    			<span class="params">{{ poll.contacts.count|intcomma }}</span> <br />
     			<span class="participants">Les participants</span> <span class="params">({{ rate }}%)</span>
     		</p>
 		</div>

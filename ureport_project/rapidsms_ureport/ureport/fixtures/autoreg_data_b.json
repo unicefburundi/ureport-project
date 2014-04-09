@@ -1,0 +1,982 @@
+[
+    {
+        "pk": 1, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "admin"
+        }
+    },
+    {
+        "pk": 2, 
+        "model": "sites.site", 
+        "fields": {
+            "domain": "ureport.unicefburundi.org", 
+            "name": "uReport"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "sites.site", 
+        "fields": {
+            "domain": "ureport.unicefburundi.org", 
+            "name": "ureport.unicefburundi.org"
+        }
+    },
+    {
+        "pk": 1, 
+        "model": "auth.group", 
+        "fields": {
+            "name": "Red Cross", 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "auth.group", 
+        "fields": {
+            "name": "Other Reporters", 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "auth.group", 
+        "fields": {
+            "name": "Guides", 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "auth.group", 
+        "fields": {
+            "name": "Scouts", 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "auth.group", 
+        "fields": {
+            "name": "admins", 
+            "permissions": []
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "auth.group", 
+        "fields": {
+            "name": "Teacher", 
+            "permissions": []
+        }
+    },
+    {
+        "pk": 7, 
+        "model": "auth.group", 
+        "fields": {
+            "name": "Child Journalists", 
+            "permissions": []
+        }
+    },
+    {
+        "pk": 1, 
+        "model": "ureport.autoreggrouprules", 
+        "fields": {
+            "values": "Red Cross,Redcross,Croix-Rouge,Croix Rouge", 
+            "group": 1
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "ureport.autoreggrouprules", 
+        "fields": {
+            "values": "Other Reporters", 
+            "group": 2
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "ureport.autoreggrouprules", 
+        "fields": {
+            "values": "Guides", 
+            "group": 3
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "ureport.autoreggrouprules", 
+        "fields": {
+            "values": "Scouts", 
+            "group": 4
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "ureport.autoreggrouprules", 
+        "fields": {
+            "values": "Teacher,Umwigisha,Enseignant", 
+            "group": 6
+        }
+    },
+    {
+        "pk": 6, 
+        "model": "ureport.autoreggrouprules", 
+        "fields": {
+            "values": "Child Journalists,Enfants journalists,umwana amenyesha amakuru", 
+            "group": 7
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "eav.attribute", 
+        "fields": {
+            "description": "A response value for a Poll with expected location-based responses", 
+            "created": "2011-08-03 11:17:02", 
+            "datatype": "object", 
+            "enum_group": null, 
+            "required": false, 
+            "site": 1, 
+            "modified": "2011-08-03 11:17:02", 
+            "type": null, 
+            "slug": "poll_location_value", 
+            "name": "Location"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "eav.attribute", 
+        "fields": {
+            "description": "The location associated with a particular contact", 
+            "created": "2011-08-03 11:17:02", 
+            "datatype": "object", 
+            "enum_group": null, 
+            "required": false, 
+            "site": 1, 
+            "modified": "2011-08-03 11:17:02", 
+            "type": null, 
+            "slug": "contact_location", 
+            "name": "Location"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "eav.attribute", 
+        "fields": {
+            "description": "A response value for a Poll with expected numeric responses", 
+            "created": "2011-08-03 11:17:01", 
+            "datatype": "float", 
+            "enum_group": null, 
+            "required": false, 
+            "site": 1, 
+            "modified": "2011-08-03 11:17:02", 
+            "type": null, 
+            "slug": "poll_number_value", 
+            "name": "Number"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "eav.attribute", 
+        "fields": {
+            "description": "A response value for a Poll with expected text responses", 
+            "created": "2011-08-03 11:17:02", 
+            "datatype": "text", 
+            "enum_group": null, 
+            "required": false, 
+            "site": 1, 
+            "modified": "2011-08-03 11:17:02", 
+            "type": null, 
+            "slug": "poll_text_value", 
+            "name": "Text"
+        }
+    },
+    {
+        "pk": 562, 
+        "model": "poll.poll", 
+        "fields": {
+            "default_response": "", 
+            "name": "reporter_group_en", 
+            "end_date": null, 
+            "contacts": [], 
+            "messages": [], 
+            "question": "Please type the name of your organization/group ONLY", 
+            "sites": [
+                1
+            ], 
+            "user": 1, 
+            "type": "t", 
+            "start_date": null, 
+            "response_type": "a"
+        }
+    }, 
+    {
+        "pk": 563, 
+        "model": "poll.poll", 
+        "fields": {
+            "default_response": "", 
+            "name": "reporter_reporting_location_en", 
+            "end_date": null, 
+            "contacts": [], 
+            "messages": [], 
+            "question": "Tell us where you\u2019ll be reporting from so we can work together to try to resolve issues in your community. Reply with the name of your province ONLY", 
+            "sites": [
+                1
+            ], 
+            "user": 1, 
+            "type": "l", 
+            "start_date": null, 
+            "response_type": "a"
+        }
+    }, 
+    {
+        "pk": 564, 
+        "model": "poll.poll", 
+        "fields": {
+            "default_response": "", 
+            "name": "reporter_colline_en", 
+            "end_date": null, 
+            "contacts": [], 
+            "messages": [], 
+            "question": "From which colline will you be reporting? Please respond ONLY with the name of your colline.", 
+            "sites": [
+                1
+            ], 
+            "user": 1, 
+            "type": "l", 
+            "start_date": null, 
+            "response_type": "a"
+        }
+    }, 
+    {
+        "pk": 565, 
+        "model": "poll.poll", 
+        "fields": {
+            "default_response": "", 
+            "name": "reporter_name_en", 
+            "end_date": null, 
+            "contacts": [], 
+            "messages": [], 
+            "question": "What is your name? Your name will not be revealed without your permission and you can use a nickname.", 
+            "sites": [
+                1
+            ], 
+            "user": 1, 
+            "type": "t", 
+            "start_date": null, 
+            "response_type": "a"
+        }
+    }, 
+    {
+        "pk": 566, 
+        "model": "poll.poll", 
+        "fields": {
+            "default_response": "", 
+            "name": "reporter_age_en", 
+            "end_date": null, 
+            "contacts": [], 
+            "messages": [], 
+            "question": "What is your age?", 
+            "sites": [
+                1
+            ], 
+            "user": 1, 
+            "type": "n", 
+            "start_date": null, 
+            "response_type": "a"
+        }
+    }, 
+    {
+        "pk": 567, 
+        "model": "poll.poll", 
+        "fields": {
+            "default_response": "", 
+            "name": "reporter_gender_en", 
+            "end_date": null, 
+            "contacts": [], 
+            "messages": [], 
+            "question": "Are you male or female? Type F for 'female' and M for 'male'", 
+            "sites": [
+                1
+            ], 
+            "user": 1, 
+            "type": "t", 
+            "start_date": null, 
+            "response_type": "a"
+        }
+    }, 
+    {
+        "pk": 270, 
+        "model": "poll.category", 
+        "fields": {
+            "error_category": false, 
+            "name": "female", 
+            "color": "", 
+            "priority": null, 
+            "default": false, 
+            "poll": 567, 
+            "response": null
+        }
+    }, 
+    {
+        "pk": 269, 
+        "model": "poll.category", 
+        "fields": {
+            "error_category": false, 
+            "name": "male", 
+            "color": "", 
+            "priority": null, 
+            "default": false, 
+            "poll": 567, 
+            "response": null
+        }
+    }, 
+    {
+        "pk": 262, 
+        "model": "poll.rule", 
+        "fields": {
+            "regex": "^\\s*(m|mal|male|ma|mas|masculin|umugabo|ga|gabo|gab)(\\s|[^a-zA-Z]|$)", 
+            "category": 269, 
+            "rule_string": "m|mal|male|ma|mas|masculin|umugabo|ga|gabo|gab", 
+            "rule": null, 
+            "rule_type": "r"
+        }
+    }, 
+    {
+        "pk": 263, 
+        "model": "poll.rule", 
+        "fields": {
+            "regex": "^\\s*(f|fem|female|fe|f\u00e9mf\u00e9minin|f\u00e9|umugore|gore|go|gor)(\\s|[^a-zA-Z]|$)", 
+            "category": 270, 
+            "rule_string": "f|fem|female|fe|f\u00e9mf\u00e9minin|f\u00e9|umugore|gore|go|gor", 
+            "rule": null, 
+            "rule_type": "r"
+        }
+    }, 
+    {
+        "pk": 139, 
+        "model": "poll.translation", 
+        "fields": {
+            "field": "Welcome to Ureport Burundi, where you can SHARE and RECEIVE information about what is happening in your community. It\u2019s FREE!", 
+            "value": "Bienvenue \u00e0 Ureport Burundi, ou tu peux PARTAGER et RECEVOIR des informations sur ce qui se posse dans ta communaut\u00e9.  C\u2019est GRATUIT !", 
+            "language": "fr"
+        }
+    }, 
+    {
+        "pk": 140, 
+        "model": "poll.translation", 
+        "fields": {
+            "field": "Please type the name of your organization/group ONLY", 
+            "value": "Appartiens-tu \u00e0 une Organisation de volontaires? S'il te pla\u00eet r\u00e9ponds par le nom de l'organisation SEULEMENT", 
+            "language": "fr"
+        }
+    }, 
+    {
+        "pk": 141, 
+        "model": "poll.translation", 
+        "fields": {
+            "field": "Tell us where you\u2019ll be reporting from so we can work together to try to resolve issues in your community. Reply with the name of your province ONLY", 
+            "value": "Dis-nous d'o\u00f9 tu rapportes afin que nous puissions travailler ensemble pour r\u00e9soudre les d\u00e9fis de ta communaut\u00e9 ! R\u00e9ponds avec le nom de ta province !", 
+            "language": "fr"
+        }
+    }, 
+    {
+        "pk": 142, 
+        "model": "poll.translation", 
+        "fields": {
+            "field": "From which colline will you be reporting? Please respond ONLY with the name of your colline.", 
+            "value": "De quelle colline rapporteras-tu ? S\u2019il te pla\u00eet r\u00e9ponds SEULEMENT avec le nom de ta colline", 
+            "language": "fr"
+        }
+    }, 
+    {
+        "pk": 143, 
+        "model": "poll.translation", 
+        "fields": {
+            "field": "UReport is a FREE text messaging service sponsored by UNICEF and other partners.", 
+            "value": "UReport est un service GRATUIT de messagerie sponsoris\u00e9e par l'UNICEF et d'autres partenaires.", 
+            "language": "fr"
+        }
+    }, 
+    {
+        "pk": 144, 
+        "model": "poll.translation", 
+        "fields": {
+            "field": "What is your name? Your name will not be revealed without your permission and you can use a nickname.", 
+            "value": "Comment t\u2019appelles-tu ? Ton nom ne sera pas r\u00e9v\u00e9l\u00e9 sans ta permission et tu peux utiliser un surnom.", 
+            "language": "fr"
+        }
+    }, 
+    {
+        "pk": 145, 
+        "model": "poll.translation", 
+        "fields": {
+            "field": "What is your age?", 
+            "value": "Quel \u00e2ge as \u2013tu ?", 
+            "language": "fr"
+        }
+    }, 
+    {
+        "pk": 146, 
+        "model": "poll.translation", 
+        "fields": {
+            "field": "Are you male or female? Type F for 'female' and M for 'male'", 
+            "value": "Es-tu de sexe masculin ou f\u00e9minin? \u00c9cris F pour f\u00e9minin et M pour masculin", 
+            "language": "fr"
+        }
+    }, 
+    {
+        "pk": 147, 
+        "model": "poll.translation", 
+        "fields": {
+            "field": "CONGRATULATIONS!! You are now  registered as a UReporter! Make a real difference with Ureport Burundi, Speak up and be heard! From UNICEF", 
+            "value": "F\u00e9licitations ! Tu es maintenant enregistr\u00e9 Ureporter. Fais une vraie diff\u00e9rence avec Ureport Burundi ! Parles et sois \u00e9cout\u00e9 ! De l\u2019UNICEF", 
+            "language": "fr"
+        }
+    }, 
+    {
+        "pk": 148, 
+        "model": "poll.translation", 
+        "fields": {
+            "field": "Welcome to Ureport Burundi, where you can SHARE and RECEIVE information about what is happening in your community. It\u2019s FREE!", 
+            "value": "Kaze muri Ureport/Burundi, aho ushobora gutanga no kuronka inkuru ku bibera mu karere uherereyemwo, Ni KU BUNTU!", 
+            "language": "ki"
+        }
+    }, 
+    {
+        "pk": 149, 
+        "model": "poll.translation", 
+        "fields": {
+            "field": "Please type the name of your organization/group ONLY", 
+            "value": "Woba uri umunywanyi mw'ishirahamwe ry'abitanga? Ishura n'izina ry'iryo Shirahamwe GUSA.", 
+            "language": "ki"
+        }
+    }, 
+    {
+        "pk": 150, 
+        "model": "poll.translation", 
+        "fields": {
+            "field": "Tell us where you\u2019ll be reporting from so we can work together to try to resolve issues in your community. Reply with the name of your province ONLY", 
+            "value": "Tubwire akarere utangiramwo inkuru, bidufashe gukorera hamwe gutorera inyishu ingorane zo mu karere kanyu! Ishura izina ry'intara yawe GUSA", 
+            "language": "ki"
+        }
+    }, 
+    {
+        "pk": 151, 
+        "model": "poll.translation", 
+        "fields": {
+            "field": "From which colline will you be reporting? Please respond ONLY with the name of your colline.", 
+            "value": "Ni uwuhe mutumba utangiramwo inkuru? Ishura izina ry'umutumba wawe GUSA.", 
+            "language": "ki"
+        }
+    }, 
+    {
+        "pk": 152, 
+        "model": "poll.translation", 
+        "fields": {
+            "field": "UReport is a FREE text messaging service sponsored by UNICEF and other partners.", 
+            "value": "Ureport Ni uburyo bwo kurungika ubutumwa ku buntu, bifashijwe n'intererano ya UNICEF n'ayandi mashiramwe.", 
+            "language": "ki"
+        }
+    }, 
+    {
+        "pk": 153, 
+        "model": "poll.translation", 
+        "fields": {
+            "field": "What is your name? Your name will not be revealed without your permission and you can use a nickname.", 
+            "value": "Tanga izina ryawe, ibikuranga bifasha guha insiguro inkuru turonse. Izina ryawe ntituritanga utaduhaye uruhusha kandi ushobora gutanga amatazirano", 
+            "language": "ki"
+        }
+    }, 
+    {
+        "pk": 154, 
+        "model": "poll.translation", 
+        "fields": {
+            "field": "What is your age?", 
+            "value": "Ufise imyaka ingahe?", 
+            "language": "ki"
+        }
+    }, 
+    {
+        "pk": 155, 
+        "model": "poll.translation", 
+        "fields": {
+            "field": "Are you male or female? Type F for 'female' and M for 'male'", 
+            "value": "Woba uri uw'igitsina Gore canke igitsina Gabo? Andika Go ari igitsina Gore Na Ga ari igitsina Gabo.", 
+            "language": "ki"
+        }
+    }, 
+    {
+        "pk": 156, 
+        "model": "poll.translation", 
+        "fields": {
+            "field": "CONGRATULATIONS!! You are now  registered as a UReporter! Make a real difference with Ureport Burundi, Speak up and be heard! From UNICEF", 
+            "value": "MURAKOZE!! Ubu uri umunywanyi WA Ureport. Gira ico uhinduye c'ukuri hamwe Na UReport Burundi. Vuga hama wumvirizwe! Kubwa UNICEF.", 
+            "language": "ki"
+        }
+    },
+    {
+        "pk": "autoreg_en", 
+        "model": "script.script", 
+        "fields": {
+            "enabled": true, 
+            "name": "Ureport autoreg en script", 
+            "sites": [
+                1
+            ]
+        }
+    }, 
+    {
+        "pk": "autoreg_fr", 
+        "model": "script.script", 
+        "fields": {
+            "enabled": true, 
+            "name": "Ureport autoreg fr script", 
+            "sites": [
+                1
+            ]
+        }
+    }, 
+    {
+        "pk": "autoreg_ki", 
+        "model": "script.script", 
+        "fields": {
+            "enabled": true, 
+            "name": "Ureport autoreg ki script", 
+            "sites": [
+                1
+            ]
+        }
+    }, 
+    {
+        "pk": 737, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_en", 
+            "retry_offset": 0, 
+            "rule": "w", 
+            "email": null, 
+            "num_tries": 0, 
+            "start_offset": 0, 
+            "message": "Welcome to Ureport Burundi, where you can SHARE and RECEIVE information about what is happening in your community. It\u2019s FREE!", 
+            "poll": null, 
+            "order": 0, 
+            "giveup_offset": 60
+        }
+    }, 
+    {
+        "pk": 738, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_en", 
+            "retry_offset": 0, 
+            "rule": "w", 
+            "email": null, 
+            "num_tries": 0, 
+            "start_offset": 0, 
+            "message": "", 
+            "poll": 562, 
+            "order": 1, 
+            "giveup_offset": 3600
+        }
+    }, 
+    {
+        "pk": 739, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_en", 
+            "retry_offset": 3600, 
+            "rule": "M", 
+            "email": null, 
+            "num_tries": 3, 
+            "start_offset": 0, 
+            "message": "", 
+            "poll": 563, 
+            "order": 2, 
+            "giveup_offset": 3600
+        }
+    }, 
+    {
+        "pk": 740, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_en", 
+            "retry_offset": 0, 
+            "rule": "w", 
+            "email": null, 
+            "num_tries": 0, 
+            "start_offset": 0, 
+            "message": "", 
+            "poll": 564, 
+            "order": 3, 
+            "giveup_offset": 3600
+        }
+    }, 
+    {
+        "pk": 741, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_en", 
+            "retry_offset": 0, 
+            "rule": "w", 
+            "email": null, 
+            "num_tries": 0, 
+            "start_offset": 0, 
+            "message": "UReport is a FREE text messaging service sponsored by UNICEF and other partners.", 
+            "poll": null, 
+            "order": 4, 
+            "giveup_offset": 60
+        }
+    }, 
+    {
+        "pk": 742, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_en", 
+            "retry_offset": 0, 
+            "rule": "w", 
+            "email": null, 
+            "num_tries": 0, 
+            "start_offset": 0, 
+            "message": "", 
+            "poll": 565, 
+            "order": 5, 
+            "giveup_offset": 3600
+        }
+    }, 
+    {
+        "pk": 743, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_en", 
+            "retry_offset": 3600, 
+            "rule": "M", 
+            "email": null, 
+            "num_tries": 3, 
+            "start_offset": 0, 
+            "message": "", 
+            "poll": 566, 
+            "order": 6, 
+            "giveup_offset": 3600
+        }
+    }, 
+    {
+        "pk": 744, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_en", 
+            "retry_offset": 0, 
+            "rule": "w", 
+            "email": null, 
+            "num_tries": 0, 
+            "start_offset": 0, 
+            "message": "", 
+            "poll": 567, 
+            "order": 7, 
+            "giveup_offset": 3600
+        }
+    }, 
+    {
+        "pk": 745, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_en", 
+            "retry_offset": 0, 
+            "rule": "w", 
+            "email": null, 
+            "num_tries": 0, 
+            "start_offset": 0, 
+            "message": "CONGRATULATIONS!! You are now  registered as a UReporter! Make a real difference with Ureport Burundi, Speak up and be heard! From UNICEF", 
+            "poll": null, 
+            "order": 8, 
+            "giveup_offset": 0
+        }
+    }, 
+    {
+        "pk": 746, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_fr", 
+            "retry_offset": 0, 
+            "rule": "w", 
+            "email": null, 
+            "num_tries": 0, 
+            "start_offset": 0, 
+            "message": "Welcome to Ureport Burundi, where you can SHARE and RECEIVE information about what is happening in your community. It\u2019s FREE!", 
+            "poll": null, 
+            "order": 0, 
+            "giveup_offset": 60
+        }
+    }, 
+    {
+        "pk": 747, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_fr", 
+            "retry_offset": 0, 
+            "rule": "w", 
+            "email": null, 
+            "num_tries": 0, 
+            "start_offset": 0, 
+            "message": "", 
+            "poll": 562, 
+            "order": 1, 
+            "giveup_offset": 3600
+        }
+    }, 
+    {
+        "pk": 748, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_fr", 
+            "retry_offset": 3600, 
+            "rule": "M", 
+            "email": null, 
+            "num_tries": 3, 
+            "start_offset": 0, 
+            "message": "", 
+            "poll": 563, 
+            "order": 2, 
+            "giveup_offset": 3600
+        }
+    }, 
+    {
+        "pk": 749, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_fr", 
+            "retry_offset": 0, 
+            "rule": "w", 
+            "email": null, 
+            "num_tries": 0, 
+            "start_offset": 0, 
+            "message": "", 
+            "poll": 564, 
+            "order": 3, 
+            "giveup_offset": 3600
+        }
+    }, 
+    {
+        "pk": 750, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_fr", 
+            "retry_offset": 0, 
+            "rule": "w", 
+            "email": null, 
+            "num_tries": 0, 
+            "start_offset": 0, 
+            "message": "UReport is a FREE text messaging service sponsored by UNICEF and other partners.", 
+            "poll": null, 
+            "order": 4, 
+            "giveup_offset": 60
+        }
+    }, 
+    {
+        "pk": 751, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_fr", 
+            "retry_offset": 0, 
+            "rule": "w", 
+            "email": null, 
+            "num_tries": 0, 
+            "start_offset": 0, 
+            "message": "", 
+            "poll": 565, 
+            "order": 5, 
+            "giveup_offset": 3600
+        }
+    }, 
+    {
+        "pk": 752, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_fr", 
+            "retry_offset": 3600, 
+            "rule": "M", 
+            "email": null, 
+            "num_tries": 3, 
+            "start_offset": 0, 
+            "message": "", 
+            "poll": 566, 
+            "order": 6, 
+            "giveup_offset": 3600
+        }
+    }, 
+    {
+        "pk": 753, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_fr", 
+            "retry_offset": 0, 
+            "rule": "w", 
+            "email": null, 
+            "num_tries": 0, 
+            "start_offset": 0, 
+            "message": "", 
+            "poll": 567, 
+            "order": 7, 
+            "giveup_offset": 3600
+        }
+    }, 
+    {
+        "pk": 754, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_fr", 
+            "retry_offset": 0, 
+            "rule": "w", 
+            "email": null, 
+            "num_tries": 0, 
+            "start_offset": 0, 
+            "message": "CONGRATULATIONS!! You are now  registered as a UReporter! Make a real difference with Ureport Burundi, Speak up and be heard! From UNICEF", 
+            "poll": null, 
+            "order": 8, 
+            "giveup_offset": 0
+        }
+    }, 
+    {
+        "pk": 755, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_ki", 
+            "retry_offset": 0, 
+            "rule": "w", 
+            "email": null, 
+            "num_tries": 0, 
+            "start_offset": 0, 
+            "message": "Welcome to Ureport Burundi, where you can SHARE and RECEIVE information about what is happening in your community. It\u2019s FREE!", 
+            "poll": null, 
+            "order": 0, 
+            "giveup_offset": 60
+        }
+    }, 
+    {
+        "pk": 756, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_ki", 
+            "retry_offset": 0, 
+            "rule": "w", 
+            "email": null, 
+            "num_tries": 0, 
+            "start_offset": 0, 
+            "message": "", 
+            "poll": 562, 
+            "order": 1, 
+            "giveup_offset": 3600
+        }
+    }, 
+    {
+        "pk": 757, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_ki", 
+            "retry_offset": 3600, 
+            "rule": "M", 
+            "email": null, 
+            "num_tries": 3, 
+            "start_offset": 0, 
+            "message": "", 
+            "poll": 563, 
+            "order": 2, 
+            "giveup_offset": 3600
+        }
+    }, 
+    {
+        "pk": 758, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_ki", 
+            "retry_offset": 0, 
+            "rule": "w", 
+            "email": null, 
+            "num_tries": 0, 
+            "start_offset": 0, 
+            "message": "", 
+            "poll": 564, 
+            "order": 3, 
+            "giveup_offset": 3600
+        }
+    }, 
+    {
+        "pk": 759, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_ki", 
+            "retry_offset": 0, 
+            "rule": "w", 
+            "email": null, 
+            "num_tries": 0, 
+            "start_offset": 0, 
+            "message": "UReport is a FREE text messaging service sponsored by UNICEF and other partners.", 
+            "poll": null, 
+            "order": 4, 
+            "giveup_offset": 60
+        }
+    }, 
+    {
+        "pk": 760, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_ki", 
+            "retry_offset": 0, 
+            "rule": "w", 
+            "email": null, 
+            "num_tries": 0, 
+            "start_offset": 0, 
+            "message": "", 
+            "poll": 565, 
+            "order": 5, 
+            "giveup_offset": 3600
+        }
+    }, 
+    {
+        "pk": 761, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_ki", 
+            "retry_offset": 3600, 
+            "rule": "M", 
+            "email": null, 
+            "num_tries": 3, 
+            "start_offset": 0, 
+            "message": "", 
+            "poll": 566, 
+            "order": 6, 
+            "giveup_offset": 3600
+        }
+    }, 
+    {
+        "pk": 762, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_ki", 
+            "retry_offset": 0, 
+            "rule": "w", 
+            "email": null, 
+            "num_tries": 0, 
+            "start_offset": 0, 
+            "message": "", 
+            "poll": 567, 
+            "order": 7, 
+            "giveup_offset": 3600
+        }
+    }, 
+    {
+        "pk": 763, 
+        "model": "script.scriptstep", 
+        "fields": {
+            "script": "autoreg_ki", 
+            "retry_offset": 0, 
+            "rule": "w", 
+            "email": null, 
+            "num_tries": 0, 
+            "start_offset": 0, 
+            "message": "CONGRATULATIONS!! You are now  registered as a UReporter! Make a real difference with Ureport Burundi, Speak up and be heard! From UNICEF", 
+            "poll": null, 
+            "order": 8, 
+            "giveup_offset": 0
+        }
+    }
+]

@@ -38,7 +38,7 @@ def best_visualization(request, poll_id=None):
         rate = 0
     dict_to_render = {
         'poll': poll,
-        'polls': [poll],
+#         'polls': [poll],
         'unlabeled': True,
         'module': module,
         'rate': int(rate),

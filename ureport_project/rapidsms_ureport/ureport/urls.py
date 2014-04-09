@@ -32,6 +32,7 @@ urlpatterns = patterns('',
                            name="reporter-profile"),
                        # poll management views using generic (rather than built-in poll views
                        url(r'^mypolls/$', ureport_polls, name="ureport-polls"),
+                       url(r'^grp_responses/(?P<group>\w+)$', response_views, name="group_responses"),
 
                        # poll management views using generic (rather than built-in poll views
                        url(r'^scriptpolls/$', script_polls, name="script-polls"),

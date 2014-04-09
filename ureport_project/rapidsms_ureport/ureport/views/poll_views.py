@@ -491,3 +491,9 @@ def script_polls(request):
                    auto_reg=True,
                    sort_ascending=False,
                    columns=columns)
+    
+def response_views(request, group):
+    #polls to be added
+    return render_to_response("ureport/polls/poll_group_results.html",
+                              {'some_variable': 'some_value', 'group':group},
+                              context_instance=RequestContext(request))

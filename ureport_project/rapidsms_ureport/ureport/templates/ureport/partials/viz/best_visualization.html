@@ -1,18 +1,4 @@
 {% load humanize %}
-<!--
-<h4 class="poll-heading">
-<span class="poll-title">
-CURRENT POLL
-</span>
-<span class="poll-date">
- - {{ poll.start_date|date:"d/M/Y" }} : 
-</span>
-<span class="poll-question">
-{{ poll.question }} 
-</span>
-     {% load humanize %}
-    <span style="color:#00638A;font-size:16px;">{{ poll.responses.count|intcomma }}  Responses out of {{ poll.contacts.count|intcomma }} Participants ({{ rate }}%)</span>
-</h4> -->
 {% if tagged %}
 
     {% include "ureport/partials/tag_cloud/tag_cloud.html" %}
@@ -23,7 +9,7 @@ CURRENT POLL
         {% include "ureport/partials/viz/message_feed.html" %}
     {% endcomment %}
 
-    {% else %}
+{% else %}
     {% ifequal poll.type 't' %}
         <div id="visual_{{ poll.pk }}">
             {% if poll.is_yesno_poll %}

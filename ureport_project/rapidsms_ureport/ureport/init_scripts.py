@@ -26,6 +26,7 @@ def init_groups():
         'Scouts': 'Scouts',
         'Guides': 'Guides',
         'Other Reporters': 'Other Reporters',
+        'Child Journalists': 'Child Journalists,Enfants journalists,umwana amenyesha amakuru',
     }
     for g, aliases in groups.items():
         grp, _ = Group.objects.get_or_create(name=g)

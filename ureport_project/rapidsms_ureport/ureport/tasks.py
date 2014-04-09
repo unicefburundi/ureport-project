@@ -9,11 +9,20 @@ import time
 from rapidsms_httprouter.models import Message
 from ureport.models import SentToMtrac, AutoregGroupRules, MessageDetail, MessageAttribute, Settings
 from script.models import Script
+from poll.models import Poll
+from django.core import management
 
 import logging
 
 log = logging.getLogger(__name__)
 
+
+@task
+def export_last_poll():
+    poll = Poll.objects.order_by('-pk')[0]
+    log.info("[poll-export-task'] Starting to export poll [" + str(poll.pk) + "] ...")
+    management.call_command('export_poll', p=poll.pk)
+    log.info("[poll-export-task'] Exporting poll [" + str(poll.pk) + "] completed")
 
 @task
 def ping(ignore_result=True):

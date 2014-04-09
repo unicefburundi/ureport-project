@@ -1,0 +1,64 @@
+{% extends "ureport_layout.html" %}
+
+
+{% block stylesheets %}
+
+{{ block.super }}
+<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}stylesheets/ureport_custom.css" />
+
+{% endblock %}
+
+
+
+
+{% block content %}
+
+<div class="how_to_join">
+
+   
+	<h2 class="about_header">Comment s’inscrire <img class="ab_img" src="{{ STATIC_URL }}images/shout_out.png"/></h2>
+ 
+	<div class="step_2 step">
+		<p class="step_txt"><span class="step_name">
+		Step 2 </span>
+		Tu recevras un message de salutation et une série de questions envoyées sur ton téléphone portable qui nous aideront à mieux analyser et localiser l'information que nous recevons. Ureport veut connaître ta commune, mais toutes les autres questions sont optionnelles
+
+		
+		</p>
+		<img src="{{ STATIC_URL }}images/step2.png">
+	</div>
+
+
+
+    <div class="step_1 step">
+		<p class="step_txt"><span class="step_name" >Step 1 </span>
+		 Écris le mot “S’inscrire” au 132. Tous les SMS de Ureport sont gratuits !
+
+		</p>
+		<img src="{{ STATIC_URL }}images/step1.png">
+	</div>
+	
+	
+	
+	<div class="step_4 step">
+		<p class="step_txt"><span class="step_name">
+		Step 4 </span>
+
+		Touts les SMS envoyes par les Ureporters interagissent avec une plate-forme informatique(a travers une application technique appelee "Rapid SMS"),qui analyse,carthographie et visualise l'information.
+		</p>
+		<img src="{{ STATIC_URL }}images/step4.png">
+	</div>
+	
+	
+	<div class="step_3 step">
+		<p class="step_txt"><span class="step_name" >
+		Step 3 </span>
+		Les Ureporters peuvent partager l'information provenant de leur communaute en reponse aux questions du sondage en envoyant des SMS gratuits au 132. 
+		</p>
+		<img src="{{ STATIC_URL }}images/step3.png">
+	</div>
+
+
+</div>
+
+{%endblock%}
