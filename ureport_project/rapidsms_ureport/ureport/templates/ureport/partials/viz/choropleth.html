@@ -84,7 +84,7 @@
     OpenLayers.Util.onImageLoadErrorColor = "transparent";
     // make OL compute scale according to WMS spec
     OpenLayers.DOTS_PER_INCH = 25.4 / 0.28;
-    OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
+    OpenLayers.ProxyHost = "/proxy/?url=";
 
     function init_chmap() {
         // if this is just a coverage or a group of them, disable a few items,
@@ -150,7 +150,7 @@
                 EXCEPTIONS: "text/plain",
                 BBOX: map.getExtent().toBBOX(),
                 SERVICE: "WMS",
-                VERSION: "1.1.0",
+                VERSION: "1.1.1",
 
                 X: Math.round(e.xy.x),
                 Y: Math.round(e.xy.y),
@@ -185,7 +185,7 @@
         var text = response.responseText
         var render_text = "";
         var data = jQuery(text).find('td');
-
+		alert(data)
 
         var th = [];
         th = jQuery(text).find('th');

@@ -25,6 +25,7 @@ paths = [
          "rapidsms_maintenance",
          "rapidsms_migrations",
          "rapidsms_locmigrations",
+         "rapidsms_proxy",
          ]
          
 filedir = os.path.dirname(__file__)
@@ -245,6 +246,7 @@ INSTALLED_APPS = (
 #    "rapidsms.router.db",
     "poll",
     "ureport",
+    'httpproxy',
     "script",
     "rapidsms_xforms",
     "eav",
