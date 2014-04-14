@@ -185,13 +185,13 @@
         var text = response.responseText
         var render_text = "";
         var data = jQuery(text).find('td');
-		alert(data)
+		//alert(data)
 
         var th = [];
         th = jQuery(text).find('th');
         jQuery.each(th, function(k, v) {
 
-            if (String(jQuery(v).text()) == "Province") {
+            if (String(jQuery(v).text()) == "province") {
                 render_text = render_text + "<p>Province: " + jQuery(data[k]).text() + "</p>";
             }
             else if (String(jQuery(v).text()) == "yes") {
