@@ -31,6 +31,8 @@ import tasks
 from django.conf import settings
 languages = getattr(settings, 'LANGUAGES', (('fr', 'French')))
 
+from django.utils.translation import ugettext as _
+
 
 class EditReporterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -507,7 +509,10 @@ class NewPollForm(forms.Form): # pragma: no cover
         except UnboundLocalError:
             pass
         if hasattr(Contact, 'groups'):
-            self.fields['groups'] = forms.ModelMultipleChoiceField(queryset=queryset, required=False)
+            GROUP_CHOICES = [(-1, _('Without Group'))]   
+            GROUP_CHOICES += [(id, name) for id, name in queryset.values_list('id', 'name')]
+#             self.fields['groups'] = forms.ModelMultipleChoiceField(queryset=queryset, required=False)
+            self.fields['groups'] = forms.MultipleChoiceField(choices=GROUP_CHOICES, required=False)
     
     provinces = forms.ModelMultipleChoiceField(queryset=
                                                Location.objects.filter(type__slug='district'

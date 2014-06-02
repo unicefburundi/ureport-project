@@ -214,7 +214,10 @@ def new_poll(req):
                 contacts = Contact.objects.filter(reporting_location__in=provinces).filter(groups__in=groups).exclude(
                     groups__in=excluded_groups)
             else:
-                contacts = Contact.objects.filter(groups__in=groups).exclude(groups__in=excluded_groups)
+                if -1 in groups or '-1' in groups:
+                    contacts = Contact.objects.all().exclude(groups__in=excluded_groups)
+                else:
+                    contacts = Contact.objects.filter(groups__in=groups).exclude(groups__in=excluded_groups)
 
             log.info("[new-poll] - found all contacts ok.")
 
