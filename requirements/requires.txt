@@ -17,5 +17,7 @@ python-memcached
 nltk
 httplib2
 djtables
-django-tastypie>=0.9.15
+django-tastypie>=0.9.16
 mock
+openpyxl==2.0.3
+django-selectable==0.8.0
