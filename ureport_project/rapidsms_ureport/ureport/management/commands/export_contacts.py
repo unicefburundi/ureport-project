@@ -57,14 +57,14 @@ FROM
 
   "rapidsms_contact"."health_facility" as facility,
 
-  "rapidsms_contact"."village_name" as village,
+  "rapidsms_contact"."colline_name" as colline,
 
 (SELECT
     "locations_location"."name"
  FROM
     "locations_location"
  WHERE
-    "locations_location"."id"="rapidsms_contact"."subcounty_id") as subcounty,
+    "locations_location"."id"="rapidsms_contact"."colline_id") as colline,
 
 
  (array(SELECT
@@ -227,8 +227,8 @@ LEFT JOIN
                     'Age',
                     'Gender',
                     'Health Facility',
-                    'Village',
-                    'Subcounty',
+                    'Colline', #colline
+                    'Commune', #Subconty
                     'Group 1',
                     'Group 2',
                     'Group 3',
@@ -302,16 +302,16 @@ LEFT JOIN
                             response.contact.reporting_location.name
                     else:
                         response_export_data['district'] = 'N/A'
-                    if response.contact and response.contact.village:
-                        response_export_data['village'] = \
-                            response.contact.village_name
+                    if response.contact and response.contact.colline:
+                        response_export_data['colline'] = \
+                            response.contact.colline_name
                     else:
-                        response_export_data['village'] = 'N/A'
-                    if response.contact and response.contact.subcounty:
-                        response_export_data['subcounty'] = \
-                            response.contact.subcounty.name
+                        response_export_data['colline'] = 'N/A'
+                    if response.contact and response.contact.colline:
+                        response_export_data['colline'] = \
+                            response.contact.colline_name
                     else:
-                        response_export_data['subcounty'] = 'N/A'
+                        response_export_data['colline'] = 'N/A'
                     if response.contact \
                         and response.contact.groups.count() > 0:
                         gr = list(response.contact.groups.order_by('pk').values_list('name', flat=True))
