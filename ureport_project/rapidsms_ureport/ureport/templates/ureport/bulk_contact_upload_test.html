@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "ureport_layout.html" %}
 {% block title %}
     Ureport Bulk Contacts Upload - {{ block.super }}
 {% endblock %}
@@ -21,7 +21,8 @@
 	<div class="module">
     <h3>Upload Contacts Excel File</h3>
     <table width="100%">
-    <form enctype="multipart/form-data" action="/uploadcontacts/" method="POST">
+    <form enctype="multipart/form-data" action="{% url "ureport.views.bulk_upload_contacts_test" %}" method="POST">
+    {%csrf_token %}
     {{ contactsform.as_table }}
     <tr>
     	<td></td>

@@ -52,3 +52,6 @@
 [submodule "ureport_project/rapidsms_locmigrations"]
 	path = ureport_project/rapidsms_locmigrations
 	url = https://github.com/unicefburundi/rapidsms-locmigrations.git
+[submodule "ureport_project/rapidsms_proxy"]
+	path = ureport_project/rapidsms_proxy
+	url = https://github.com/unicefburundi/rapidsms-proxy.git

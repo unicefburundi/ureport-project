@@ -98,6 +98,7 @@ urlpatterns = patterns('',
                        # export contacts to excel
                        url(r'^getcontacts/$', get_all_contacts, name="get_contacts"),
                        url(r'^uploadcontacts/$', bulk_upload_contacts, name="upload_contacts"),
+		       url(r'^uploadcontacts_test/$', bulk_upload_contacts_test, name="upload_contacts_test"),
                        #    url(r'^download/(?P<file>[a-z\.]+)/$', download_contacts_template),
                        url(r'^download/(?P<f>[a-z_\.]+)', download_contacts_template, name="download"),
                        # wrapper for clickatell api callbacks

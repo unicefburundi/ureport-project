@@ -307,6 +307,39 @@ def bulk_upload_contacts(request):
                               context_instance=RequestContext(request))
 
 
+@login_required
+def bulk_upload_contacts_test(request):
+    """
+    bulk upload contacts from an excel file
+    """
+    if request.method == 'POST':
+        contactsform = ExcelUploadForm(request.POST, request.FILES)
+        if contactsform.is_valid():
+            if contactsform.is_valid() \
+                and request.FILES.get('excel_file', None):
+                fields = [
+                    'telephone number',
+                    'name',
+                    'district',
+                    'county',
+                    'village',
+                    'age',
+                    'gender',
+                ]
+                message = handle_excel_file_test(request.FILES['excel_file'
+                                            ], contactsform.cleaned_data['assign_to_group'
+                                            ], fields)
+            return render_to_response('ureport/bulk_contact_upload.html'
+                , {'contactsform': contactsform, 'message'
+                : message},
+                                      context_instance=RequestContext(request))
+
+    contactsform = ExcelUploadForm()
+    return render_to_response('ureport/bulk_contact_upload_test.html',
+                              {'contactsform': contactsform},
+                              context_instance=RequestContext(request))
+
+
 def download_contacts_template(request, f):
     path = getattr(settings, 'DOWNLOADS_FOLDER', None)
     fh = open(path + f)
