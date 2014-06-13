@@ -45,7 +45,7 @@ WHERE
  ) LIMIT 1
 ) as quit_date,
 
-"locations_location"."name" as district,
+"locations_location"."name" as province,
 
 (
  %d-EXTRACT('year'
@@ -64,7 +64,7 @@ FROM
  FROM
     "locations_location"
  WHERE
-    "locations_location"."id"="rapidsms_contact"."colline_id") as colline,
+    "locations_location"."id"="rapidsms_contact"."colline_id") as location,
 
 
  (array(SELECT
@@ -223,11 +223,11 @@ LEFT JOIN
                     'Language',
                     'Join Date',
                     'Quit Date',
-                    'District',
+                    'Province',
                     'Age',
                     'Gender',
                     'Health Facility',
-                    'Colline', #colline
+                    'Colline', #village
                     'Commune', #Subconty
                     'Group 1',
                     'Group 2',
