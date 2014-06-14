@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*-
 
 from xlrd import open_workbook
-from uganda_common.utils import assign_backend
+from uganda_common.utils import assign_backend, assign_backend_test
 from script.utils.handling import find_closest_match
-from rapidsms.models import Connection
+from rapidsms.models import Connection, Backend, Contact
 from rapidsms.contrib.locations.models import Location
 from django.contrib.auth.models import Group
 import datetime
+#import logging
 
 
 
@@ -32,8 +33,19 @@ def parse_telephone(row, worksheet, cols):
         number = str(worksheet.cell(row, cols['telephone']).value)
     return number.replace('-', '').strip().replace(' ', '')
 
+def parse_telephone_test(row, worksheet, cols):
+    try:
+        number = str(worksheet.cell(row, cols['telephone number'
+        ]).value)
+    except KeyError:
+        number = str(worksheet.cell(row, cols['number']).value)
+    return number.replace('-', '').strip().replace(' ', '')
+
 
 def parse_name(row, worksheet, cols):
+    v=worksheet.cell(row, cols['name']).value
+    print("v")
+    print(v)
     try:
         name = str(worksheet.cell(row, cols['company name'
         ]).value).strip()
@@ -48,9 +60,10 @@ def parse_name(row, worksheet, cols):
         return 'Anonymous User'
 
 
+#def parse_district(row, worksheet, cols):
+#    return str(worksheet.cell(row, cols['district']).value)
 def parse_district(row, worksheet, cols):
-    return str(worksheet.cell(row, cols['district']).value)
-
+    return str(worksheet.cell(row, cols['province']).value)
 
 def parse_village(row, worksheet, cols):
     return str(worksheet.cell(row, cols['village']).value)
@@ -180,6 +193,89 @@ def handle_excel_file(file, group, fields):
     else:
         info = 'Invalid file'
     return info
+
+
+
+
+
+
+
+
+
+
+#def handle_excel_file_test(file, group, fields):
+def handle_excel_file_test(file, fields):
+    if file:
+        excel = file.read()
+        workbook = open_workbook(file_contents=excel)
+        worksheet = workbook.sheet_by_index(0)
+        cols = parse_header_row(worksheet, fields)
+        contacts = []
+        duplicates = []
+        invalid = []
+        info = ''
+
+
+        if worksheet.nrows > 1:
+                        
+            validated_numbers = []
+            for row in range(1, worksheet.nrows):
+                numbers = parse_telephone_test(row, worksheet, cols)
+
+                for raw_num in numbers.split('/'):
+                    if raw_num[-2:] == '.0':
+                        raw_num = raw_num[:-2]
+                    if raw_num[:1] == '+':
+                        raw_num = raw_num[1:]
+                    if len(raw_num) >= 9:
+                        validated_numbers.append(raw_num)
+
+
+            for row in range(1, worksheet.nrows):
+                numbers = parse_telephone_test(row, worksheet, cols)
+                if len(numbers) > 0:
+
+                    contact = {}
+                    contact['name'] = parse_name(row, worksheet, cols)
+
+
+                    birthdate = (parse_birthdate(row, worksheet,
+                        cols) if 'age' in fields else None)
+                    gender = (parse_gender(row, worksheet,
+                        cols) if 'gender' in fields else None)
+
+
+                    if birthdate:
+                        contact['birthdate'] = birthdate
+                    if gender:
+                        contact['gender'] = gender
+
+
+                    for raw_num in numbers.split('/'):
+                        print("rownum")
+                        print(raw_num)
+                        if raw_num[-2:] == '.0':
+                            raw_num = raw_num[:-2]
+                        if raw_num[:1] == '+':
+                            raw_num = raw_num[1:]
+                        if len(raw_num) >= 9:
+                            print("rownum11")
+                            print(raw_num)   
+                            (number, backend) =\
+                             assign_backend_test(raw_num)                          
+
+                            cone= Connection.objects.filter(identity=unicode(number))[0]
+
+                            conta= cone.contact
+                            conta.name=contact['name']
+                            conta.gender=gender
+                            conta.birthdate=birthdate
+                            conta.save()
+
+                            
+
+                            
+
 
 
 
