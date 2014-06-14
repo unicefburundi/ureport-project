@@ -126,6 +126,34 @@ class ExcelUploadForm(forms.Form):
         return self.cleaned_data
 
 
+class ExcelTestUploadForm(forms.Form):
+    excel_file = forms.FileField(label='Contacts Excel File',
+                                 required=False)
+    assign_to_group = \
+        forms.ModelChoiceField(queryset=Group.objects.all(),
+                               required=False)
+
+    #    def __init__(self, data=None, **kwargs):
+    #        self.request=kwargs.pop('request')
+    #        if data:
+    #            forms.Form.__init__(self, data, **kwargs)
+    #        else:
+    #            forms.Form.__init__(self, **kwargs)
+    #        if hasattr(Contact, 'groups'):
+    #            if self.request.user.is_authenticated():
+    #                self.fields['assign_to_group'] = forms.ModelChoiceField(queryset=Group.objects.filter(pk__in=self.request.user.groups.values_list('pk',flat=True)), required=False)
+    #            else:
+    #                self.fields['assign_to_group'] = forms.ModelChoiceField(queryset=Group.objects.all(), required=False)
+
+    def clean(self):
+        excel = self.cleaned_data.get('excel_file', None)
+        if excel and excel.name.rsplit('.')[1] != 'xlsx':
+            msg = u'Upload valid excel file !!!'
+            self._errors['excel_file'] = ErrorList([msg])
+            return ''
+        return self.cleaned_data
+
+
 class SearchResponsesForm(FilterForm):
     """ search responses
     """
