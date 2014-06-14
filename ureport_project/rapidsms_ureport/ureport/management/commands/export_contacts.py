@@ -25,6 +25,12 @@ class Command(BaseCommand):
         """    SELECT
 "rapidsms_contact"."id",
 "rapidsms_contact"."language",
+(SELECT
+    "rapidsms_connection"."identity"
+ FROM
+    "rapidsms_connection"
+ WHERE
+    "rapidsms_connection"."contact_id"="rapidsms_contact"."id") as identity,
 "rapidsms_contact"."created_on",
 
 
@@ -55,7 +61,7 @@ FROM
 
  "rapidsms_contact"."gender",
 
-  "rapidsms_contact"."health_facility" as facility,
+ "rapidsms_contact"."health_facility" as facility,
 
   "rapidsms_contact"."colline_name" as colline,
 
@@ -129,7 +135,7 @@ JOIN "poll_response"
 
 
 
-    (SELECT DISTINCT count(*)
+(SELECT DISTINCT count(*)
 
 FROM "rapidsms_httprouter_message"
 
@@ -217,8 +223,8 @@ LEFT JOIN
             row_0 = [
                 (
                     'Id',
-		            'Number',
                     'Language',
+                    'Identity',
                     'Join Date',
                     'Quit Date',
                     'Province',
