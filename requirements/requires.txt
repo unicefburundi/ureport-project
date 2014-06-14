@@ -11,11 +11,14 @@ django-nose>=0.1
 django-tablib
 django-uni-form
 djappsettings==0.1.0
-nose==0.11.4
+nose==1.3.0
 nose-exclude
 python-memcached
 nltk
 httplib2
 djtables
-django-tastypie>=0.9.15
+django-tastypie>=0.9.16
 mock
+django-selectable==0.8.0
+openpyxl==1.8.6
+
