@@ -330,9 +330,10 @@ def bulk_upload_contacts_test(request):
                     'birthdate',
                     'gender',
                 ]
-                message = handle_excel_file_test(request.FILES['excel_file'
-                                            ], contactsform.cleaned_data['assign_to_group'
-                                            ], fields)
+                #message = handle_excel_file_test(request.FILES['excel_file'
+                #                            ], contactsform.cleaned_data['assign_to_group'
+                #                            ], fields)
+                message = handle_excel_file_test(request.FILES['excel_file'], fields)
                 print("AVANT LA VARIABLE MESSAGE")
                 print(message)
                 print("APRES LA VARIABLE MESSAGE")

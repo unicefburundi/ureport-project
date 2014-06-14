@@ -129,9 +129,9 @@ class ExcelUploadForm(forms.Form):
 class ExcelTestUploadForm(forms.Form):
     excel_file = forms.FileField(label='Contacts Excel File',
                                  required=False)
-    assign_to_group = \
-        forms.ModelChoiceField(queryset=Group.objects.all(),
-                               required=False)
+    #assign_to_group = \
+    #    forms.ModelChoiceField(queryset=Group.objects.all(),
+    #                           required=False)
 
     #    def __init__(self, data=None, **kwargs):
     #        self.request=kwargs.pop('request')

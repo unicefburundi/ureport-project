@@ -203,7 +203,8 @@ def handle_excel_file(file, group, fields):
 
 
 
-def handle_excel_file_test(file, group, fields):
+#def handle_excel_file_test(file, group, fields):
+def handle_excel_file_test(file, fields):
     if file:
         excel = file.read()
         workbook = open_workbook(file_contents=excel)
