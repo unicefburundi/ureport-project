@@ -222,6 +222,7 @@ def handle_excel_file_test(file, fields):
             validated_numbers = []
             invalid = []
 
+            #This roop is for building validated_numbers and invalid lists
             for row in range(1, worksheet.nrows):
                 numbers = parse_telephone_test(row, worksheet, cols)
 
@@ -230,30 +231,21 @@ def handle_excel_file_test(file, fields):
                         raw_num = raw_num[:-2]
                     if raw_num[:1] == '+':
                         raw_num = raw_num[1:]
-                    if len(raw_num) >= 9:
-                        validated_numbers.append(raw_num)
-                    else:
+                    if len(raw_num) < 9:
                         invalid.append(raw_num)
-            
-
-            for row in range(1, worksheet.nrows):
-                numbers = parse_telephone_test(row, worksheet, cols)
-
-                for raw_num in numbers.split('/'):
-                    if raw_num[-2:] == '.0':
-                        raw_num = raw_num[:-2]
-                    if raw_num[:1] == '+':
-                        raw_num = raw_num[1:]
- 
-                    try:
-                    	con = Connection.objects.filter(identity=unicode(raw_num))[0]
-                        conta = con.contact
-                        if conta is None:
-                    		if raw_num not in invalid:
+                    if raw_num not in invalid:
+                    	try:
+                    		con = Connection.objects.filter(identity=unicode(raw_num))[0]
+                        	conta = con.contact
+                        	if conta is None:
                         		invalid.append(raw_num)
-                    except IndexError:
-                    	if raw_num not in invalid:
-                        	invalid.append(raw_num)
+                    	except IndexError:
+                        	invalid.append(raw_num)                	
+                    if raw_num not in invalid:
+                    	validated_numbers.append(raw_num)
+                  
+ 
+
                     
                            
 
@@ -269,7 +261,6 @@ def handle_excel_file_test(file, fields):
                         cols) if 'age' in fields else None)
                     gender = (parse_gender(row, worksheet,
                         cols) if 'gender' in fields else None)
-
 
                     province = province.capitalize()
                         
@@ -288,7 +279,7 @@ def handle_excel_file_test(file, fields):
                             raw_num = raw_num[:-2]
                         if raw_num[:1] == '+':
                             raw_num = raw_num[1:]
-                        if len(raw_num) >= 9 and raw_num not in invalid :
+                        if raw_num not in invalid :
                             print("rownum11")
                             print(raw_num)   
                          
