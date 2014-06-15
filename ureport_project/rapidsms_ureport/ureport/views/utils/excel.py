@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from xlrd import open_workbook
-from uganda_common.utils import assign_backend, assign_backend_test
+from uganda_common.utils import assign_backend
+#, assign_backend_test
 from script.utils.handling import find_closest_match
 from rapidsms.models import Connection, Backend, Contact
 from rapidsms.contrib.locations.models import Location
@@ -219,6 +220,8 @@ def handle_excel_file_test(file, fields):
         if worksheet.nrows > 1:
                         
             validated_numbers = []
+            invalid = []
+
             for row in range(1, worksheet.nrows):
                 numbers = parse_telephone_test(row, worksheet, cols)
 
@@ -229,26 +232,53 @@ def handle_excel_file_test(file, fields):
                         raw_num = raw_num[1:]
                     if len(raw_num) >= 9:
                         validated_numbers.append(raw_num)
+                    else:
+                        invalid.append(raw_num)
+            
+
+            for row in range(1, worksheet.nrows):
+                numbers = parse_telephone_test(row, worksheet, cols)
+
+                for raw_num in numbers.split('/'):
+                    if raw_num[-2:] == '.0':
+                        raw_num = raw_num[:-2]
+                    if raw_num[:1] == '+':
+                        raw_num = raw_num[1:]
+ 
+                    try:
+                    	con = Connection.objects.filter(identity=unicode(raw_num))[0]
+                        conta = con.contact
+                        if conta is None:
+                    		if raw_num not in invalid:
+                        		invalid.append(raw_num)
+                    except IndexError:
+                    	if raw_num not in invalid:
+                        	invalid.append(raw_num)
+                    
+                           
 
 
             for row in range(1, worksheet.nrows):
                 numbers = parse_telephone_test(row, worksheet, cols)
                 if len(numbers) > 0:
 
-                    contact = {}
-                    contact['name'] = parse_name(row, worksheet, cols)
-
-
+                    name = parse_name(row, worksheet, cols)
+                    province = (parse_district(row, worksheet,
+                        cols) if 'province' in fields else None)
                     birthdate = (parse_birthdate(row, worksheet,
                         cols) if 'age' in fields else None)
                     gender = (parse_gender(row, worksheet,
                         cols) if 'gender' in fields else None)
 
 
-                    if birthdate:
-                        contact['birthdate'] = birthdate
-                    if gender:
-                        contact['gender'] = gender
+                    province = province.capitalize()
+                        
+                    l = Location.objects.filter(name=province)
+                    if l :
+                    	l=l[0]
+                    else :
+                        l = Location.objects.create(name=province)
+
 
 
                     for raw_num in numbers.split('/'):
@@ -258,24 +288,42 @@ def handle_excel_file_test(file, fields):
                             raw_num = raw_num[:-2]
                         if raw_num[:1] == '+':
                             raw_num = raw_num[1:]
-                        if len(raw_num) >= 9:
+                        if len(raw_num) >= 9 and raw_num not in invalid :
                             print("rownum11")
                             print(raw_num)   
-                            (number, backend) =\
-                             assign_backend_test(raw_num)                          
+                         
 
-                            cone= Connection.objects.filter(identity=unicode(number))[0]
-
+                            cone= Connection.objects.filter(identity=unicode(raw_num))[0]
                             conta= cone.contact
-                            conta.name=contact['name']
+
+                            conta.name=name
                             conta.gender=gender
                             conta.birthdate=birthdate
+                            conta.reporting_location = l
                             conta.save()
+                            contacts.append(raw_num)
 
                             
+             
+            if len(contacts) > 0:
+                info = 'Contacts with numbers... '\
+                       + ' ,'.join(contacts)\
+                + ''' have been uploaded !
 
-                            
+'''
 
+            if len(invalid) > 0:
+                info = info\
+                       + 'The following numbers may be invalid and thus have not been considered: '\
+                       + ' ,'.join(invalid) + '''
+
+'''
+        else:
+            info =\
+            'You seem to have uploaded an empty excel file, please fill the excel Contacts Template with contacts and upload again...'
+    else:
+        info = 'Invalid file'
+    return info
 
 
 
