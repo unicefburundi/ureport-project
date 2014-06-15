@@ -235,20 +235,32 @@ def handle_excel_file_test(file, fields):
                 numbers = parse_telephone_test(row, worksheet, cols)
                 if len(numbers) > 0:
 
-                    contact = {}
-                    contact['name'] = parse_name(row, worksheet, cols)
+                    #contact = {}
+                    #contact['name'] = parse_name(row, worksheet, cols)
 
-
+                    name = parse_name(row, worksheet, cols)
+                    province = (parse_district(row, worksheet,
+                        cols) if 'province' in fields else None)
                     birthdate = (parse_birthdate(row, worksheet,
                         cols) if 'age' in fields else None)
                     gender = (parse_gender(row, worksheet,
                         cols) if 'gender' in fields else None)
 
+                    #if province:
+                    province = province.capitalize()
+                        
+                    l = Location.objects.filter(name=province)
+                    if l :
+                    	l=l[0]
+                    else :
+                        l = Location.objects.create(name=province)
+                    
+                    #print('Je passe ici.')
 
-                    if birthdate:
-                        contact['birthdate'] = birthdate
-                    if gender:
-                        contact['gender'] = gender
+                    #if birthdate:
+                    #    contact['birthdate'] = birthdate
+                    #if gender:
+                    #    contact['gender'] = gender
 
 
                     for raw_num in numbers.split('/'):
@@ -265,11 +277,12 @@ def handle_excel_file_test(file, fields):
                              assign_backend_test(raw_num)                          
 
                             cone= Connection.objects.filter(identity=unicode(number))[0]
-
                             conta= cone.contact
-                            conta.name=contact['name']
+
+                            conta.name=name
                             conta.gender=gender
                             conta.birthdate=birthdate
+                            conta.reporting_location = l
                             conta.save()
 
                             
