@@ -219,6 +219,8 @@ def handle_excel_file_test(file, fields):
         if worksheet.nrows > 1:
                         
             validated_numbers = []
+            invalid = []
+
             for row in range(1, worksheet.nrows):
                 numbers = parse_telephone_test(row, worksheet, cols)
 
@@ -229,6 +231,9 @@ def handle_excel_file_test(file, fields):
                         raw_num = raw_num[1:]
                     if len(raw_num) >= 9:
                         validated_numbers.append(raw_num)
+                    else:
+                        invalid.append(raw_num)
+                        
 
 
             for row in range(1, worksheet.nrows):
@@ -284,11 +289,30 @@ def handle_excel_file_test(file, fields):
                             conta.birthdate=birthdate
                             conta.reporting_location = l
                             conta.save()
+                            contacts.append(number)
 
                             
 
                             
+            if len(contacts) > 0:
+                info = 'Contacts with numbers... '\
+                       + ' ,'.join(contacts)\
+                + ''' have been uploaded !
 
+'''
+
+            if len(invalid) > 0:
+                info = info\
+                       + 'The following numbers may be invalid and thus have not been considered: '\
+                       + ' ,'.join(invalid) + '''
+
+'''
+        else:
+            info =\
+            'You seem to have uploaded an empty excel file, please fill the excel Contacts Template with contacts and upload again...'
+    else:
+        info = 'Invalid file'
+    return info
 
 
 
