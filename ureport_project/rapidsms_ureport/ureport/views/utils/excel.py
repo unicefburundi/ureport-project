@@ -34,7 +34,7 @@ def parse_telephone(row, worksheet, cols):
         number = str(worksheet.cell(row, cols['telephone']).value)
     return number.replace('-', '').strip().replace(' ', '')
 
-def parse_telephone_test(row, worksheet, cols):
+def parse_telephone_number(row, worksheet, cols):
     try:
         number = str(worksheet.cell(row, cols['telephone number'
         ]).value)
@@ -201,7 +201,7 @@ def handle_excel_file(file, group, fields):
 
 
 
-def handle_excel_file_test(file, fields):
+def handle_excel_file_update(file, fields):
     if file:
         excel = file.read()
         workbook = open_workbook(file_contents=excel)
@@ -220,7 +220,7 @@ def handle_excel_file_test(file, fields):
 
            
             for row in range(1, worksheet.nrows):
-                numbers = parse_telephone_test(row, worksheet, cols)
+                numbers = parse_telephone_number(row, worksheet, cols)
             	if len(numbers) > 0:
                 	for raw_num in numbers.split('/'):
                     		if raw_num[-2:] == '.0':
