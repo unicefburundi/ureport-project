@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from xlrd import open_workbook
-from uganda_common.utils import assign_backend, assign_backend_test
+from uganda_common.utils import assign_backend
+#, assign_backend_test
 from script.utils.handling import find_closest_match
 from rapidsms.models import Connection, Backend, Contact
 from rapidsms.contrib.locations.models import Location
@@ -290,10 +291,9 @@ def handle_excel_file_test(file, fields):
                         if len(raw_num) >= 9 and raw_num not in invalid :
                             print("rownum11")
                             print(raw_num)   
-                            (number, backend) =\
-                             assign_backend_test(raw_num)                          
+                         
 
-                            cone= Connection.objects.filter(identity=unicode(number))[0]
+                            cone= Connection.objects.filter(identity=unicode(raw_num))[0]
                             conta= cone.contact
 
                             conta.name=name
@@ -301,7 +301,7 @@ def handle_excel_file_test(file, fields):
                             conta.birthdate=birthdate
                             conta.reporting_location = l
                             conta.save()
-                            contacts.append(number)
+                            contacts.append(raw_num)
 
                             
              
