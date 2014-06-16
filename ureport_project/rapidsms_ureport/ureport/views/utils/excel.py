@@ -34,7 +34,7 @@ def parse_telephone(row, worksheet, cols):
         number = str(worksheet.cell(row, cols['telephone']).value)
     return number.replace('-', '').strip().replace(' ', '')
 
-def parse_telephone_test(row, worksheet, cols):
+def parse_telephone_number(row, worksheet, cols):
     try:
         number = str(worksheet.cell(row, cols['telephone number'
         ]).value)
@@ -201,11 +201,7 @@ def handle_excel_file(file, group, fields):
 
 
 
-
-
-
-#def handle_excel_file_test(file, group, fields):
-def handle_excel_file_test(file, fields):
+def handle_excel_file_update(file, fields):
     if file:
         excel = file.read()
         workbook = open_workbook(file_contents=excel)
@@ -222,86 +218,56 @@ def handle_excel_file_test(file, fields):
             validated_numbers = []
             invalid = []
 
+           
             for row in range(1, worksheet.nrows):
-                numbers = parse_telephone_test(row, worksheet, cols)
-
-                for raw_num in numbers.split('/'):
-                    if raw_num[-2:] == '.0':
-                        raw_num = raw_num[:-2]
-                    if raw_num[:1] == '+':
-                        raw_num = raw_num[1:]
-                    if len(raw_num) >= 9:
-                        validated_numbers.append(raw_num)
-                    else:
-                        invalid.append(raw_num)
-            
-
-            for row in range(1, worksheet.nrows):
-                numbers = parse_telephone_test(row, worksheet, cols)
-
-                for raw_num in numbers.split('/'):
-                    if raw_num[-2:] == '.0':
-                        raw_num = raw_num[:-2]
-                    if raw_num[:1] == '+':
-                        raw_num = raw_num[1:]
- 
-                    try:
-                    	con = Connection.objects.filter(identity=unicode(raw_num))[0]
-                        conta = con.contact
-                        if conta is None:
-                    		if raw_num not in invalid:
+                numbers = parse_telephone_number(row, worksheet, cols)
+            	if len(numbers) > 0:
+                	for raw_num in numbers.split('/'):
+                    		if raw_num[-2:] == '.0':
+                        		raw_num = raw_num[:-2]
+                    		if raw_num[:1] == '+':
+                        		raw_num = raw_num[1:]
+                    		if len(raw_num) < 9:
                         		invalid.append(raw_num)
-                    except IndexError:
-                    	if raw_num not in invalid:
-                        	invalid.append(raw_num)
-                    
-                           
+                    		if raw_num not in invalid:
+                    			try:
+                    				con = Connection.objects.filter(identity=unicode(raw_num))[0]
+                        			conta = con.contact
+                        			if conta is None:
+                        				invalid.append(raw_num)
+                    			except IndexError:
+                        			invalid.append(raw_num)  
+              	
 
+                    		if raw_num not in invalid:
+                    			validated_numbers.append(raw_num)
 
-            for row in range(1, worksheet.nrows):
-                numbers = parse_telephone_test(row, worksheet, cols)
-                if len(numbers) > 0:
+                                	name = parse_name(row, worksheet, cols)
+                                        province = (parse_district(row, worksheet,
+                    	                	cols) if 'province' in fields else None)
+                                        birthdate = (parse_birthdate(row, worksheet,
+                                        	cols) if 'age' in fields else None)
+                                        gender = (parse_gender(row, worksheet,
+                                        	cols) if 'gender' in fields else None)
 
-                    name = parse_name(row, worksheet, cols)
-                    province = (parse_district(row, worksheet,
-                        cols) if 'province' in fields else None)
-                    birthdate = (parse_birthdate(row, worksheet,
-                        cols) if 'age' in fields else None)
-                    gender = (parse_gender(row, worksheet,
-                        cols) if 'gender' in fields else None)
-
-
-                    province = province.capitalize()
+                                        province = province.capitalize()
                         
-                    l = Location.objects.filter(name=province)
-                    if l :
-                    	l=l[0]
-                    else :
-                        l = Location.objects.create(name=province)
+                                        l = Location.objects.filter(name=province)
+                                        if l :
+                    	                	l=l[0]
+                                        else :
+                                        	l = Location.objects.create(name=province)
 
 
+                                        cone= Connection.objects.filter(identity=unicode(raw_num))[0]
+                                        conta= cone.contact
 
-                    for raw_num in numbers.split('/'):
-                        print("rownum")
-                        print(raw_num)
-                        if raw_num[-2:] == '.0':
-                            raw_num = raw_num[:-2]
-                        if raw_num[:1] == '+':
-                            raw_num = raw_num[1:]
-                        if len(raw_num) >= 9 and raw_num not in invalid :
-                            print("rownum11")
-                            print(raw_num)   
-                         
-
-                            cone= Connection.objects.filter(identity=unicode(raw_num))[0]
-                            conta= cone.contact
-
-                            conta.name=name
-                            conta.gender=gender
-                            conta.birthdate=birthdate
-                            conta.reporting_location = l
-                            conta.save()
-                            contacts.append(raw_num)
+                                        conta.name=name
+                                        conta.gender=gender
+                                        conta.birthdate=birthdate
+                                        conta.reporting_location = l
+                                        conta.save()
+                                        contacts.append(raw_num)
 
                             
              

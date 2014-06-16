@@ -25,7 +25,7 @@ from unregister.models import Blacklist
 from django.conf import settings
 from rapidsms.contrib.locations.models import Location
 from django.contrib.auth.models import Group
-from ureport.views.utils.excel import handle_excel_file, handle_excel_file_test
+from ureport.views.utils.excel import handle_excel_file, handle_excel_file_update
 from ureport.utils import get_contacts, get_contacts2, get_access
 from contact.forms import MultipleDistictFilterForm, GenderFilterForm, FilterGroupsForm, AssignGroupForm, RemoveGroupForm
 from unregister.forms import BlacklistForm
@@ -308,19 +308,17 @@ def bulk_upload_contacts(request):
 
 
 @login_required
-def bulk_upload_contacts_test(request):
+def bulk_upload_contacts_to_update(request):
     """
     bulk upload contacts from an excel file
     """
-    print("111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111")
     if request.method == 'POST':
-        print("222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222")
+
         contactsform = ExcelTestUploadForm(request.POST, request.FILES)
+        message=''
         if contactsform.is_valid():
-            print("33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333")
             if contactsform.is_valid() \
                 and request.FILES.get('excel_file', None):
-                print("44444444444444444444444444444444444444444444444444444444444444444444444444444444444444")
                 fields = [
                     'number',
                     'name',
@@ -333,18 +331,16 @@ def bulk_upload_contacts_test(request):
                 #message = handle_excel_file_test(request.FILES['excel_file'
                 #                            ], contactsform.cleaned_data['assign_to_group'
                 #                            ], fields)
-                message = handle_excel_file_test(request.FILES['excel_file'], fields)
+                message = handle_excel_file_update(request.FILES['excel_file'], fields)
                 print("AVANT LA VARIABLE MESSAGE")
                 print(message)
                 print("APRES LA VARIABLE MESSAGE")
-            return render_to_response('ureport/bulk_contact_upload_test.html'
+            return render_to_response('ureport/bulk_contact_upload_update.html'
                 , {'contactsform': contactsform, 'message'
                 : message},
                                       context_instance=RequestContext(request))
-    print("55555555555555555555555555555555555555555555555555555555555555555555555555")
     contactsform = ExcelTestUploadForm()
-    print("66666666666666666666666666666666666666666666666666666666666666666666666666")
-    return render_to_response('ureport/bulk_contact_upload_test.html',
+    return render_to_response('ureport/bulk_contact_upload_update.html',
                               {'contactsform': contactsform},
                               context_instance=RequestContext(request))
 
