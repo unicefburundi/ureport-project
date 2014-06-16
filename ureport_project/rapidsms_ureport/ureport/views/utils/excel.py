@@ -66,6 +66,13 @@ def parse_name(row, worksheet, cols):
 def parse_district(row, worksheet, cols):
     return str(worksheet.cell(row, cols['province']).value)
 
+def parse_commune(row, worksheet, cols):
+    return str(worksheet.cell(row, cols['commune']).value)
+def parse_colline(row, worksheet, cols):
+    return str(worksheet.cell(row, cols['colline']).value)
+def parse_language(row, worksheet, cols):
+    return str(worksheet.cell(row, cols['language']).value)
+
 def parse_village(row, worksheet, cols):
     return str(worksheet.cell(row, cols['village']).value)
 
@@ -245,6 +252,12 @@ def handle_excel_file_update(file, fields):
                                 	name = parse_name(row, worksheet, cols)
                                         province = (parse_district(row, worksheet,
                     	                	cols) if 'province' in fields else None)
+                                        commune = (parse_commune(row, worksheet,
+                    	                	cols) if 'commune' in fields else None)
+                                        colline = (parse_colline(row, worksheet,
+                    	                	cols) if 'colline' in fields else None)
+                                        language = (parse_language(row, worksheet,
+                    	                	cols) if 'language' in fields else None)
                                         birthdate = (parse_birthdate(row, worksheet,
                                         	cols) if 'age' in fields else None)
                                         gender = (parse_gender(row, worksheet,
@@ -259,10 +272,30 @@ def handle_excel_file_update(file, fields):
                                         	l = Location.objects.create(name=province)
 
 
+                                        commune = commune.capitalize()
+                                        l1 = Location.objects.filter(name=commune)
+                                        if l1 :
+                    	                	l1=l1[0]
+                                        else :
+                                        	l1 = Location.objects.create(name=commune)
+
+
+                                        colline = colline.capitalize()
+                                        l2 = Location.objects.filter(name=colline)
+                                        if l2 :
+                    	                	l2=l2[0]
+                                        else :
+                                        	l2 = Location.objects.create(name=colline)
+
+
+
                                         cone= Connection.objects.filter(identity=unicode(raw_num))[0]
                                         conta= cone.contact
 
                                         conta.name=name
+					conta.commune=l1
+                                        conta.colline=l2
+                                        conta.language=language
                                         conta.gender=gender
                                         conta.birthdate=birthdate
                                         conta.reporting_location = l
