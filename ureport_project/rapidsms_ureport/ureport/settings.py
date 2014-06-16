@@ -87,7 +87,10 @@ drop_words=[
 'il',
 'que',
 'aux',
-'contre'
+'contre',
+'comme',
+'pas',
+'ces'
 ]
 
 tag_cloud_size=60
