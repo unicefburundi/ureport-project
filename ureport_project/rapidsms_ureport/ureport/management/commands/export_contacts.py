@@ -83,42 +83,7 @@ FROM
           "auth_group"."id" = "rapidsms_contact_groups"."group_id"
        )
  WHERE
-    "rapidsms_contact_groups"."contact_id" = "rapidsms_contact"."id" order by "auth_group"."id" ))[1] as groupe,
-
-
-(array(SELECT
-    "auth_group"."name"
- FROM
-    "auth_group"
- INNER JOIN
-    "rapidsms_contact_groups"
-       ON (
-          "auth_group"."id" = "rapidsms_contact_groups"."group_id"
-       )
- WHERE
-    "rapidsms_contact_groups"."contact_id" = "rapidsms_contact"."id" order by "auth_group"."id" ))[2] as group2,
-
-
-(array(SELECT
-    "auth_group"."name"
- FROM
-    "auth_group"
- INNER JOIN
-    "rapidsms_contact_groups"
-       ON (
-          "auth_group"."id" = "rapidsms_contact_groups"."group_id"
-       )
- WHERE
-    "rapidsms_contact_groups"."contact_id" = "rapidsms_contact"."id" order by "auth_group"."id" ))[3] as group3,
-
-
-
-(SELECT
-"rapidsms_httprouter_message"."text"
-FROM "rapidsms_httprouter_message"
-JOIN "poll_response"
-    ON "poll_response"."message_id"= "rapidsms_httprouter_message"."id"  where poll_id=121 and contact_id="rapidsms_contact"."id" and has_errors='f' limit 1) as source,
-
+    "rapidsms_contact_groups"."contact_id" = "rapidsms_contact"."id" order by "auth_group"."id" ))[1] as group,
 
 (SELECT
  COUNT(*) FROM
@@ -224,7 +189,7 @@ LEFT JOIN
                 (
                     'Id',
                     'Language',
-                    'Identity',
+                    'Number',
                     'Join Date',
                     'Quit Date',
                     'Province',
@@ -233,10 +198,7 @@ LEFT JOIN
                     'Health Facility',
                     'Colline', #village
                     'Commune', #Subconty
-                    'Group 1',
-                    'Group 2',
-                    'Group 3',
-                    'How did you hear about ureport?',
+                    'Group',
                     'Number Of Responses',
                     'Number Of Questions Asked',
                     'Number of Incoming',
@@ -244,7 +206,7 @@ LEFT JOIN
             ]
 
             rows = row_0 + cursor.fetchall()
-            kinds = "int text text date date text int text text text text text text text text text text text".split()
+            kinds = "int text text date date text int text text text text text text text text".split()
             kind_to_xf_map = {
                 'date': ezxf(num_format_str='yyyy-mm-dd'),
                 'int': ezxf(num_format_str='#,##0'),
