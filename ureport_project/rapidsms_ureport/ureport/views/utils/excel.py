@@ -76,6 +76,8 @@ def parse_language(row, worksheet, cols):
 def parse_village(row, worksheet, cols):
     return str(worksheet.cell(row, cols['village']).value)
 
+def parse_group(row, worksheet, cols):
+    return str(worksheet.cell(row, cols['group']).value)
 
 def parse_birthdate(row, worksheet, cols):
     try:
@@ -262,6 +264,10 @@ def handle_excel_file_update(file, fields):
                                         	cols) if 'age' in fields else None)
                                         gender = (parse_gender(row, worksheet,
                                         	cols) if 'gender' in fields else None)
+                                        group = (parse_group(row, worksheet,
+                                        	cols) if 'group' in fields else None)
+                                        print("Dans group il y a ")
+                                        print(group)
 
                                         province = province.capitalize()
                         
@@ -288,7 +294,17 @@ def handle_excel_file_update(file, fields):
                                         	l2 = Location.objects.create(name=colline)
 
 
+                                        g=Group.objects.filter(name='Other Reporters')[0]
+                                        if group:
+                                        	group = group.capitalize()
+                                        	g1 = Group.objects.filter(name=group)[0]
+                                        	if g1 :
+                    	                		g=g1
 
+
+
+                                        print('Dans g.name il y a')
+                                        print(g.name)
                                         cone= Connection.objects.filter(identity=unicode(raw_num))[0]
                                         conta= cone.contact
 
@@ -299,6 +315,11 @@ def handle_excel_file_update(file, fields):
                                         conta.gender=gender
                                         conta.birthdate=birthdate
                                         conta.reporting_location = l
+                                        print('conta.groups.all() avant')
+                                        print(conta.groups.all())
+                                        conta.groups.add(g)
+                                        print('conta.groups.all() apres')
+                                        print(conta.groups.all())
                                         conta.save()
                                         contacts.append(raw_num)
 

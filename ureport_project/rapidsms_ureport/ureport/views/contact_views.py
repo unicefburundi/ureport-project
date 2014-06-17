@@ -329,6 +329,7 @@ def bulk_upload_contacts_to_update(request):
                     'county',
                     'village',
                     'birthdate',
+                    'group',
                     'gender',
                 ]
                 #message = handle_excel_file_test(request.FILES['excel_file'
