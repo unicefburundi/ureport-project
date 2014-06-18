@@ -252,12 +252,8 @@ def handle_excel_file_update(file, fields):
                     			validated_numbers.append(raw_num)
 
                                 	name = parse_name(row, worksheet, cols)
-                                        print('len(name) AVANT')
-                                        print(len(name))
-                                        #if len(name)>95:
-                                        	#name = name[0:90]
-                                        print('len(name) APRES')
-                                        print(len(name))
+                                        if len(name)>95:
+                                        	name = name[0:90]
                                         province = (parse_district(row, worksheet,
                     	                	cols) if 'province' in fields else None)
                                         commune = (parse_commune(row, worksheet,
@@ -302,7 +298,6 @@ def handle_excel_file_update(file, fields):
 
                                         g=Group.objects.filter(name='Other Reporters')[0]
                                         if group:
-                                        	#group = group.capitalize()
                                         	g1 = Group.objects.filter(name=group)[0]
                                         	if g1 :
                     	                		g=g1
