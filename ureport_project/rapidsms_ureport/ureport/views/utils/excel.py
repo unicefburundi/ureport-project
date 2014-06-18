@@ -223,11 +223,11 @@ def handle_excel_file_update(file, fields):
 
 
         if worksheet.nrows > 1:
-                        
+
             validated_numbers = []
             invalid = []
 
-           
+
             for row in range(1, worksheet.nrows):
                 numbers = parse_telephone_number(row, worksheet, cols)
             	if len(numbers) > 0:
@@ -245,8 +245,8 @@ def handle_excel_file_update(file, fields):
                         			if conta is None:
                         				invalid.append(raw_num)
                     			except IndexError:
-                        			invalid.append(raw_num)  
-              	
+                        			invalid.append(raw_num)
+
 
                     		if raw_num not in invalid:
                     			validated_numbers.append(raw_num)
@@ -276,7 +276,7 @@ def handle_excel_file_update(file, fields):
                                         print(group)
 
                                         province = province.capitalize()
-                        
+
                                         l = Location.objects.filter(name=province)
                                         if l :
                     	                	l=l[0]
@@ -302,7 +302,7 @@ def handle_excel_file_update(file, fields):
 
                                         g=Group.objects.filter(name='Other Reporters')[0]
                                         if group:
-                                        	group = group.capitalize()
+                                        	#group = group.capitalize()
                                         	g1 = Group.objects.filter(name=group)[0]
                                         	if g1 :
                     	                		g=g1
@@ -329,8 +329,8 @@ def handle_excel_file_update(file, fields):
                                         conta.save()
                                         contacts.append(raw_num)
 
-                            
-             
+
+
             if len(contacts) > 0:
                 info = 'Contacts with numbers... '\
                        + ' ,'.join(contacts)\
