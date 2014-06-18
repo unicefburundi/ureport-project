@@ -266,7 +266,7 @@ class AssignToNewPollForm(ActionForm):
     POLL_TYPES = [('yn', 'Yes/No Question')] + [(c['type'], c['label']) for c in Poll.TYPE_CHOICES.values()]
     response_type = forms.ChoiceField(choices=Poll.RESPONSE_TYPE_CHOICES, widget=RadioSelect)
     poll_type = forms.ChoiceField(choices=POLL_TYPES)
-    
+
     def __init__(self, data=None, **kwargs):
         self.request = kwargs.pop('request')
         if data:
@@ -303,7 +303,7 @@ class AssignToNewPollForm(ActionForm):
                 Translation.objects.get_or_create(language='ki',
                     field=self.cleaned_data['question_fr'],
                     value=self.cleaned_data['question_ki'])
-                    
+
         if not len(results):
             return ('No contacts selected', 'error')
         name = self.cleaned_data['poll_name']
@@ -406,7 +406,7 @@ class MassTextForm(ActionForm):
             forms.Form.__init__(self, data, **kwargs)
         else:
             forms.Form.__init__(self, **kwargs)
-            
+
         i = 0
         for lang, lang_verbose in languages:
             form_name = 'text_%s' % lang
@@ -425,7 +425,7 @@ class MassTextForm(ActionForm):
 
         if request.user and request.user.has_perm('contact.can_message'):
             blacklists = Blacklist.objects.values_list('connection')
-            
+
             #TODO: Revise for proper internationalization
             languages = ["fr"]
             text_fr = self.cleaned_data.get('text_fr', "")
@@ -444,12 +444,12 @@ class MassTextForm(ActionForm):
                     Translation.objects.get_or_create(language='ki',
                         field=self.cleaned_data['text_fr'],
                         value=self.cleaned_data['text_ki'])
-            
+
             #Everyone gets a message in their language. This behavior may not be ideal
             #since one may wish to send out a non translated message to everyone regardless of language
-            #TODO: allow sending of non translated message to everyone using a flag   
-            total_connections = [] 
-            for language in languages:        
+            #TODO: allow sending of non translated message to everyone using a flag
+            total_connections = []
+            for language in languages:
                 connections = Connection.objects.filter(contact__in=results.filter(language=language)).exclude(pk__in=blacklists).distinct()
                 messages = Message.mass_text(gettext_db(field=text_fr, language=language), connections)
                 contacts = Contact.objects.filter(pk__in=results)
@@ -464,7 +464,7 @@ class MassTextForm(ActionForm):
 #                     MassText(contacts=list(contacts))
 #                     ]
 #            masstext = MassText.objects.bulk_create(bulk_list)
-            
+
             #The bulk_insert manager needs to be updated
             #TODO: investigate changes made in new Django that are not compatible with BulkInsertManager()
 #            MassText.bulk.bulk_insert(send_pre_save=False,
@@ -473,7 +473,7 @@ class MassTextForm(ActionForm):
 #                    contacts=list(contacts))
 #            masstexts = MassText.bulk.bulk_insert_commit(send_post_save=False, autoclobber=True)
 #            masstext = masstexts[0]
-            
+
             return ('Message successfully sent to %d numbers' % len(total_connections), 'success',)
         else:
             return ("You don't have permission to send messages!", 'error',)
@@ -482,11 +482,11 @@ class MassTextForm(ActionForm):
 class NewPollForm(forms.Form): # pragma: no cover
 
     TYPE_YES_NO = 'yn'
-    TYPE_CHOICES = [(TYPE_YES_NO, 'Yes/No Question')]   
+    TYPE_CHOICES = [(TYPE_YES_NO, 'Yes/No Question')]
     TYPE_CHOICES += [(choice['type'], choice['label']) for choice in Poll.TYPE_CHOICES.values()]
-    
-    print tuple(TYPE_CHOICES)    
-    
+
+    print tuple(TYPE_CHOICES)
+
     type = forms.ChoiceField(
         required=True,
         choices=tuple(TYPE_CHOICES)
@@ -499,14 +499,14 @@ class NewPollForm(forms.Form): # pragma: no cover
                                                Poll.TYPE_CHOICES.values()]
 
     name = forms.CharField(max_length=32, required=True)
-    
+
     def __init__(self, data=None, **kwargs):
         self.request = kwargs.pop('request')
         if data:
             forms.Form.__init__(self, data, **kwargs)
         else:
             forms.Form.__init__(self, **kwargs)
-        
+
         #Question forms
         i = 0
         for lang, lang_verbose in languages:
@@ -522,10 +522,10 @@ class NewPollForm(forms.Form): # pragma: no cover
             form_name = 'default_response_%s' % lang
             form_label = 'Default Response:%s' % lang_verbose
             self.fields[form_name]  = forms.CharField(label=form_label, max_length=160, required=False, widget=SMSInput())
-        
+
         # This may seem like a hack, but this allows time for the Contact model
         # to optionally have groups (i.e., poll doesn't explicitly depend on the rapidsms-auth
-        # app.    
+        # app.
         queryset = Group.objects.order_by('name')
         if 'request' in kwargs:
             request = kwargs.pop('request')
@@ -537,14 +537,14 @@ class NewPollForm(forms.Form): # pragma: no cover
         except UnboundLocalError:
             pass
         if hasattr(Contact, 'groups'):
-            GROUP_CHOICES = [(-1, _('Without Group'))]   
+            GROUP_CHOICES = [(-1, _('Without Group'))]
             GROUP_CHOICES += [(id, name) for id, name in queryset.values_list('id', 'name')]
 #             self.fields['groups'] = forms.ModelMultipleChoiceField(queryset=queryset, required=False)
             self.fields['groups'] = forms.MultipleChoiceField(choices=GROUP_CHOICES, required=False)
-    
+
     provinces = forms.ModelMultipleChoiceField(queryset=
                                                Location.objects.filter(type__slug='district'
-                                               ).order_by('name'), required=False)        
+                                               ).order_by('name'), required=False)
 
     def clean(self):
         cleaned_data = self.cleaned_data
@@ -732,7 +732,7 @@ class AgeFilterForm(FilterForm):
     age = forms.CharField(max_length=20, label="Age", widget=forms.TextInput(attrs={'size': '20'}), required=False)
 
     def filter(self, request, queryset):
-        import ipdb;ipdb.set_trace()
+        #import ipdb;ipdb.set_trace()
 
         flag = self.cleaned_data['flag']
 
