@@ -23,7 +23,9 @@
     <table width="100%">
     <form enctype="multipart/form-data" action="{% url "ureport.views.bulk_upload_contacts_to_update" %}" method="POST">
     {%csrf_token %}
+
     {{ contactsform.as_table }}
+
     <tr>
     	<td></td>
 		<td><input type="submit" value="Submit" /></td>
