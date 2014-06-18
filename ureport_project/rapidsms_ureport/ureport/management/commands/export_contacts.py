@@ -31,6 +31,8 @@ class Command(BaseCommand):
     "rapidsms_connection"
  WHERE
     "rapidsms_connection"."contact_id"="rapidsms_contact"."id") as identity,
+"rapidsms_contact"."name",
+"rapidsms_contact"."birthdate",
 "rapidsms_contact"."created_on",
 
 
@@ -190,6 +192,8 @@ LEFT JOIN
                     'Id',
                     'Language',
                     'Number',
+                    'Name',
+                    'Birthdate',
                     'Join Date',
                     'Quit Date',
                     'Province',
@@ -206,7 +210,7 @@ LEFT JOIN
             ]
 
             rows = row_0 + cursor.fetchall()
-            kinds = "int text text date date text int text text text text text text text text".split()
+            kinds = "int text text text date date date text int text text text text text text text text".split()
             kind_to_xf_map = {
                 'date': ezxf(num_format_str='yyyy-mm-dd'),
                 'int': ezxf(num_format_str='#,##0'),
