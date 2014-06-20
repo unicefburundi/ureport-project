@@ -383,11 +383,15 @@ def ureporters(request):
     access = get_access(request)
     download_form = DownloadForm(request.POST or None)
     if request.POST and request.POST.get('download', None):
+        print('aa')
         if download_form.is_valid():
+            print('bb')
             download_form.export(request, request.session['queryset'], 'autoreg_join_date')
         else:
-            return HttpResponse("Some thing went wrong")
+	    print('cc')
+            return HttpResponse("Some thing went wrong") 
 
+    #contactsform = ExcelTestUploadForm(request.FILES)
     columns = [
         ('Identifier', True, 'connection_pk', SimpleSorter()),
         ('Modile', True, 'mobile', SimpleSorter()),
@@ -412,9 +416,10 @@ def ureporters(request):
         model=UreportContact,
         queryset=get_contacts2,
         download_form=download_form,
+        #contactsform=ExcelTestUploadForm,
         results_title='uReporters',
         filter_forms=[ UreporterSearchForm,  GenderFilterForm, AgeFilterForm, MultipleDistictFilterForm,FilterGroupsForm ],
-        action_forms=[MassTextForm, AssignGroupForm, BlacklistForm, AssignToNewPollForm,RemoveGroupForm,TemplateMessage],
+        action_forms=[MassTextForm, AssignGroupForm, BlacklistForm,  AssignToNewPollForm,RemoveGroupForm,TemplateMessage,ExcelTestUploadForm ],
         objects_per_page=25,
         base_template='ureport/ureporters_base.html',
         partial_base='ureport/partials/contacts/partial_base.html',
