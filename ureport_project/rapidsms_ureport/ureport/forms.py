@@ -32,7 +32,7 @@ from django.conf import settings
 languages = getattr(settings, 'LANGUAGES', (('fr', 'French')))
 
 from django.utils.translation import ugettext as _
-
+from ureport.views.utils.excel import handle_excel_file, handle_excel_file_update
 
 class EditReporterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -126,9 +126,11 @@ class ExcelUploadForm(forms.Form):
         return self.cleaned_data
 
 
-class ExcelTestUploadForm(forms.Form):
+class ExcelTestUploadForm(ActionForm):
     excel_file = forms.FileField(label='Contacts Excel File',
                                  required=False)
+    search = forms.CharField(max_length=100, required=True,
+                             label='Search Responses')
     #assign_to_group = \
     #    forms.ModelChoiceField(queryset=Group.objects.all(),
     #                           required=False)
@@ -152,6 +154,39 @@ class ExcelTestUploadForm(forms.Form):
             self._errors['excel_file'] = ErrorList([msg])
             return ''
         return self.cleaned_data
+
+    def perform(self, request, results):
+        #mport ipdb; ipdb.set_trace()
+        print('1a')
+        uploaded_file=self.cleaned_data['excel_file']
+        print('1b')
+        print(uploaded_file)
+        message=''
+        if request.FILES.get('excel_file', None):
+            fields = [
+                    	       'number',
+                    	       'name',
+                    	       'province',
+                    	       'commune',
+                    	       'colline',
+                    	       'language',
+                    	       'county',
+                    	       'village',
+                    	       'birthdate',
+                    	       'group',
+                    	       'gender',
+                           ]
+        #message = handle_excel_file_update(request.FILES['excel_file'], fields)
+        print("AVANT LA VARIABLE MESSAGE")
+        print(message)
+        print("APRES LA VARIABLE MESSAGE")
+        return (message)
+
+        
+
+
+
+ 
 
 
 class SearchResponsesForm(FilterForm):
