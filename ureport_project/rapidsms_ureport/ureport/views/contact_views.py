@@ -32,6 +32,8 @@ from unregister.forms import BlacklistForm
 from ureport.models import Ureporter, UreportContact
 from ureport.views.utils.paginator import ureport_paginate
 from ureport.forms import UreporterSearchForm, AgeFilterForm
+from django.views.decorators.csrf import csrf_protect
+
 
 
 @login_required
@@ -313,10 +315,10 @@ def bulk_upload_contacts_to_update(request):
     bulk upload contacts from an excel file
     """
     if request.method == 'POST':
-
         contactsform = ExcelTestUploadForm(request.POST, request.FILES)
         message=''
         if contactsform.is_valid():
+            import ipdb; ipdb.set_trace()
             if contactsform.is_valid() \
                 and request.FILES.get('excel_file', None):
                 fields = [
@@ -381,13 +383,14 @@ def delete(request, pk):
         #contactsform = ExcelTestUploadForm(request.POST)
         #contactsform = ExcelTestUploadForm(request.POST, data=None)
 
+@csrf_protect
 @login_required
 def ureporters(request):
     access = get_access(request)
     print request.method
     message=''
     if request.method == 'POST':
-    	#import ipdb;ipdb.set_trace()
+    	# import ipdb;ipdb.set_trace()
         contactsform = ExcelTestUploadForm(request.POST, request.FILES)
         if contactsform.is_valid() :
         #It means that the user is uploading an excel file of User profiles
