@@ -132,8 +132,16 @@ $("#id_enddate").datepicker({ dateFormat: 'dd/mm/yy' ,changeYear: true ,changeMo
 
     <div class="tab-pane " id="imports"> 
         <table> 
-      {{ action_forms.6.1.as_table }}
-      <tr><td><a id="import_user_profiles" class="{{ action_forms.6.1.action_class }} btn-primary btn btn-large" href="javascript:vo(0)" onClick="actionx('#import_user_profiles', '{{ action_forms.6.0 }}',{{ page }});">Send Message </a></td></tr>
+
+
+    {{ contactsform.as_table }}
+
+    <tr>
+    	<td></td>
+		<td><input type="submit" value="Submit" /></td>
+	</tr>
+
+       {{message}}
         </table>
     </div>
 

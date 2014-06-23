@@ -126,11 +126,9 @@ class ExcelUploadForm(forms.Form):
         return self.cleaned_data
 
 
-class ExcelTestUploadForm(ActionForm):
+class ExcelTestUploadForm(forms.Form):
     excel_file = forms.FileField(label='Contacts Excel File',
                                  required=False)
-    search = forms.CharField(max_length=100, required=True,
-                             label='Search Responses')
     #assign_to_group = \
     #    forms.ModelChoiceField(queryset=Group.objects.all(),
     #                           required=False)
