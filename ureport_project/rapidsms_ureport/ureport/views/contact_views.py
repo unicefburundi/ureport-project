@@ -72,8 +72,8 @@ def ureporter_profile(request, connection_pk):
 
         return ExcelResponse(data=data)
     columns = [
-               ('Message', True, 'text', SimpleSorter()), 
-               ('connection', True, 'connection', SimpleSorter()), 
+               ('Message', True, 'text', SimpleSorter()),
+               ('connection', True, 'connection', SimpleSorter()),
                ('Date', True, 'date', SimpleSorter()),
                ('Direction', True, 'direction', SimpleSorter())
                ]
@@ -377,7 +377,7 @@ def delete(request, pk):
         pass
     return HttpResponseRedirect("/reporter")
 
-        
+
         #contactsform = ExcelTestUploadForm(request.POST)
         #contactsform = ExcelTestUploadForm(request.POST, data=None)
 
@@ -389,7 +389,7 @@ def ureporters(request):
     if request.method == 'POST':
     	#import ipdb;ipdb.set_trace()
         contactsform = ExcelTestUploadForm(request.POST, request.FILES)
-        if contactsform.is_valid() and request.FILES is not None:
+        if contactsform.is_valid() :
         #It means that the user is uploading an excel file of User profiles
                 fields = [
                     'number',
@@ -407,7 +407,7 @@ def ureporters(request):
                 #message = handle_excel_file_test(request.FILES['excel_file'
                 #                            ], contactsform.cleaned_data['assign_to_group'
                 #                            ], fields)
-                message = handle_excel_file_update(request.FILES['excel_file'], fields)
+                message = handle_excel_file_update(contactsform.cleaned_data['excel_file'], fields)
                 print("AVANT LA VARIABLE MESSAGE")
                 print(message)
                 print("APRES LA VARIABLE MESSAGE")
