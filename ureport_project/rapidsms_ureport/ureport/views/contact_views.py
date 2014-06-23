@@ -377,21 +377,47 @@ def delete(request, pk):
         pass
     return HttpResponseRedirect("/reporter")
 
+        
+        #contactsform = ExcelTestUploadForm(request.POST)
+        #contactsform = ExcelTestUploadForm(request.POST, data=None)
 
 @login_required
 def ureporters(request):
     access = get_access(request)
-    download_form = DownloadForm(request.POST or None)
-    if request.POST and request.POST.get('download', None):
-        print('aa')
-        if download_form.is_valid():
-            print('bb')
-            download_form.export(request, request.session['queryset'], 'autoreg_join_date')
-        else:
-	    print('cc')
-            return HttpResponse("Some thing went wrong") 
+    print request.method
+    message=''
+    if request.method == 'POST':
+    	#import ipdb;ipdb.set_trace()
+        contactsform = ExcelTestUploadForm(request.POST, request.FILES)
+        if contactsform.is_valid() and request.FILES is not None:
+        #It means that the user is uploading an excel file of User profiles
+                fields = [
+                    'number',
+                    'name',
+                    'province',
+                    'commune',
+                    'colline',
+                    'language',
+                    'county',
+                    'village',
+                    'birthdate',
+                    'group',
+                    'gender',
+                ]
+                #message = handle_excel_file_test(request.FILES['excel_file'
+                #                            ], contactsform.cleaned_data['assign_to_group'
+                #                            ], fields)
+                message = handle_excel_file_update(request.FILES['excel_file'], fields)
+                print("AVANT LA VARIABLE MESSAGE")
+                print(message)
+                print("APRES LA VARIABLE MESSAGE")
+                return render_to_response('ureport/bulk_contact_upload_update.html'
+                , {'contactsform': contactsform, 'message'
+                : message},
+                                      context_instance=RequestContext(request))
 
-    #contactsform = ExcelTestUploadForm(request.FILES)
+        else:
+        	print('The form is not valid')
     columns = [
         ('Identifier', True, 'connection_pk', SimpleSorter()),
         ('Modile', True, 'mobile', SimpleSorter()),
@@ -415,11 +441,11 @@ def ureporters(request):
     return generic(request,
         model=UreportContact,
         queryset=get_contacts2,
-        download_form=download_form,
-        #contactsform=ExcelTestUploadForm,
+        #download_form=download_form,
+        contactsform=ExcelTestUploadForm,
         results_title='uReporters',
         filter_forms=[ UreporterSearchForm,  GenderFilterForm, AgeFilterForm, MultipleDistictFilterForm,FilterGroupsForm ],
-        action_forms=[MassTextForm, AssignGroupForm, BlacklistForm,  AssignToNewPollForm,RemoveGroupForm,TemplateMessage,ExcelTestUploadForm ],
+        action_forms=[MassTextForm, AssignGroupForm, BlacklistForm,  AssignToNewPollForm,RemoveGroupForm,TemplateMessage ],
         objects_per_page=25,
         base_template='ureport/ureporters_base.html',
         partial_base='ureport/partials/contacts/partial_base.html',
