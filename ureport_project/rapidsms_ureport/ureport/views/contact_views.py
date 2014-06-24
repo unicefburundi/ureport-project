@@ -408,16 +408,15 @@ def ureporters(request):
                 'group',
                 'gender',
                 ]
-            message="Default message"
             message = handle_excel_file_update(new_file['excel_file'], fields)
-            print("AVANT LA VARIABLE MESSAGE")
             print(message)
-            print("APRES LA VARIABLE MESSAGE")
-            return message
+            response = HttpResponse(content='Contacts have been updated. Resfresh this page')
+            return response
 
 
         else:
-        	print('The form is not valid')
+        	return HttpResponse(content='The form is not valid. Resfresh this page')
+
     columns = [
         ('Identifier', True, 'connection_pk', SimpleSorter()),
         ('Modile', True, 'mobile', SimpleSorter()),
