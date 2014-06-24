@@ -392,37 +392,29 @@ def ureporters(request):
     print('1')
     if request.method == 'POST':
         print('2')
-    	# import ipdb;ipdb.set_trace()
         contactsform = ExcelTestUploadForm(request.POST, request.FILES)
-        if contactsform.is_valid() :
-        #It means that the user is uploading an excel file of User profiles
-                fields = [
-                    'number',
-                    'name',
-                    'province',
-                    'commune',
-                    'colline',
-                    'language',
-                    'county',
-                    'village',
-                    'birthdate',
-                    'group',
-                    'gender',
+        if contactsform.is_valid() and contactsform.good_file() :
+            new_file = contactsform.cleaned_data
+            fields = [
+                'number',
+                'name',
+                'province',
+                'commune',
+                'colline',
+                'language',
+                'county',
+                'village',
+                'birthdate',
+                'group',
+                'gender',
                 ]
-                #message = handle_excel_file_test(request.FILES['excel_file'
-                #                            ], contactsform.cleaned_data['assign_to_group'
-                #                            ], fields)
-                message="Default message"
-                message = handle_excel_file_update(contactsform.cleaned_data['excel_file'], fields)
-                print("AVANT LA VARIABLE MESSAGE")
-                print(message)
-                print("APRES LA VARIABLE MESSAGE")
-                #partial_base='ureport/partials/contacts/partial_base.html',
-                return render_to_response('ureport/ureporters_base.html'
-                , {'contactsform': contactsform, 'message'
-                : message},
-                                      context_instance=RequestContext(request))
-                
+            message="Default message"
+            message = handle_excel_file_update(new_file['excel_file'], fields)
+            print("AVANT LA VARIABLE MESSAGE")
+            print(message)
+            print("APRES LA VARIABLE MESSAGE")
+            return message
+
 
         else:
         	print('The form is not valid')
@@ -451,6 +443,7 @@ def ureporters(request):
         queryset=get_contacts2,
         #download_form=download_form,
         contactsform=ExcelTestUploadForm,
+        message=message,
         results_title='uReporters',
         filter_forms=[ UreporterSearchForm,  GenderFilterForm, AgeFilterForm, MultipleDistictFilterForm,FilterGroupsForm ],
         action_forms=[MassTextForm, AssignGroupForm, BlacklistForm,  AssignToNewPollForm,RemoveGroupForm,TemplateMessage ],

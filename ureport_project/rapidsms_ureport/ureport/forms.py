@@ -145,7 +145,7 @@ class ExcelTestUploadForm(forms.Form):
     #            else:
     #                self.fields['assign_to_group'] = forms.ModelChoiceField(queryset=Group.objects.all(), required=False)
 
-    def clean(self):
+    def good_file(self):
         excel = self.cleaned_data.get('excel_file', None)
         if excel and excel.name.rsplit('.')[1] != 'xlsx':
             msg = u'Upload valid excel file !!!'
@@ -153,38 +153,13 @@ class ExcelTestUploadForm(forms.Form):
             return ''
         return self.cleaned_data
 
-    def perform(self, request, results):
-        #mport ipdb; ipdb.set_trace()
-        print('1a')
-        uploaded_file=self.cleaned_data['excel_file']
-        print('1b')
-        print(uploaded_file)
-        message=''
-        if request.FILES.get('excel_file', None):
-            fields = [
-                    	       'number',
-                    	       'name',
-                    	       'province',
-                    	       'commune',
-                    	       'colline',
-                    	       'language',
-                    	       'county',
-                    	       'village',
-                    	       'birthdate',
-                    	       'group',
-                    	       'gender',
-                           ]
-        #message = handle_excel_file_update(request.FILES['excel_file'], fields)
-        print("AVANT LA VARIABLE MESSAGE")
-        print(message)
-        print("APRES LA VARIABLE MESSAGE")
-        return (message)
-
-        
 
 
 
- 
+
+
+
+
 
 
 class SearchResponsesForm(FilterForm):

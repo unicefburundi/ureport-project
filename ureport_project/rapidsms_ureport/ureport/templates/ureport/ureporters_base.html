@@ -149,7 +149,7 @@ $("#id_enddate").datepicker({ dateFormat: 'dd/mm/yy' ,changeYear: true ,changeMo
             {{action_forms.5.1.as_table}}
             <tr><td><a id="send_msg_btn" class="{{ action_forms.5.1.action_class }} btn-primary btn btn-large" href="javascript:void(0)" onClick="actionx('#send_msg_btn', '{{ action_forms.5.0 }}',{{ page }});">Send Message </a></td></tr>
         </table>
-          
+
     </div>
 
 </div>
@@ -160,11 +160,11 @@ $("#excel_submit" ).click(function(){
     var $buton = $( this ).parent("tbody"),
     term = $buton.find( "input[name='excel_file']" ).val();
     url = "/reporter/";
-
+    alert('avant de poster')
 
     // Send the data using post
     var posting = $.post( url, { excel_file : term }, {csrfmiddlewaretoken:'{{csrf_token}}' });
-
+    alert('apres post')
     // Put the results in a div
     posting.done(function( data ) {
     var content = $( data ).find( "#imports" );
