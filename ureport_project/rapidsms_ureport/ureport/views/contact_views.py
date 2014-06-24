@@ -389,7 +389,9 @@ def ureporters(request):
     access = get_access(request)
     print request.method
     message=''
+    print('1')
     if request.method == 'POST':
+        print('2')
     	# import ipdb;ipdb.set_trace()
         contactsform = ExcelTestUploadForm(request.POST, request.FILES)
         if contactsform.is_valid() :
@@ -410,14 +412,17 @@ def ureporters(request):
                 #message = handle_excel_file_test(request.FILES['excel_file'
                 #                            ], contactsform.cleaned_data['assign_to_group'
                 #                            ], fields)
+                message="Default message"
                 message = handle_excel_file_update(contactsform.cleaned_data['excel_file'], fields)
                 print("AVANT LA VARIABLE MESSAGE")
                 print(message)
                 print("APRES LA VARIABLE MESSAGE")
-                return render_to_response('ureport/bulk_contact_upload_update.html'
+                #partial_base='ureport/partials/contacts/partial_base.html',
+                return render_to_response('ureport/ureporters_base.html'
                 , {'contactsform': contactsform, 'message'
                 : message},
                                       context_instance=RequestContext(request))
+                
 
         else:
         	print('The form is not valid')

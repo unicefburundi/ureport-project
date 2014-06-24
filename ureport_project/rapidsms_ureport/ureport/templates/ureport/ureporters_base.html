@@ -131,14 +131,15 @@ $("#id_enddate").datepicker({ dateFormat: 'dd/mm/yy' ,changeYear: true ,changeMo
 
 
     <div class="tab-pane " id="imports" >
-<table>
+       <table>
     {{ contactsform.as_table }}
 
     <tr>
-    	<td><input id="excel_submit" type="button" class="btn-primary btn btn-large" value="Submit" /></td>
+    	<td><input id="excel_submit" type="submit" class="btn-primary btn btn-large" value="Submit" /></td>
 	</tr>
     <span class="upload-message"></span>
         </table>
+    <span>  {{ message }}  </span>
     </div>
 
 
@@ -148,29 +149,10 @@ $("#id_enddate").datepicker({ dateFormat: 'dd/mm/yy' ,changeYear: true ,changeMo
             {{action_forms.5.1.as_table}}
             <tr><td><a id="send_msg_btn" class="{{ action_forms.5.1.action_class }} btn-primary btn btn-large" href="javascript:void(0)" onClick="actionx('#send_msg_btn', '{{ action_forms.5.0 }}',{{ page }});">Send Message </a></td></tr>
         </table>
+          
     </div>
 
 </div>
-<script type="text/javascript">
-    // Attach a submit handler to the form
-$("#excel_submit" ).click(function(){
-    // Get some values from elements on the page:
-    var $buton = $( this ).parent("tbody"),
-    term = $buton.find( "input[name='excel_file']" ).val();
-    url = "/uploadcontacts_update/";
 
-    var csrftoken = $.cookie('csrftoken');
-
-    // Send the data using post
-    var posting = $.post( url, { excel_file : term }, {csrfmiddlewaretoken:'{{csrf_token}}' });
-
-    // Put the results in a div
-    posting.done(function( data ) {
-    var content = $( data ).find( "#imports" );
-    alert(content);
-    $( ".upload-message" ).empty().append( content );
-  });
-});
-</script>
 
 {% endblock %}
