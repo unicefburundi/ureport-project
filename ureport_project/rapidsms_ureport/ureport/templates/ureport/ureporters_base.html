@@ -157,9 +157,8 @@ $("#excel_submit" ).click(function(){
     // Get some values from elements on the page:
     var $buton = $( this ).parent("tbody"),
     term = $buton.find( "input[name='excel_file']" ).val();
-    url = "/uploadcontacts_update/";
+    url = "/reporter/";
 
-    var csrftoken = $.cookie('csrftoken');
 
     // Send the data using post
     var posting = $.post( url, { excel_file : term }, {csrfmiddlewaretoken:'{{csrf_token}}' });
