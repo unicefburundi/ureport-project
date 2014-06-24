@@ -410,8 +410,7 @@ def ureporters(request):
                 ]
             message = handle_excel_file_update(new_file['excel_file'], fields)
             print(message)
-            response = HttpResponse(content='Contacts have been updated. Resfresh this page')
-            return response
+            return HttpResponseRedirect("/reporter")
 
 
         else:
