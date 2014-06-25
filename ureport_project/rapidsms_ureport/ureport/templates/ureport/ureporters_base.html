@@ -24,6 +24,7 @@ $("#id_enddate").datepicker({ dateFormat: 'dd/mm/yy' ,changeYear: true ,changeMo
 </script>
 {% endblock %}
 
+
 {% block filters %}
             <div style="height:540px;" class="module">
                 <h2>Filters</h2>
@@ -55,6 +56,7 @@ $("#id_enddate").datepicker({ dateFormat: 'dd/mm/yy' ,changeYear: true ,changeMo
             </div>
             <br/>
         {% endblock %}
+
  {% block action_forms %}
 <div style="margin-top:10px;">
     <ul class="nav nav-pills">
@@ -77,7 +79,14 @@ $("#id_enddate").datepicker({ dateFormat: 'dd/mm/yy' ,changeYear: true ,changeMo
 
       <tr><td><a id ="send_btn" class="{{ action_forms.0.1.action_class }} btn-primary btn btn-large" href="javascript:void(0)" onClick="actionx('#send_btn', '{{ action_forms.0.0 }}',{{ page }});">Send Message </a></td></tr>
         </table>
-
+    {% if messages %}
+        <ul class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><strong>{{ message }}</strong></li>
+             {% endfor %}
+        </ul>
+    {% endif %}
      </div>
 
 

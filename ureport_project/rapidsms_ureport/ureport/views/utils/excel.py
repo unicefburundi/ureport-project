@@ -220,131 +220,87 @@ def handle_excel_file_update(file, fields):
         duplicates = []
         invalid = []
         info = ''
-
-
+        numbers_uploaded = ''
+        numbers_invalid = ''
         if worksheet.nrows > 1:
-
             validated_numbers = []
             invalid = []
-
-
             for row in range(1, worksheet.nrows):
                 numbers = parse_telephone_number(row, worksheet, cols)
-            	if len(numbers) > 0:
-                	for raw_num in numbers.split('/'):
-                    		if raw_num[-2:] == '.0':
-                        		raw_num = raw_num[:-2]
-                    		if raw_num[:1] == '+':
-                        		raw_num = raw_num[1:]
-                    		if len(raw_num) < 9:
-                        		invalid.append(raw_num)
-                    		if raw_num not in invalid:
-                    			try:
-                    				con = Connection.objects.filter(identity=unicode(raw_num))[0]
-                        			conta = con.contact
-                        			if conta is None:
-                        				invalid.append(raw_num)
-                    			except IndexError:
-                        			invalid.append(raw_num)
+                if len(numbers) > 0:
+                    for raw_num in numbers.split('/'):
+                        if raw_num[-2:] == '.0':
+                            raw_num = raw_num[:-2]
+                        if raw_num[:1] == '+':
+                            raw_num = raw_num[1:]
+                        if len(raw_num) < 9:
+                            invalid.append(raw_num)
+                        if raw_num not in invalid:
+                    	    try:
+                                con = Connection.objects.filter(identity=unicode(raw_num))[0]
+                                conta = con.contact
+                                if conta is None:
+                        	       invalid.append(raw_num)
+                    	    except IndexError:
+                        	   invalid.append(raw_num)
+                            if raw_num not in invalid:
+                    	       validated_numbers.append(raw_num)
+                            name = parse_name(row, worksheet, cols)
+                            if len(name)>95:
+                                name = name[0:90]
+                            province = (parse_district(row, worksheet, cols) if 'province' in fields else None)
+                            commune = (parse_commune(row, worksheet, cols) if 'commune' in fields else None)
+                            colline = (parse_colline(row, worksheet, cols) if 'colline' in fields else None)
+                            language = (parse_language(row, worksheet, cols) if 'language' in fields else None)
+                            birthdate = (parse_birthdate(row, worksheet, cols) if 'age' in fields else None)
+                            gender = (parse_gender(row, worksheet, cols) if 'gender' in fields else None)
+                            group = (parse_group(row, worksheet, cols) if 'group' in fields else None)
+                            province = province.capitalize()
+                            l = Location.objects.filter(name=province)
+                            if l :
+                                l=l[0]
+                            else :
+                                l = Location.objects.create(name=province)
+                            commune = commune.capitalize()
+                            l1 = Location.objects.filter(name=commune)
+                            if l1 :
+                                l1=l1[0]
+                            else :
+                                l1 = Location.objects.create(name=commune)
+                            colline = colline.capitalize()
+                            l2 = Location.objects.filter(name=colline)
+                            if l2 :
+                                l2=l2[0]
+                            else :
+                                l2 = Location.objects.create(name=colline)
+                            g=Group.objects.filter(name='Other Reporters')[0]
+                            if group:
+                                g1 = Group.objects.filter(name=group)[0]
+                                if g1 :
+                                    g=g1
+                            cone= Connection.objects.filter(identity=unicode(raw_num))[0]
+                            conta= cone.contact
+                            conta.name=name
+                            conta.commune=l1
+                            conta.colline=l2
+                            conta.language=language
+                            conta.gender=gender
+                            conta.birthdate=birthdate
+                            conta.reporting_location = l
+                            conta.groups.add(g)
+                            conta.save()
+                            contacts.append(raw_num)
 
 
-                    		if raw_num not in invalid:
-                    			validated_numbers.append(raw_num)
-
-                                	name = parse_name(row, worksheet, cols)
-                                        if len(name)>95:
-                                        	name = name[0:90]
-                                        province = (parse_district(row, worksheet,
-                    	                	cols) if 'province' in fields else None)
-                                        commune = (parse_commune(row, worksheet,
-                    	                	cols) if 'commune' in fields else None)
-                                        colline = (parse_colline(row, worksheet,
-                    	                	cols) if 'colline' in fields else None)
-                                        language = (parse_language(row, worksheet,
-                    	                	cols) if 'language' in fields else None)
-                                        birthdate = (parse_birthdate(row, worksheet,
-                                        	cols) if 'age' in fields else None)
-                                        gender = (parse_gender(row, worksheet,
-                                        	cols) if 'gender' in fields else None)
-                                        group = (parse_group(row, worksheet,
-                                        	cols) if 'group' in fields else None)
-                                        print("Dans group il y a ")
-                                        print(group)
-
-                                        province = province.capitalize()
-
-                                        l = Location.objects.filter(name=province)
-                                        if l :
-                    	                	l=l[0]
-                                        else :
-                                        	l = Location.objects.create(name=province)
-
-
-                                        commune = commune.capitalize()
-                                        l1 = Location.objects.filter(name=commune)
-                                        if l1 :
-                    	                	l1=l1[0]
-                                        else :
-                                        	l1 = Location.objects.create(name=commune)
-
-
-                                        colline = colline.capitalize()
-                                        l2 = Location.objects.filter(name=colline)
-                                        if l2 :
-                    	                	l2=l2[0]
-                                        else :
-                                        	l2 = Location.objects.create(name=colline)
-
-
-                                        g=Group.objects.filter(name='Other Reporters')[0]
-                                        if group:
-                                        	g1 = Group.objects.filter(name=group)[0]
-                                        	if g1 :
-                    	                		g=g1
-
-
-
-                                        print('Dans g.name il y a')
-                                        print(g.name)
-                                        cone= Connection.objects.filter(identity=unicode(raw_num))[0]
-                                        conta= cone.contact
-
-                                        conta.name=name
-					conta.commune=l1
-                                        conta.colline=l2
-                                        conta.language=language
-                                        conta.gender=gender
-                                        conta.birthdate=birthdate
-                                        conta.reporting_location = l
-                                        print('conta.groups.all() avant')
-                                        print(conta.groups.all())
-                                        conta.groups.add(g)
-                                        print('conta.groups.all() apres')
-                                        print(conta.groups.all())
-                                        conta.save()
-                                        contacts.append(raw_num)
-
-
-
+            numbers_uploaded = len(contacts)
             if len(contacts) > 0:
-                info = 'Contacts with numbers... '\
-                       + ' ,'.join(contacts)\
-                + ''' have been uploaded !
-
-'''
-
+                info = str(len(contacts)) + ''' have been uploaded ! '''
+            numbers_invalid = len(invalid)
             if len(invalid) > 0:
-                info = info\
-                       + 'The following numbers may be invalid and thus have not been considered: '\
-                       + ' ,'.join(invalid) + '''
-
-'''
+                info = info + str(len(invalid)) + ' numbers may be invalid and thus have not been considered'
         else:
             info =\
             'You seem to have uploaded an empty excel file, please fill the excel Contacts Template with contacts and upload again...'
     else:
         info = 'Invalid file'
-    return info
-
-
-
+    return '%s %d valid contacts and %d invalid' % (info, numbers_uploaded , numbers_invalid)

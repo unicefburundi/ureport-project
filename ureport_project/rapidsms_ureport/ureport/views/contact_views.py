@@ -15,7 +15,7 @@ from uganda_common.utils import assign_backend
 from script.utils.handling import find_closest_match
 import re
 import datetime
-
+from django.contrib import messages
 from rapidsms.models import Connection, Contact
 from poll.models import Poll
 from generic.sorters import SimpleSorter
@@ -389,9 +389,7 @@ def ureporters(request):
     access = get_access(request)
     print request.method
     message=''
-    print('1')
     if request.method == 'POST':
-        print('2')
         contactsform = ExcelTestUploadForm(request.POST, request.FILES)
         if contactsform.is_valid() and contactsform.good_file() :
             new_file = contactsform.cleaned_data
@@ -410,6 +408,7 @@ def ureporters(request):
                 ]
             message = handle_excel_file_update(new_file['excel_file'], fields)
             print(message)
+            messages.success(request, message )
             return HttpResponseRedirect("/reporter")
 
 
