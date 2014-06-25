@@ -128,7 +128,8 @@ class ExcelUploadForm(forms.Form):
 
 class ExcelTestUploadForm(forms.Form):
     excel_file = forms.FileField(label='Contacts Excel File',
-                                 required=False)
+                                required=False,
+                                help_text='Upload an excel file of 200 rows maximum')
     #assign_to_group = \
     #    forms.ModelChoiceField(queryset=Group.objects.all(),
     #                           required=False)

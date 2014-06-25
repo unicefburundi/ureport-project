@@ -220,8 +220,8 @@ def handle_excel_file_update(file, fields):
         duplicates = []
         invalid = []
         info = ''
-        numbers_uploaded = ''
-        numbers_invalid = ''
+        numbers_uploaded = 0
+        numbers_invalid = 0
         if worksheet.nrows > 1:
             validated_numbers = []
             invalid = []
@@ -301,6 +301,8 @@ def handle_excel_file_update(file, fields):
         else:
             info =\
             'You seem to have uploaded an empty excel file, please fill the excel Contacts Template with contacts and upload again...'
+        return '%s . So we have %s valid contacts and %s invalid contacts updated' % (info, str(numbers_uploaded) , str(numbers_invalid))
     else:
         info = 'Invalid file'
-    return '%s . So %d valid contacts and %d invalid' % (info, numbers_uploaded , numbers_invalid)
+
+    return info
