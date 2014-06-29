@@ -222,10 +222,12 @@ def handle_excel_file_update(file, fields):
         info = ''
         numbers_uploaded = 0
         numbers_invalid = 0
+
         if worksheet.nrows > 1:
-            validated_numbers = []
-            invalid = []
+            validated_numbers = [] #This is a list of numbers which are valid
+            invalid = [] #This is a list of numbers which are invalid
             for row in range(1, worksheet.nrows):
+                #Check first if the number is valid
                 numbers = parse_telephone_number(row, worksheet, cols)
                 if len(numbers) > 0:
                     for raw_num in numbers.split('/'):
@@ -243,6 +245,10 @@ def handle_excel_file_update(file, fields):
                         	       invalid.append(raw_num)
                     	    except IndexError:
                         	   invalid.append(raw_num)
+
+                            
+                            #If the phone number is valid, we update properties of the user to whom belongs this phone number
+                            #after putting it on the list of valid phone numbers
                             if raw_num not in invalid:
                                 validated_numbers.append(raw_num)
                                 name = parse_name(row, worksheet, cols)
