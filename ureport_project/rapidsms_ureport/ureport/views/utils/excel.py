@@ -15,9 +15,9 @@ import datetime
 
 
 def parse_header_row(worksheet, fields):
-
-#    fields=['telephone number','name', 'district', 'county', 'village', 'age', 'gender']
-
+    #This method build a dictionary in which keys are the valid names of columns of the uploaded excel file (excel file of user profiles)
+    #and values are columns.
+    #Fields is a list of words which can be names of columns of the excel file which contains user profiles 
     field_cols = {}
     for col in range(worksheet.ncols):
         value = str(worksheet.cell(0, col).value).strip()
@@ -215,7 +215,7 @@ def handle_excel_file_update(file, fields):
         excel = file.read()
         workbook = open_workbook(file_contents=excel)
         worksheet = workbook.sheet_by_index(0)
-        cols = parse_header_row(worksheet, fields)
+        cols = parse_header_row(worksheet, fields)#cols is
         contacts = []
         duplicates = []
         invalid = []
@@ -251,50 +251,77 @@ def handle_excel_file_update(file, fields):
                             #after putting it on the list of valid phone numbers
                             if raw_num not in invalid:
                                 validated_numbers.append(raw_num)
-                                name = parse_name(row, worksheet, cols)
-                                if len(name)>95:
-                                    name = name[0:90]
-                                province = (parse_district(row, worksheet, cols) if 'province' in fields else None)
-                                commune = (parse_commune(row, worksheet, cols) if 'commune' in fields else None)
-                                colline = (parse_colline(row, worksheet, cols) if 'colline' in fields else None)
-                                language = (parse_language(row, worksheet, cols) if 'language' in fields else None)
-                                birthdate = (parse_birthdate(row, worksheet, cols) if 'age' in fields else None)
-                                gender = (parse_gender(row, worksheet, cols) if 'gender' in fields else None)
-                                group = (parse_group(row, worksheet, cols) if 'group' in fields else None)
-                                province = province.capitalize()
-                                l = Location.objects.filter(name=province)
-                                if l :
-                                    l=l[0]
-                                else :
-                                    l = Location.objects.create(name=province)
-                                commune = commune.capitalize()
-                                l1 = Location.objects.filter(name=commune)
-                                if l1 :
-                                    l1=l1[0]
-                                else :
-                                    l1 = Location.objects.create(name=commune)
-                                colline = colline.capitalize()
-                                l2 = Location.objects.filter(name=colline)
-                                if l2 :
-                                    l2=l2[0]
-                                else :
-                                    l2 = Location.objects.create(name=colline)
-                                g=Group.objects.filter(name='Other Reporters')[0]
-                                if group:
-                                    g1 = Group.objects.filter(name=group)[0]
-                                    if g1 :
-                                        g=g1
-                                cone= Connection.objects.filter(identity=unicode(raw_num))[0]
+
+
+				cone= Connection.objects.filter(identity=unicode(raw_num))[0]
                                 conta= cone.contact
-                                conta.name=name
-                                conta.commune=l1
-                                conta.colline=l2
-                                conta.language=language
-                                conta.gender=gender
-                                conta.birthdate=birthdate
-                                conta.reporting_location = l
-                                conta.groups.add(g)
+
+                                if "name" in cols:
+                                	name = parse_name(row, worksheet, cols)
+                                	if len(name)>95:
+                                    		name = name[0:95]
+					conta.name=name
+					
+
+    				if "province" in cols:
+					province = parse_district(row, worksheet, cols)
+                                	province = province.capitalize()
+                                	location = Location.objects.filter(name=province)
+                                	if location :
+                                    		location=location[0]
+                                	else :
+                                    		location = Location.objects.create(name=province)
+                                        conta.reporting_location = location 
+										
+			
+				if "commune" in cols:
+                                	commune = parse_commune(row, worksheet, cols)
+                                	commune = commune.capitalize()
+                                	location = Location.objects.filter(name=commune)
+                                	if location :
+                                    		location=location[0]
+                                	else :
+                                    		location = Location.objects.create(name=commune)
+					conta.commune=location
+					
+
+				if "colline" in cols:
+                                	colline = parse_colline(row, worksheet, cols)
+	                                colline = colline.capitalize()
+                                	location = Location.objects.filter(name=colline)
+                                	if location :
+                                    		location=location[0]
+                                	else :
+                                    		location = Location.objects.create(name=colline)
+					conta.colline=location
+
+
+
+				if "language" in cols:
+                                	language = parse_language(row, worksheet, cols)
+					conta.language=language
+
+				if "age" in cols:
+                                	birthdate = parse_birthdate(row, worksheet, cols)
+					conta.birthdate=birthdate
+
+				if "gender" in cols:
+                                	gender = parse_gender(row, worksheet, cols)
+     					conta.gender=gender
+
+				if "group" in cols:
+                                	group = parse_group(row, worksheet, cols)
+                                	right_group=Group.objects.filter(name='Other Reporters')[0] #This is the default group
+                                	if group:
+                                   		g1 = Group.objects.filter(name=group)[0]
+                                    		if g1 :
+                                        		right_group=g1
+					conta.groups.add(right_group)
+                                
+                           
                                 conta.save()
+
+
                                 contacts.append(raw_num)
 
 
