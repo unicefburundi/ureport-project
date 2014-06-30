@@ -54,7 +54,7 @@ urlpatterns = patterns('',
     (r'^polls/', include('poll.urls')),
     (r'^selectable/', include('selectable.urls')),
     #forward ajax calls to prox
-    url('^proxy/(?P<url>.*)$', 'httpproxy.views.HttpProxy', name='proxy'),
+#     url('^proxy/(?P<url>.*)$', 'httpproxy.views.HttpProxy', name='proxy'),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) +\
     router_urls + ureport_urls + contact_urls + generic_urls + ussd_urls + class_urls 
 
