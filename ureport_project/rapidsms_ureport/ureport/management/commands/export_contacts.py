@@ -6,11 +6,11 @@ import traceback
 import os
 from openpyxl.cell import get_column_letter
 import xlwt
-from ureport.settings import UREPORT_ROOT
 from django.utils.datastructures import SortedDict
 from poll.models import Poll
 import datetime
 from django.db import connection
+from django.conf import settings
 
 ezxf = xlwt.easyxf
 
@@ -172,8 +172,7 @@ LEFT JOIN
             from uganda_common.utils import ExcelResponse
 
             excel_file_path = \
-                os.path.join(os.path.join(os.path.join(UREPORT_ROOT,
-                                                       'static'), 'spreadsheets'),
+                os.path.join(os.path.join(os.path.join(settings.STATIC_ROOT,'ureport'), 'spreadsheets'),
                              'ureporters.xlsx')
             export_data_list = []
 
