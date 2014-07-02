@@ -9,7 +9,7 @@ import xlwt
 from django.utils.datastructures import SortedDict
 from poll.models import Poll
 import datetime
-from django.db import connection
+from django.db import connection, transaction
 from django.conf import settings
 
 ezxf = xlwt.easyxf
@@ -166,6 +166,7 @@ LEFT JOIN
                     sheet.write(rowx, colx, value, data_xfs[colx])
         book.save(file_name)
 
+    @transaction.atomic
     def handle(self, **options):
         try:
 
