@@ -103,4 +103,7 @@ def push_to_mtrac(messages):
         SentToMtrac.objects.create(message=message)
     log.info("Pushed messages to Mtrac")
 
-
+@task
+def export_contacts_nightly():
+    management.call_command('export_contacts', verbosity=0, interactive=False)
+    log.info("Exported all contacts at " + time.strftime("%a, %d %b %Y %H:%M:%S"))
