@@ -243,8 +243,13 @@ def handle_excel_file_update(file, fields):
                                 the_contact = connection.contact
                                 if the_contact is None:
                         	       invalid.append(raw_num)
+                                       print(1)
+                                       print(raw_num)
                     	    except IndexError:
                         	   invalid.append(raw_num)
+                                   print(2)
+                                   print(raw_num)
+                                   
 
                             
                             #If the phone number is valid, we update properties of the user to whom belongs this phone number

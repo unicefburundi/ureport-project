@@ -148,7 +148,7 @@ class ExcelTestUploadForm(forms.Form):
 
     def good_file(self):
         excel = self.cleaned_data.get('excel_file', None)
-        if excel and excel.name.rsplit('.')[1] != 'xlsx' and excel.name.rsplit('.')[1] != 'xlt':
+        if excel and excel.name.rsplit('.')[-1] != 'xlsx' and excel.name.rsplit('.')[-1] != 'xlt':
             msg = u'Upload valid excel file !!!'
             self._errors['excel_file'] = ErrorList([msg])
             return ''
