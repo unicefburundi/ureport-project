@@ -215,7 +215,7 @@ def handle_excel_file_update(file, fields):
         excel = file.read()
         workbook = open_workbook(file_contents=excel)
         worksheet = workbook.sheet_by_index(0)
-        cols = parse_header_row(worksheet, fields)#cols is
+        columns_name = parse_header_row(worksheet, fields)
         contacts = []
         duplicates = []
         invalid = []
@@ -228,7 +228,7 @@ def handle_excel_file_update(file, fields):
             invalid = [] #This is a list of numbers which are invalid
             for row in range(1, worksheet.nrows):
                 #Check first if the number is valid
-                numbers = parse_telephone_number(row, worksheet, cols)
+                numbers = parse_telephone_number(row, worksheet, columns_name)
                 if len(numbers) > 0:
                     for raw_num in numbers.split('/'):
                         if raw_num[-2:] == '.0':
@@ -239,9 +239,9 @@ def handle_excel_file_update(file, fields):
                             invalid.append(raw_num)
                         if raw_num not in invalid:
                     	    try:
-                                con = Connection.objects.filter(identity=unicode(raw_num))[0]
-                                conta = con.contact
-                                if conta is None:
+                                connection = Connection.objects.filter(identity=unicode(raw_num))[0]
+                                the_contact = connection.contact
+                                if the_contact is None:
                         	       invalid.append(raw_num)
                     	    except IndexError:
                         	   invalid.append(raw_num)
@@ -251,75 +251,72 @@ def handle_excel_file_update(file, fields):
                             #after putting it on the list of valid phone numbers
                             if raw_num not in invalid:
                                 validated_numbers.append(raw_num)
+ 
 
-
-				cone= Connection.objects.filter(identity=unicode(raw_num))[0]
-                                conta= cone.contact
-
-                                if "name" in cols:
-                                	name = parse_name(row, worksheet, cols)
+                                if "name" in columns_name:
+                                	name = parse_name(row, worksheet, columns_name)
                                 	if len(name)>95:
                                     		name = name[0:95]
-					conta.name=name
+					the_contact.name=name
 					
 
-    				if "province" in cols:
-					province = parse_district(row, worksheet, cols)
+    				if "province" in columns_name:
+					province = parse_district(row, worksheet, columns_name)
                                 	province = province.capitalize()
                                 	location = Location.objects.filter(name=province)
                                 	if location :
                                     		location=location[0]
                                 	else :
                                     		location = Location.objects.create(name=province)
-                                        conta.reporting_location = location 
+                                        the_contact.reporting_location = location 
 										
 			
-				if "commune" in cols:
-                                	commune = parse_commune(row, worksheet, cols)
+				if "commune" in columns_name:
+                                	commune = parse_commune(row, worksheet, columns_name)
                                 	commune = commune.capitalize()
                                 	location = Location.objects.filter(name=commune)
                                 	if location :
                                     		location=location[0]
                                 	else :
                                     		location = Location.objects.create(name=commune)
-					conta.commune=location
+					the_contact.commune=location
 					
 
-				if "colline" in cols:
-                                	colline = parse_colline(row, worksheet, cols)
+				if "colline" in columns_name:
+                                	colline = parse_colline(row, worksheet, columns_name)
 	                                colline = colline.capitalize()
                                 	location = Location.objects.filter(name=colline)
                                 	if location :
                                     		location=location[0]
                                 	else :
                                     		location = Location.objects.create(name=colline)
-					conta.colline=location
+					the_contact.colline=location
 
 
 
-				if "language" in cols:
-                                	language = parse_language(row, worksheet, cols)
-					conta.language=language
+				if "language" in columns_name:
+                                	language = parse_language(row, worksheet, columns_name)
+					the_contact.language=language
 
-				if "age" in cols:
-                                	birthdate = parse_birthdate(row, worksheet, cols)
-					conta.birthdate=birthdate
+				if "age" in columns_name:
+                                	birthdate = parse_birthdate(row, worksheet, columns_name)
+					the_contact.birthdate=birthdate
 
-				if "gender" in cols:
-                                	gender = parse_gender(row, worksheet, cols)
-     					conta.gender=gender
+				if "gender" in columns_name:
+                                	gender = parse_gender(row, worksheet, columns_name)
+     					the_contact.gender=gender
 
-				if "group" in cols:
-                                	group = parse_group(row, worksheet, cols)
+				if "group" in columns_name:
+                                	group = parse_group(row, worksheet, columns_name)
                                 	right_group=Group.objects.filter(name='Other Reporters')[0] #This is the default group
                                 	if group:
                                    		g1 = Group.objects.filter(name=group)[0]
                                     		if g1 :
                                         		right_group=g1
-					conta.groups.add(right_group)
+					the_contact.groups.add(right_group)
                                 
                            
-                                conta.save()
+                                the_contact.save()
 
 
                                 contacts.append(raw_num)
