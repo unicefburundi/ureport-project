@@ -27,7 +27,7 @@ paths = [
          "rapidsms_locmigrations",
 #          "rapidsms_proxy",
          ]
-         
+
 filedir = os.path.dirname(__file__)
 sys.path.append(os.path.join(filedir))
 for path in paths:
@@ -36,7 +36,7 @@ for path in paths:
         sys.path.append(os.path.join(filedir, flders[0], flders[1]))
     else:
         sys.path.append(os.path.join(filedir, path))
-        
+
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
@@ -46,16 +46,16 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': 'ureport_project.db',
-#        'USER': '',
-#        'PASSWORD': '',
-#        'HOST': '',
-#        'PORT': '',
-#    }
-#}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'ureport_project.db',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    }
+}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -95,7 +95,7 @@ MEDIA_URL = '/media/'
 # Example: "/home/media/media.lawrence.com/static/"
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'public', 'static')
 
-DOCUMENT_ROOT = PROJECT_PATH 
+DOCUMENT_ROOT = PROJECT_PATH
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
