@@ -3,7 +3,7 @@
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 from script.models import ScriptStep
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required , user_passes_test
 from generic.views import generic
 from django.views.decorators.cache import cache_control, never_cache
 from django.core.urlresolvers import reverse
@@ -173,11 +173,11 @@ def view_poll(request, pk):
                 rule_form.save()
             else:
                 template = "ureport/polls/rules.html"
-    
+
     if not settings.USSD_ENABLED:
         xf = None
         response = None
-        
+
     return render_to_response(template, {
         'poll': poll,
         'xf': xf,
@@ -192,6 +192,7 @@ def view_poll(request, pk):
 
 
 @login_required
+@user_passes_test(lambda u: u.is_superuser)
 @transaction.commit_on_success
 def new_poll(req):
     log.info("[new_poll] TRANSACTION START")
@@ -494,7 +495,7 @@ def script_polls(request):
                    auto_reg=True,
                    sort_ascending=False,
                    columns=columns)
-    
+
 def response_views(request, group):
     #polls to be added
     return render_to_response("ureport/polls/poll_group_results.html",
