@@ -389,7 +389,7 @@ def ureporters(request):
     access = get_access(request)
     print request.method
     message=''
-    if request.method == 'POST':
+    if request.method == 'POST' and request.FILES:
         contactsform = ExcelTestUploadForm(request.POST, request.FILES)
         if contactsform.is_valid() and contactsform.good_file() :
             new_file = contactsform.cleaned_data
@@ -430,7 +430,6 @@ def ureporters(request):
 #        ('join date', True, 'autoreg_join_date', SimpleSorter(),),
 #        ('quit date', True, 'quit_date', SimpleSorter(),),
         ]
-
     queryset = get_contacts2(request=request)
     if access is not None:
         groups = ",".join(list(access.groups.values_list('name', flat=True)))
