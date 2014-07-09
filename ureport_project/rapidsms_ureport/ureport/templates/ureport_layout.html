@@ -29,7 +29,7 @@
               // var _gaq = _gaq || [];
               // _gaq.push(['_setAccount', 'UA-23521720-1']);
               // _gaq.push(['_trackPageview']);
-// 
+//
               // (function() {
                 // var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
                 // ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
@@ -54,10 +54,10 @@
 		  			<li class="active"><a href="/about_ureport/">A PROPOS <br />DE UREPORT</a></li>
 		  			<li class="active"><a href="/join/">COMMENT <br />PARTICIPER</a></li>
 		  			<li class="active"><a href="/media/"><br />MEDIA</a></li>
-				  </ul> 
+				  </ul>
 		  	</div>
 	        <div class="ureporters_info">
-	            <span id="span_total">{{ total_ureporters|intcomma }}</span><br /><span id="span_info" >membres jusqu'à ce jours </span>         
+	            <span id="span_total">{{ total_ureporters|intcomma }}</span><br /><span id="span_info" >membres jusqu'à ce jours </span>
 	        </div>
         </div>
         <div class="content">
@@ -68,8 +68,8 @@
         <div class="sidebar">
             {% block sidecontent %}
             <div class="intro">
-               Ureport est une plate-forme de SMS gratuits qui permet aux citoyens 
-               de partager des informations et des opinions de leurs communautés et 
+               Ureport est une plate-forme de SMS gratuits qui permet aux citoyens
+               de partager des informations et des opinions de leurs communautés et
                de travailler ensemble pour amener un changement positif. </p>
             </div>
             <div class="join">
@@ -94,7 +94,7 @@
                     </div>
                 {% endif %}
             {% endblock %}
-            
+
             <div id="say">
             	<div class="say_header">
             		Ton point de vue?<br />
@@ -145,14 +145,14 @@
 		</div>
 	    <div id="footer">
 	    	<div class="sponsors_header" >
-	    		Partenaires		 
+	    		Partenaires
 	    	</div>
 	      <div class="sponsors_logos">
 	           <img src="{{ STATIC_URL }}ureport/images/unicef_logo.png" alt="unicef logo" />
 	           <img src="{{ STATIC_URL }}ureport/images/gem_logo.png" alt="gem logo" />
 	           <img src="{{ STATIC_URL }}ureport/images/croix_rouge_burundi.png" alt="red cross logo" />
 	           <img src="{{ STATIC_URL }}ureport/images/scouts_burundi.png" alt="scouts logo" />
-	           <img src="{{ STATIC_URL }}ureport/images/girl_scouts.png" alt="girl guides logo" />     
+	           <img src="{{ STATIC_URL }}ureport/images/girl_scouts.png" alt="girl guides logo" />
 	       </div>
 	       <div id="activities">
 			<div class="activities_header">
@@ -188,7 +188,7 @@
 				OUI ou Non et inclure le non du Village. <a href="">plus...</a>
 			</div>
 		</div>
-	  </div>  
+	  </div>
 	       <div class="footerlinks">
 	           <div class="nav-bottom">
                 <ul>
@@ -198,16 +198,18 @@
 	                {% if user.is_authenticated %}
 	                   <li><a href="{% url "ureport-polls" %}">Poll Admin</a></li>
 	                   <li><a href="{% url "messagelog" %}">Message Log</a></li>
-	                   <li><a href="{% url "ureport-contact" %}">uReporters</a></li>
-	                   <li><a href="{% url "flaggedmessages" %}">Flagged Messages</a></li>
-                        <li><a href="{% url "classifier" %}">Message Classification</a></li>
-                    <li><a href="{% url "alerts" %}">Real Time</a></li>
+                        {% if user.is_superuser %}
+                            <li><a href="{% url "ureport-contact" %}">uReporters</a></li>
+                            <li><a href="{% url "flaggedmessages" %}">Flagged Messages</a></li>
+                            <li><a href="{% url "classifier" %}">Message Classification</a></li>
+                            <li><a href="{% url "alerts" %}">Real Time</a></li>
+                        {% endif    %}
 	                {% else %}
 	                   <li><a href="/accounts/login">LOGIN</a></li>
 	                {% endif %}
                 </ul>
 	           </div>
-	           <p>Copyright &copy; 2010 - 2012 UNICEF et al.</p>
+	           <p>Copyright &copy; 2010 - {% now "Y" %} UNICEF et al.</p>
 	        </div>
 	    </div>
         <script type="text/javascript" src="{{ STATIC_URL }}rapidsms/javascripts/collapse.js"></script>
