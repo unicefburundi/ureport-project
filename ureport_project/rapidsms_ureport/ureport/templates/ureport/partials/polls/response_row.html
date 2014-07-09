@@ -2,7 +2,7 @@
 {% block message_information %}
 
     <td class="response_sender_col">
-      <a href="{% url ureport.views.ureporter_profile  response.message.connection.pk %}">
+      <a href="{% url "ureport.views.ureporter_profile"  response.message.connection.pk %}">
           {{ response.message.connection_id }}
       </a>
        at {{ response.message.date|date:"d/m/Y H:i" }}
@@ -17,7 +17,7 @@
               <img style="vertical-alignment:bottom;padding-top:7px" src="{{ STATIC_URL }}rapidsms/icons/silk/delete.png" alt=""/>
           </a>
           <a  onclick="editResponse(this, '{% url "poll.views.edit_response" response.pk %}');" href="javascript:void(0);">
-              <img src="{{ STATIC_URL }}poll/icons/silk/pencil.png" alt=""/> 
+              <img src="{{ STATIC_URL }}poll/icons/silk/pencil.png" alt=""/>
               Edit
           </a>
 

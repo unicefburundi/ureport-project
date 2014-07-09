@@ -2,7 +2,7 @@
 {% block remaining_row_content %}
     <td>
         {% if object.mobile %}
-            <a href="{% url ureport.views.ureporter_profile object.connection_pk %}">
+            <a href="{% url 'ureport.views.ureporter_profile' object.connection_pk %}">
         {% endif %}
         {{ object.name }}
         {% if object.mobile %}
