@@ -17,8 +17,12 @@
                 <img src="{{ STATIC_URL }}poll/icons/silk/database_table.png" alt=""/> Responses ({{ object.responses__count }})
             </a>
         {% endif %}
+
+        {% if user.is_superuser %}
         <a href="{% url "ureport.views.view_poll" object.pk %}">
             <img src="{{ STATIC_URL }}poll/icons/silk/bullet_wrench.png" alt=""/> Edit
         </a>
+        {% endif %}
+
     </div>
 <td>
