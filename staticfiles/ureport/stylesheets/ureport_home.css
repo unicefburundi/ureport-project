@@ -557,14 +557,14 @@ ul.tabs .tab-label {
 	background-color: #00638A;
 }
 .ureporters_info {
-	float:right;
+	#float:right;
 	margin-top:-60px;
 	height:46px;
 	color: #FFFFFF;
 }
 
 #span_total {
-	float: right;
+	#float: right;
 	margin-right:10px;	
 	font-size: 24px;
 	font-weight: bold;
