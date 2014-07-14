@@ -58,7 +58,9 @@
 		  	</div>
 	        <div class="ureporters_info">
 	            <span id="span_total">{{ total_ureporters|intcomma }}</span><span id="span_info" >membres jusqu'à ce jours </span>
+	            {% if total_ureporters_for_one_group != 0 %}
 	            {{ total_ureporters_for_one_group|intcomma }} Dans ton groupe
+	            {% endif %}
 	        </div>
         </div>
         <div class="content">
