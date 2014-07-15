@@ -81,7 +81,7 @@ def autoreg_messages(request):
                 SimpleSorter()), ('Type', True, 'application',
                                   SimpleSorter()), ('Response', False, 'response', None)]
 
-    queryset = get_autoreg_messages(request=request)
+    queryset = get_autoreg_messages(request=request).filter(connection__contact__groups__in=request.user.groups.values_list('id'))
     if access:
         queryset = queryset.filter(connection__contact__groups__in=access.groups.all())
     return generic(
@@ -116,7 +116,7 @@ def unsolicitized_messages(request):
                 SimpleSorter()), ('Type', True, 'application',
                                   SimpleSorter()), ('Response', False, 'response', None)]
 
-    queryset = get_unsolicitized_messages(request=request)
+    queryset = get_unsolicitized_messages(request=request).filter(connection__contact__groups__in=request.user.groups.values_list('id'))
     if access:
         queryset = queryset.filter(connection__contact__groups__in=access.groups.all())
     return generic(
@@ -151,7 +151,7 @@ def poll_messages(request):
                 SimpleSorter()), ('Type', True, 'application',
                                   SimpleSorter()), ('Response', False, 'response', None)]
 
-    queryset = get_poll_messages(request=request)
+    queryset = get_poll_messages(request=request).filter(connection__contact__groups__in=request.user.groups.values_list('id'))
     if access:
         queryset = queryset.filter(connection__contact__groups__in=access.groups.all())
     return generic(
@@ -186,7 +186,7 @@ def quit_messages(request):
                 SimpleSorter()), ('Type', True, 'application',
                                   SimpleSorter()), ('Response', False, 'response', None)]
 
-    queryset = get_quit_messages(request=request)
+    queryset = get_quit_messages(request=request).filter(connection__contact__groups__in=request.user.groups.values_list('id'))
     if access:
         queryset = queryset.filter(connection__contact__groups__in=access.groups.all())
     return generic(
@@ -442,6 +442,3 @@ def comfirmmessages(request, key):
         key=key,
         sort_ascending=False,
     )
-
-
-
