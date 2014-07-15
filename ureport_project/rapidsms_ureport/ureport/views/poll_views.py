@@ -455,9 +455,9 @@ def ureport_polls(request):
                ('Start Date', True, 'start_date', SimpleSorter(),),
                ('Closing Date', True, 'end_date', SimpleSorter()),
                ('', False, '', None)]
-    queryset = get_polls(request=request)
+    queryset = get_polls(request=request).filter(user__groups__in=request.user.groups.values_list('id'))
     if access:
-        queryset = queryset.filter(user=access.user)
+        queryset = queryset.filter(user__groups__in=request.user.groups.values_list('id'))
     return generic(request,
                    model=Poll,
                    queryset=queryset,
