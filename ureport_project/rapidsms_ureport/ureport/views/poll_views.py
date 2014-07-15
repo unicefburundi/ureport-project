@@ -449,16 +449,28 @@ def poll_dashboard(request):
 
 @login_required
 def ureport_polls(request):
-    access = get_access(request)
-    columns = [('Name', True, 'name', SimpleSorter()),
+	access = get_access(request)
+	columns = [('Name', True, 'name', SimpleSorter()),
                ('Question', True, 'question', SimpleSorter(),),
                ('Start Date', True, 'start_date', SimpleSorter(),),
                ('Closing Date', True, 'end_date', SimpleSorter()),
                ('', False, '', None)]
-    queryset = get_polls(request=request).filter(user__groups__in=request.user.groups.values_list('id'))
-    if access:
-        queryset = queryset.filter(user__groups__in=request.user.groups.values_list('id'))
-    return generic(request,
+	#queryset = get_polls(request=request).filter(user__groups__in=request.user.groups.values_list('id'))
+
+	list_of_poll_id = []
+	for pol in Poll.objects.all():
+		contacts = Contact.objects.filter(polls=pol.id,groups = request.user.groups.values_list('id'))
+		if contacts.count() != 0:
+			list_of_poll_id.append(pol.id)
+
+
+	queryset = get_polls(request=request)
+	if access:
+		queryset = queryset.filter(user__groups__in=request.user.groups.values_list('id'))
+
+	queryset = get_polls(request=request).filter(id__in=list_of_poll_id)
+
+	return generic(request,
                    model=Poll,
                    queryset=queryset,
                    objects_per_page=10,
