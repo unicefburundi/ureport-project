@@ -343,6 +343,8 @@ def view_responses(req, poll_id):
         ('Category', True, 'categories', SimpleSorter())
     )
 
+   
+
     return generic(
         req,
         model=Response,

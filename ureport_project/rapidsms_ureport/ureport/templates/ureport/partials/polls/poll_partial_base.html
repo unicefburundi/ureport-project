@@ -55,11 +55,21 @@
     {% endfor %}
     </div>
     {% block export %}
-    <div class="buttons">
+
+    {% if user.is_superuser %}
+       <div class="buttons">
             <a href="{{ MEDIA_URL }}downloads/poll_{{object_list.0.poll.pk }}.xlsx">
             <img src="{{ STATIC_URL }}poll/icons/silk/table_save.png" alt=""/> Export
         </a>
-    </div>
+       </div>
+    {% else %}
+       <div class="buttons">
+            <a href="{{ MEDIA_URL }}downloads/poll_{{object_list.0.poll.pk }}_{{object_list.0.contact.groups.all.0 }}.xlsx">
+            <img src="{{ STATIC_URL }}poll/icons/silk/table_save.png" alt=""/> Export  {{object_list.0.contact.groups.all.0 }} Responses
+        </a>
+       </div>
+    {% endif %}
+
         {% endblock %}
     {% for response in object_list %}
 
