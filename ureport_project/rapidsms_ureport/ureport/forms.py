@@ -19,8 +19,7 @@ from poll.forms import NewPollForm
 from rapidsms_httprouter.models import Message, Connection
 from uganda_common.forms import SMSInput
 from django.db.models.query import QuerySet
-from contact.models import MassText
-from poll.models import Poll, Translation
+from poll.models import Translation
 from unregister.models import Blacklist
 from .models import AutoregGroupRules
 from uganda_common.utils import ExcelResponse
@@ -28,11 +27,10 @@ from ureport.models import MessageAttribute, MessageDetail
 from django.utils.safestring import mark_safe
 from uganda_common.models import Access
 import tasks
-from django.conf import settings
+from ureport.utils import normalize_query
 languages = getattr(settings, 'LANGUAGES', (('fr', 'French')))
-
+from ureport.models import UreportContact
 from django.utils.translation import ugettext as _
-from ureport.views.utils.excel import handle_excel_file, handle_excel_file_update
 
 class EditReporterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -153,14 +151,6 @@ class ExcelTestUploadForm(forms.Form):
             self._errors['excel_file'] = ErrorList([msg])
             return ''
         return self.cleaned_data
-
-
-
-
-
-
-
-
 
 
 class SearchResponsesForm(FilterForm):
@@ -720,17 +710,17 @@ class UreporterSearchForm(FilterForm):
                               help_text="Use 'or' to search for multiple names")
 
     def filter(self, request, queryset):
+        # import ipdb; ipdb.set_trace()
         searchx = self.cleaned_data['searchx'].strip()
+        query = UreportContact.objects.none()
         if searchx == "":
             return queryset
-        elif searchx[0] in ["'", '"'] and searchx[-1] in ["'", '"']:
-            searchx = searchx[1:-1]
-            return queryset.filter(Q(district__iregex=".*\m(%s)\y.*" % searchx)
-                                   | Q(connection_pk__icontains=".*\m(%s)\y.*" % searchx))
-
         else:
-            return queryset.filter(Q(district__icontains=searchx)
-                                   | Q(connection_pk=searchx))
+            terms = normalize_query(searchx)
+            for term in terms:
+                q = queryset.filter(Q(province__icontains=term) | Q(colline__icontains=term) | Q(name__icontains=term))
+                query = query | q
+        return query
 
 
 class AgeFilterForm(FilterForm):

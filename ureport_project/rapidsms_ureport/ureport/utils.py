@@ -3,7 +3,7 @@ from logging import getLogger
 from contact.models import MessageFlag
 from rapidsms.models import Contact
 from poll.models import ResponseCategory
-from ureport.models.models import UPoll as Poll, PollAttribute, Ureporter 
+from ureport.models.models import UPoll as Poll, PollAttribute, Ureporter
 #from ureport.models import UPoll as Poll, PollAttribute
 #from .models import UPoll as Poll, PollAttribute
 from script.models import ScriptStep, Script
@@ -17,7 +17,6 @@ from rapidsms.models import Connection
 from poll.models import gettext_db
 from django.db.models import Q
 import datetime
-from django.conf import settings
 import re
 from uganda_common.models import Access
 
@@ -39,7 +38,7 @@ def get_language(message):
         match = reg.search(message.text.lower())
         if match:
             return lang
-        
+
 def get_scripts():
     scripts = settings.SCRIPTS
     _slist = []
@@ -70,7 +69,7 @@ def all_optout_words():
             words = joins[lang]
             _jlist += words
     return _jlist
-        
+
 module_name = __name__
 logger = getLogger(module_name)
 
@@ -329,3 +328,8 @@ def configure_messages_for_script(script_name,messages_dict):
     except Script.DoesNotExist:
         logger.debug("[%s] Script object with slug name %s not found." % (module_name,script_name))
 
+
+def normalize_query(query_string,
+                    findterms=re.compile(r'"([^"]+)"|(\S+)').findall,
+                    normspace=re.compile(r'\s{2,}').sub):
+    return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
