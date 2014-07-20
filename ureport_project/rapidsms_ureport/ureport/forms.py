@@ -19,8 +19,7 @@ from poll.forms import NewPollForm
 from rapidsms_httprouter.models import Message, Connection
 from uganda_common.forms import SMSInput
 from django.db.models.query import QuerySet
-from contact.models import MassText
-from poll.models import Poll, Translation
+from poll.models import Translation
 from unregister.models import Blacklist
 from .models import AutoregGroupRules
 from uganda_common.utils import ExcelResponse
@@ -28,11 +27,10 @@ from ureport.models import MessageAttribute, MessageDetail
 from django.utils.safestring import mark_safe
 from uganda_common.models import Access
 import tasks
-from django.conf import settings
+from ureport.utils import normalize_query
 languages = getattr(settings, 'LANGUAGES', (('fr', 'French')))
-
+from ureport.models import UreportContact
 from django.utils.translation import ugettext as _
-from ureport.views.utils.excel import handle_excel_file, handle_excel_file_update
 
 class EditReporterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -130,21 +128,6 @@ class ExcelTestUploadForm(forms.Form):
     excel_file = forms.FileField(label='Contacts Excel File',
                                 required=False,
                                 help_text='Upload an excel file of 200 rows maximum')
-    #assign_to_group = \
-    #    forms.ModelChoiceField(queryset=Group.objects.all(),
-    #                           required=False)
-
-    #    def __init__(self, data=None, **kwargs):
-    #        self.request=kwargs.pop('request')
-    #        if data:
-    #            forms.Form.__init__(self, data, **kwargs)
-    #        else:
-    #            forms.Form.__init__(self, **kwargs)
-    #        if hasattr(Contact, 'groups'):
-    #            if self.request.user.is_authenticated():
-    #                self.fields['assign_to_group'] = forms.ModelChoiceField(queryset=Group.objects.filter(pk__in=self.request.user.groups.values_list('pk',flat=True)), required=False)
-    #            else:
-    #                self.fields['assign_to_group'] = forms.ModelChoiceField(queryset=Group.objects.all(), required=False)
 
     def good_file(self):
         excel = self.cleaned_data.get('excel_file', None)
@@ -153,14 +136,6 @@ class ExcelTestUploadForm(forms.Form):
             self._errors['excel_file'] = ErrorList([msg])
             return ''
         return self.cleaned_data
-
-
-
-
-
-
-
-
 
 
 class SearchResponsesForm(FilterForm):
@@ -721,16 +696,15 @@ class UreporterSearchForm(FilterForm):
 
     def filter(self, request, queryset):
         searchx = self.cleaned_data['searchx'].strip()
+        query = UreportContact.objects.none()
         if searchx == "":
             return queryset
-        elif searchx[0] in ["'", '"'] and searchx[-1] in ["'", '"']:
-            searchx = searchx[1:-1]
-            return queryset.filter(Q(district__iregex=".*\m(%s)\y.*" % searchx)
-                                   | Q(connection_pk__icontains=".*\m(%s)\y.*" % searchx))
-
         else:
-            return queryset.filter(Q(district__icontains=searchx)
-                                   | Q(connection_pk=searchx))
+            terms = normalize_query(searchx)
+            for term in terms:
+                q = queryset.filter(Q(province__icontains=term) | Q(colline__icontains=term) | Q(name__icontains=term) | Q(mobile__icontains=int(term)))
+                query = query | q
+        return query
 
 
 class AgeFilterForm(FilterForm):
@@ -741,23 +715,23 @@ class AgeFilterForm(FilterForm):
     age = forms.CharField(max_length=20, label="Age", widget=forms.TextInput(attrs={'size': '20'}), required=False)
 
     def filter(self, request, queryset):
-        #import ipdb;ipdb.set_trace()
-
+        # import ipdb;ipdb.set_trace()
+        from datetime import datetime, timedelta
         flag = self.cleaned_data['flag']
 
         try:
             age = int(self.cleaned_data['age'])
         except:
             age = None
-
+        real = 365 * age
         if flag == '':
             return queryset
         elif flag == '==':
-            return queryset.filter(age=age)
+            return queryset.filter(age__year=real)
         elif flag == '>':
-            return queryset.filter(age__gte=age)
+            return queryset.filter(age__year=real)
         elif flag == "<":
-            return queryset.filter(age__lte=age)
+            return queryset.filter(age__lte=real)
         else:
             return queryset.filter(age=None)
 
