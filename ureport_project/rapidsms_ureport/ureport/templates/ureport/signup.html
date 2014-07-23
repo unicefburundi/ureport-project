@@ -24,7 +24,7 @@
 
 
 {% endif %}
-<form action="{% url signup %}" method="POST">
+<form action="{% url 'signup' %}" method="POST">
     {{ signup_form.as_table }}
    <tr><td> <input type="submit" value="Signup"></td></tr>
 </form>
