@@ -21,7 +21,7 @@ from ureport.forms import SendMessageForm, SearchMessagesForm, ForwardMessageFor
 from ureport.models import MessageAttribute, MessageDetail
 from contact.forms import FlaggedMessageForm
 from ureport.views.utils.tags import _get_responses
-from contact.forms import FreeSearchTextForm, DistictFilterMessageForm
+from contact.forms import DistictFilterMessageForm, SearchInMessagesForm
 from generic.sorters import TupleSorter
 from contact.utils import get_mass_messages, get_messages
 from ureport.utils import get_quit_messages, get_autoreg_messages, get_unsolicitized_messages, get_poll_messages, get_access
@@ -35,7 +35,7 @@ from uganda_common.utils import assign_backend
 @login_required
 def messages(request):
     access = get_access(request)
-    filter_forms = [SearchMessagesForm, DistictFilterMessageForm]
+    filter_forms = [SearchInMessagesForm, DistictFilterMessageForm]
     action_forms = [ReplyTextForm, BlacklistForm2]
     partial_row = 'ureport/partials/messages/message_row.html'
     base_template = 'ureport/contact_message_base.html'
@@ -70,7 +70,7 @@ def messages(request):
 @login_required
 def autoreg_messages(request):
     access = get_access(request)
-    filter_forms = [FreeSearchTextForm, DistictFilterMessageForm]
+    filter_forms = [SearchInMessagesForm, DistictFilterMessageForm]
     action_forms = [ReplyTextForm, BlacklistForm2]
     partial_row = 'ureport/partials/messages/message_row.html'
     base_template = 'ureport/contact_message_base.html'
@@ -105,7 +105,7 @@ def autoreg_messages(request):
 @login_required
 def unsolicitized_messages(request):
     access = get_access(request)
-    filter_forms = [FreeSearchTextForm, DistictFilterMessageForm]
+    filter_forms = [SearchInMessagesForm, DistictFilterMessageForm]
     action_forms = [ReplyTextForm, BlacklistForm2]
     partial_row = 'ureport/partials/messages/message_row.html'
     base_template = 'ureport/contact_message_base.html'
@@ -140,7 +140,7 @@ def unsolicitized_messages(request):
 @login_required
 def poll_messages(request):
     access = get_access(request)
-    filter_forms = [FreeSearchTextForm, DistictFilterMessageForm]
+    filter_forms = [SearchInMessagesForm, DistictFilterMessageForm]
     action_forms = [ReplyTextForm, BlacklistForm2]
     partial_row = 'ureport/partials/messages/message_row.html'
     base_template = 'ureport/contact_message_base.html'
@@ -175,7 +175,7 @@ def poll_messages(request):
 @login_required
 def quit_messages(request):
     access = get_access(request)
-    filter_forms = [FreeSearchTextForm, DistictFilterMessageForm]
+    filter_forms = [SearchInMessagesForm, DistictFilterMessageForm]
     action_forms = [ReplyTextForm, BlacklistForm2]
     partial_row = 'ureport/partials/messages/message_row.html'
     base_template = 'ureport/contact_message_base.html'
