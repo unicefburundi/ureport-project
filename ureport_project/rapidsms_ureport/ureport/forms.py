@@ -704,11 +704,11 @@ class UreporterSearchForm(FilterForm):
             for term in terms:
                 try:
                     term = int(term)
-                except Exception, e:
-                    q = queryset.filter(Q(province__icontains=term) | Q(colline__icontains=term) | Q(name__icontains=term))
+                except Exception:
+                    q = queryset.filter(Q(name__icontains=term))
                     query = query | q
                 else:
-                    q = queryset.filter(Q(mobile__icontains=term) )
+                    q = queryset.filter(Q(mobile=term))
                     query = query | q
         return query
 

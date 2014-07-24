@@ -194,7 +194,7 @@ LEFT JOIN
                 (
                     'Id',
                     'Language',
-                    'Id Connection',
+                    'Identifier',
                     'Number',
                     'Name',
                     'Birthdate',
