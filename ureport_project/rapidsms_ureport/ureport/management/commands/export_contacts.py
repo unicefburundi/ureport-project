@@ -6,8 +6,6 @@ import traceback
 import os
 from openpyxl.cell import get_column_letter
 import xlwt
-from django.utils.datastructures import SortedDict
-from poll.models import Poll
 import datetime
 from django.db import connection, transaction
 from django.conf import settings
@@ -15,7 +13,6 @@ from django.conf import settings
 ezxf = xlwt.easyxf
 
 from openpyxl.workbook import Workbook
-from openpyxl.writer.excel import ExcelWriter
 
 
 class Command(BaseCommand):
@@ -25,6 +22,12 @@ class Command(BaseCommand):
         """    SELECT
 "rapidsms_contact"."id",
 "rapidsms_contact"."language",
+(SELECT
+    "rapidsms_connection"."id"
+ FROM
+    "rapidsms_connection"
+ WHERE
+    "rapidsms_connection"."contact_id"="rapidsms_contact"."id") as id_connection,
 (SELECT
     "rapidsms_connection"."identity"
  FROM
@@ -191,6 +194,7 @@ LEFT JOIN
                 (
                     'Id',
                     'Language',
+                    'Id Connection',
                     'Number',
                     'Name',
                     'Birthdate',
@@ -210,7 +214,7 @@ LEFT JOIN
             ]
 
             rows = row_0 + cursor.fetchall()
-            kinds = "int text text text date date date text int text text text text text text text text".split()
+            kinds = "int text text text text date date date text int text text text text text text text text".split()
             kind_to_xf_map = {
                 'date': ezxf(num_format_str='yyyy-mm-dd'),
                 'int': ezxf(num_format_str='#,##0'),
