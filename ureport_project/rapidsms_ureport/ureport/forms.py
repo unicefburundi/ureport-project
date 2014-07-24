@@ -703,8 +703,14 @@ class UreporterSearchForm(FilterForm):
             # import ipdb; ipdb.set_trace()
             terms = normalize_query(searchx)
             for term in terms:
-                q = queryset.filter(Q(province__icontains=term) | Q(colline__icontains=term) | Q(name__icontains=term))
-                query = query | q
+                try:
+                    term = int(term)
+                except Exception, e:
+                    q = queryset.filter(Q(province__icontains=term) | Q(colline__icontains=term) | Q(name__icontains=term))
+                    query = query | q
+                else:
+                    q = queryset.filter(Q(mobile__icontains=term) )
+                    query = query | q
         return query
 
 
