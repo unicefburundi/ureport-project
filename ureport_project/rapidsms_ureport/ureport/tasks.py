@@ -25,6 +25,16 @@ def export_last_poll():
     log.info("[poll-export-task'] Exporting poll [" + str(poll.pk) + "] completed")
 
 @task
+def export_two_last_polls():
+    polls = Poll.objects.order_by('-pk')
+    polls_to_export = [polls[0], polls[1]]
+
+    for poll in polls_to_export:
+        log.info("[poll-export-task'] Starting to export poll [" + str(poll) + "] ...")
+        management.call_command('export_poll', p=poll)
+        log.info("[poll-export-task'] Exporting poll [" + str(poll) + "] completed")
+
+@task
 def ping(ignore_result=True):
     log.info("[ping-task] pong.")
     print "pong"
