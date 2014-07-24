@@ -700,9 +700,10 @@ class UreporterSearchForm(FilterForm):
         if searchx == "":
             return queryset
         else:
+            # import ipdb; ipdb.set_trace()
             terms = normalize_query(searchx)
             for term in terms:
-                q = queryset.filter(Q(province__icontains=term) | Q(colline__icontains=term) | Q(name__icontains=term) | Q(mobile__icontains=int(term)))
+                q = queryset.filter(Q(province__icontains=term) | Q(colline__icontains=term) | Q(name__icontains=term))
                 query = query | q
         return query
 
