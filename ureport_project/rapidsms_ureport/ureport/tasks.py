@@ -117,13 +117,3 @@ def push_to_mtrac(messages):
 def export_contacts_nightly():
     management.call_command('export_contacts', verbosity=0, interactive=False)
     log.info("Exported all contacts at " + time.strftime("%a, %d %b %Y %H:%M:%S"))
-
-@task
-def export_two_last_polls():
-    polls = Poll.objects.order_by('-pk')
-    polls_to_export = [polls[0], polls[1]]
-
-    for poll in polls_to_export:
-        log.info("[poll-export-task'] Starting to export poll [" + str(poll) + "] ...")
-        management.call_command('export_poll', p=poll)
-        log.info("[poll-export-task'] Exporting poll [" + str(poll) + "] completed")
