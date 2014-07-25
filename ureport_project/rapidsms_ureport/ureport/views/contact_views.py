@@ -19,7 +19,7 @@ from django.contrib import messages
 from rapidsms.models import Connection, Contact
 from poll.models import Poll
 from generic.sorters import SimpleSorter
-from ureport.forms import ReplyTextForm, DownloadForm, EditReporterForm, SignupForm, ExcelUploadForm, MassTextForm, AssignToNewPollForm, TemplateMessage, ExcelTestUploadForm
+from ureport.forms import ReplyTextForm, EditReporterForm, SignupForm, ExcelUploadForm, MassTextForm, AssignToNewPollForm, TemplateMessage, ExcelTestUploadForm
 
 from unregister.models import Blacklist
 from django.conf import settings
@@ -35,7 +35,7 @@ from ureport.forms import UreporterSearchForm, AgeFilterForm
 from django.views.decorators.csrf import csrf_protect
 
 
-
+@csrf_protect
 @login_required
 def ureporter_profile(request, connection_pk):
     from script.models import ScriptSession, ScriptResponse, Script
@@ -140,7 +140,7 @@ def deleteReporter(request, reporter_pk):
         reporter.delete()
     return HttpResponse(status=200)
 
-
+@csrf_protect
 @login_required
 def editReporter(request, reporter_pk):
     reporter = get_object_or_404(Contact, pk=reporter_pk)
@@ -151,14 +151,12 @@ def editReporter(request, reporter_pk):
         if reporter_form.is_valid():
             reporter_form.save()
         else:
-            return render_to_response('ureport/partials/contacts/edit_reporter.html'
-                , {'reporter_form': reporter_form, 'reporter'
-                : reporter},
+            return render_to_response('ureport/partials/contacts/edit_reporter.html',
+                    {'reporter_form': reporter_form, 'reporter': reporter},
                                       context_instance=RequestContext(request))
-        return render_to_response('/ureport/partials/contacts/contacts_row.html'
-            , {'object'
-               : Contact.objects.get(pk=reporter_pk),
-               'selectable': True},
+        return render_to_response('ureport/partials/contacts/contacts_row.html',
+                        {'object': Contact.objects.get(pk=reporter_pk),
+                        'selectable': True},
                                   context_instance=RequestContext(request))
     else:
         return render_to_response('ureport/partials/contacts/edit_reporter.html'

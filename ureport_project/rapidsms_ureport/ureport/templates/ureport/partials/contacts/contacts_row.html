@@ -2,20 +2,20 @@
 {% block remaining_row_content %}
     <td>
         {% if object.mobile %}
-            <!-- <a href="{% url ureport.views.ureporter_profile object.connection_pk %}"> -->
-            <a href="{% url "profile" object.connection_pk %}">
-        {% endif %}
-        {{ object.name }}
-        {% if object.mobile %}
-            </a>
+            {% comment %}
+                 <a href="{% url ureport.views.ureporter_profile object.connection_pk %}">
+             {% endcomment %}
+            <a href="{% url "profile" object.connection_pk %}">{{ object.name }} </a>
         {% endif %}
     </td>
     <td>
         {{ object.mobile}}
-       <!-- <a href="{% url "profile" object.connection_pk %}"> {{ object.connection_pk }}</a> -->
+       {% comment %}
+           <!-- <a href="{% url "profile" object.connection_pk %}"> {{ object.connection_pk }}</a> -->
+       {% endcomment %}
     </td>
     <td>
-    {{  object.age.days }}
+    {{  object.birthdate }}
     </td>
     <td>
     {% if object.gender %}
@@ -29,8 +29,8 @@
         {{ object.language }}
     {% endif %}
     </td>
-    <td id="row_{{ object.pk }}">{{ object.province }}</td>
-	<td>{{ object.group }}</td>
+    <td id="row_{{ object.pk }}">{{ object.reporting_location }}</td>
+	<td>{{ object.groups }}</td>
 	<td>{{ object.questions }}</td>
 	<td>{{ object.responses }}</td>
 	<td>{{ object.incoming }}</td>

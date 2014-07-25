@@ -81,7 +81,7 @@
 			{% endif %}
 			{% if contact.colline %}
             <tr>
-                <td>Colline:</td>               
+                <td>Colline:</td>
                 <td>{{ contact.colline }}</td>
             </tr>
 			{% endif %}
@@ -136,6 +136,7 @@
         </table>
         <div class="modal hide" id="edit_reporter">
             <form method="post" id="message_form" action="/reporter/{{contact.pk}}/edit/" data-remote=true>
+                {% csrf_token %}
                 <div class="modal-header">
                     <a class="close" data-dismiss="modal" onclick='$(".modal").hide()'>×</a>
                     <h3>Editing {{contact.name}}</h3>
