@@ -438,7 +438,7 @@ def ureporters(request):
         contactsform=ExcelTestUploadForm,
         message=message,
         results_title='uReporters',
-        filter_forms=[ UreporterSearchForm,  GenderFilterForm, MultipleDistictFilterForm,FilterGroupsForm ],
+        filter_forms=[ UreporterSearchForm,  GenderFilterForm, AgeFilterForm, MultipleDistictFilterForm, FilterGroupsForm ],
         action_forms=[MassTextForm, AssignGroupForm, BlacklistForm,  AssignToNewPollForm,RemoveGroupForm,TemplateMessage ],
         objects_per_page=25,
         base_template='ureport/ureporters_base.html',
@@ -447,5 +447,4 @@ def ureporters(request):
         paginator_template='ureport/partials/new_pagination.html',
         paginator_func=ureport_paginate,
         columns=columns,
-    )
-
+        )

@@ -721,23 +721,20 @@ class AgeFilterForm(FilterForm):
     age = forms.CharField(max_length=20, label="Age", widget=forms.TextInput(attrs={'size': '20'}), required=False)
 
     def filter(self, request, queryset):
-        # import ipdb;ipdb.set_trace()
-        from datetime import datetime, timedelta
         flag = self.cleaned_data['flag']
-
         try:
-            age = int(self.cleaned_data['age'])
+            age = self.cleaned_data['age']
         except:
             age = None
-        real = 365 * age
         if flag == '':
             return queryset
         elif flag == '==':
-            return queryset.filter(age__year=real)
+            # we're gonna query this ''' select * from ureport_contact where extract(year from age) = %d '''
+            return queryset.extra(where=['extract(year from age)=%s'], params=[age])
         elif flag == '>':
-            return queryset.filter(age__year=real)
+            return queryset.extra(where=['extract(year from age)>%s'], params=[age])
         elif flag == "<":
-            return queryset.filter(age__lte=real)
+            return queryset.extra(where=['extract(year from age)<%s'], params=[age])
         else:
             return queryset.filter(age=None)
 
