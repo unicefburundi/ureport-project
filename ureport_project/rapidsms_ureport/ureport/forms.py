@@ -39,7 +39,6 @@ class EditReporterForm(forms.ModelForm):
             TreeNodeChoiceField(queryset=self.fields['reporting_location'
             ].queryset.filter(type="district"), level_indicator=u'')
 
-
     class Meta:
         model = Contact
         fields = ('name', 'reporting_location', 'groups', 'gender', 'birthdate')
@@ -717,7 +716,7 @@ class AgeFilterForm(FilterForm):
     """ filter contacts by their age """
     flag = forms.ChoiceField(label='', choices=(('', '-----'), ('==', 'Equal to'), ('>', 'Greater than'), ('<', \
                                                                                                            'Less than'),
-                                                ('None', 'N/A')), required=False)
+                            ('b', 'Between'),('None', 'N/A')), required=False)
     age = forms.CharField(max_length=20, label="Age", widget=forms.TextInput(attrs={'size': '20'}), required=False)
 
     def filter(self, request, queryset):
@@ -735,6 +734,11 @@ class AgeFilterForm(FilterForm):
             return queryset.extra(where=['extract(year from age)>%s'], params=[age])
         elif flag == "<":
             return queryset.extra(where=['extract(year from age)<%s'], params=[age])
+        elif flag == 'b':
+            inputed_age = normalize_query(age)
+            minimum = inputed_age[0]
+            maximum = inputed_age[-1]
+            return queryset.extra(where=['extract(year from age)>%s','extract(year from age)<%s'], params=[minimum, maximum])
         else:
             return queryset.filter(age=None)
 
