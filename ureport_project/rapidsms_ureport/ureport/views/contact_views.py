@@ -19,7 +19,7 @@ from django.contrib import messages
 from rapidsms.models import Connection, Contact
 from poll.models import Poll
 from generic.sorters import SimpleSorter
-from ureport.forms import ReplyTextForm, EditReporterForm, SignupForm, ExcelUploadForm, MassTextForm, AssignToNewPollForm, TemplateMessage, ExcelTestUploadForm
+from ureport.forms import ReplyTextForm, EditReporterForm, SignupForm, ExcelUploadForm, MassTextForm, AssignToNewPollForm, TemplateMessage, ExcelTestUploadForm, ExportToExcelForm
 
 from unregister.models import Blacklist
 from django.conf import settings
@@ -439,7 +439,7 @@ def ureporters(request):
         message=message,
         results_title='uReporters',
         filter_forms=[ UreporterSearchForm,  GenderFilterForm, AgeFilterForm, MultipleDistictFilterForm, FilterGroupsForm ],
-        action_forms=[MassTextForm, AssignGroupForm, BlacklistForm,  AssignToNewPollForm,RemoveGroupForm,TemplateMessage ],
+        action_forms=[MassTextForm, AssignGroupForm, BlacklistForm,  AssignToNewPollForm,RemoveGroupForm,TemplateMessage , ExportToExcelForm],
         objects_per_page=25,
         base_template='ureport/ureporters_base.html',
         partial_base='ureport/partials/contacts/partial_base.html',

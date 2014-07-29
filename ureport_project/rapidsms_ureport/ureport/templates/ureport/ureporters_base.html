@@ -129,7 +129,8 @@ $("#id_enddate").datepicker({ dateFormat: 'dd/mm/yy' ,changeYear: true ,changeMo
 
     <div class="tab-pane " id="exports">
         <table>
-            {{export_form.as_table}}
+             {{action_forms.6.1.as_table}}
+            <tr><td><a id="excel_ureporters" class="{{ action_forms.6.1.action_class }} btn-primary btn btn-large" href="javascript:void(0)" onClick="actionx('#excel_ureporters', '{{ action_forms.6.0 }}',{{ page }});">Export to Excel</a></td></tr>
             <tr><td colspan="2">Export All Contacts</td></tr>
             <tr><td><a class="export_link btn btn-large" href="{{ STATIC_URL }}ureport/spreadsheets/ureporters.xlsx">Export All To Excel</a></td></tr>
         </table>

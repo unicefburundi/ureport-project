@@ -22,7 +22,7 @@ from django.db.models.query import QuerySet
 from poll.models import Translation
 from unregister.models import Blacklist
 from .models import AutoregGroupRules
-from uganda_common.utils import ExcelResponse
+from uganda_common.utils import ExcelResponse, ExcelResults
 from ureport.models import MessageAttribute, MessageDetail
 from django.utils.safestring import mark_safe
 from uganda_common.models import Access
@@ -31,6 +31,7 @@ from ureport.utils import normalize_query
 languages = getattr(settings, 'LANGUAGES', (('fr', 'French')))
 from ureport.models import UreportContact
 from django.utils.translation import ugettext as _
+
 
 class EditReporterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -728,17 +729,21 @@ class AgeFilterForm(FilterForm):
         if flag == '':
             return queryset
         elif flag == '==':
-            # we're gonna query this ''' select * from ureport_contact where extract(year from age) = %d '''
-            return queryset.extra(where=['extract(year from age)=%s'], params=[age])
+            # we're query this ''' select * from ureport_contact where extract(year from age) = %s '''
+            return queryset.extra(where=['extract(year from age)=%s'],
+            params=[age])
         elif flag == '>':
-            return queryset.extra(where=['extract(year from age)>%s'], params=[age])
+            return queryset.extra(where=['extract(year from age)>%s'],
+                params=[age])
         elif flag == "<":
-            return queryset.extra(where=['extract(year from age)<%s'], params=[age])
+            return queryset.extra(where=['extract(year from age)<%s'],
+                params=[age])
         elif flag == 'b':
             inputed_age = normalize_query(age)
             minimum = inputed_age[0]
             maximum = inputed_age[-1]
-            return queryset.extra(where=['extract(year from age)>%s','extract(year from age)<%s'], params=[minimum, maximum])
+            return queryset.extra(where=['extract(year from age)>%s',
+                'extract(year from age)<%s'], params=[minimum, maximum])
         else:
             return queryset.filter(age=None)
 
@@ -866,3 +871,11 @@ class PushToMtracForm(ActionForm):
         results = set([r.pk for r in results])
         tasks.push_to_mtrac.delay(results)
         return "%d Messages were pushed to mtrac" % len(results), "success"
+
+
+class ExportToExcelForm(ActionForm):
+    action_label = "Export to excel"
+
+    def perform(self, request, results):
+        data = results.values()
+        ExcelResults(data=data, output_name='exported_results.xlsx', write_to_file = True)
