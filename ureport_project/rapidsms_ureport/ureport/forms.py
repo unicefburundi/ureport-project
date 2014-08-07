@@ -874,8 +874,12 @@ class PushToMtracForm(ActionForm):
 
 
 class ExportToExcelForm(ActionForm):
-    action_label = "Export to excel"
+    action_label = "Generate the excel file"
 
     def perform(self, request, results):
         data = results.values()
-        ExcelResults(data=data, output_name='exported_results.xlsx', write_to_file = True)
+        return ExcelResults(
+                    data=data,
+                    output_name='exported_results.xlsx',
+                    write_to_file=False,
+                )
