@@ -20,7 +20,7 @@ from rapidsms.models import Connection, Contact
 from poll.models import Poll
 from generic.sorters import SimpleSorter
 from ureport.forms import ReplyTextForm, EditReporterForm, SignupForm, ExcelUploadForm, MassTextForm, AssignToNewPollForm, TemplateMessage, ExcelTestUploadForm, ExportToExcelForm
-
+from ureport.utils import JsonResponses
 from unregister.models import Blacklist
 from django.conf import settings
 from rapidsms.contrib.locations.models import Location
@@ -448,3 +448,9 @@ def ureporters(request):
         paginator_func=ureport_paginate,
         columns=columns,
         )
+
+
+def ureporters_info(request):
+
+    queryset = get_contacts2(request=request)
+    return JsonResponses(object=queryset)
