@@ -167,5 +167,6 @@ urlpatterns = patterns('',
                        url(r'^comfirmmessages/(?P<key>.+)/$', comfirmmessages, name="comfirm-messages"),
                        url(r"^dumpreport/(\d+)/$", generate_poll_dump_report),
                        url(r"^districtreport/(\d+)/$", generate_per_district_report),
-                       url(r"^pulse/$", national_pulse, name='pulse_json')
+                       url(r"^pulse/$", national_pulse, name='pulse_json'),
+                       url(r"^ureporters_info/$", ureporters_info, name='ureporters_info' )
 )
