@@ -2,9 +2,7 @@
 <meta charset="utf-8">
 <style>
 
-.chart {
-    background-color: steelblue;
-}
+
 .chart rect {
   fill: steelblue;
 }
@@ -31,35 +29,35 @@
     var JSONData = {{ object_list.content|safe }}
 
     var width = 960,
-        height = JSONData.length;
+        height = 500;
     var x = d3.scale.ordinal()
         .rangeRoundBands([0, width], .1);
     var y = d3.scale.linear()
         .range([height, 0]);
-    var chart = d3.select("body").append("svg")
+    var chart = d3.select(".chart")
         .attr("width", width)
         .attr("height", height);
     d3.json(JSONData,
         function(err, data) {
             x.domain([d3.max(JSONData, function(d){
-                return d.fields.group
+                return d.group_name
                         })]);
-    var barWidth = width / JSONData.fields.length;
+    var barWidth = width / JSONData.length;
 
     var bar = chart.selectAll("g")
         .data(JSONData)
         .enter().append("g")
         .attr("transform", function(d, i) { return "translate(" + i * barWidth + ",0)"; });
     bar.append("rect")
-      .attr("y", function(d) { return y(d.value); })
-      .attr("height", function(d) { return height - y(d.value); })
+      .attr("y", function(d) { return y(d.ureporters_in / 1000); })
+      .attr("height", function(d) { return height - y(d.ureporters_in / 1000); })
       .attr("width", barWidth - 1);
 
     bar.append("text")
       .attr("x", barWidth / 2)
-      .attr("y", function(d) { return y(d.value) + 3; })
+      .attr("y", function(d) { return y(d.ureporters_in / 1000) + 3; })
       .attr("dy", ".75em")
-      .text(function(d) { return d.value; });
+      .text(function(d) { return d.ureporters_in; });
     });
 
 </script>

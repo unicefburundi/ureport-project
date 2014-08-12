@@ -22,7 +22,7 @@ from uganda_common.models import Access
 from django.http import HttpResponse
 from django.db.models.query import QuerySet
 #router_setting = getattr(settings, 'RAPIDSMS_ROUTER', None)
-#
+from django.core.serializers.json import DjangoJSONEncoder
 #if(router_setting == "rapidsms.router.db.DatabaseRouter"):
 #    from rapidsms.router.db.models import *
 
@@ -340,7 +340,7 @@ class JsonResponses(HttpResponse):
             content = serializers.serialize('json', object)
         else:
             content = json.dumps(
-                object, indent=2, cls=json.DjangoJSONEncoder,
+                object, indent=2, cls=DjangoJSONEncoder,
                 ensure_ascii=False)
         super(JsonResponses, self).__init__(
             content, content_type='application/json')

@@ -715,9 +715,7 @@ class UreporterSearchForm(FilterForm):
 
 class AgeFilterForm(FilterForm):
     """ filter contacts by their age """
-    flag = forms.ChoiceField(label='', choices=(('', '-----'), ('==', 'Equal to'), ('>', 'Greater than'), ('<', \
-                                                                                                           'Less than'),
-                            ('b', 'Between'),('None', 'N/A')), required=False)
+    flag = forms.ChoiceField(label='', choices=(('', '-----'), ('==', 'Equal to'), ('>', 'Greater than'), ('<', 'Less than'), ('b', 'Between'),('None', 'N/A')), required=False)
     age = forms.CharField(max_length=20, label="Age", widget=forms.TextInput(attrs={'size': '20'}), required=False)
 
     def filter(self, request, queryset):
