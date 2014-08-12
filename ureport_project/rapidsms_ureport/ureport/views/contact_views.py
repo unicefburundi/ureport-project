@@ -34,6 +34,7 @@ from ureport.views.utils.paginator import ureport_paginate
 from ureport.forms import UreporterSearchForm, AgeFilterForm
 from django.views.decorators.csrf import csrf_protect
 from django.template import Context, loader
+from django.contrib.auth.models import Group
 
 
 @csrf_protect
@@ -454,6 +455,7 @@ def ureporters(request):
 def ureporters_info(request):
     # import ipdb; ipdb.set_trace()
     queryset = get_contacts2(request=request)
+    groups = Group.objects.all()
     jsonData = JsonResponses(object=queryset)
     t = loader.get_template('ureport/ureporters_info.html')
     c = Context({'object_list': jsonData})
