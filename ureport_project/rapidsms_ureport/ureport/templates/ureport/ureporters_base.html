@@ -22,6 +22,7 @@ $("#id_startdate").datepicker({ dateFormat: 'dd/mm/yy' ,changeYear: true ,change
 $("#id_enddate").datepicker({ dateFormat: 'dd/mm/yy' ,changeYear: true ,changeMonth: true,minDate: new Date(2009, 1 - 1, 1) });
 });
 </script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
 {% endblock %}
 
 
@@ -178,6 +179,11 @@ $("#id_enddate").datepicker({ dateFormat: 'dd/mm/yy' ,changeYear: true ,changeMo
     </div>
 
 </div>
+
+<div id="container" style="width:100%; height:400px;">
+{{group_statistics}}
+</div>
+
 <script type="text/javascript">
     // Attach a submit handler to the form
 $("#excel_submit" ).click(function(){
@@ -190,6 +196,72 @@ $("#excel_submit" ).click(function(){
     var posting = $.post( url, { excel_file : term }, {csrfmiddlewaretoken:'{{csrf_token}}' });
 
 });
+
+
+
+
+a=0;
+//alert(a);
+a = document.getElementById("container");
+//alert(a);
+l = a.innerHTML;
+alert(l);
+var options = new Object();
+
+options.chart = new Object();
+options.chart.renderTo = 'container';
+options.chart.type = 'pie';
+
+options.series = new Array();
+options.series[0] = new Object();
+options.series[0].name = 'U-reporters';
+
+options.series[0].data = new Array();
+
+var chaine = "", nombre = 0;
+var i = 0;
+var options = new Object();
+
+options.chart = new Object();
+options.chart.renderTo = 'container';
+options.chart.type = 'pie';
+
+options.series = new Array();
+options.series[0] = new Object();
+options.series[0].name = 'U-reporters';
+
+options.series[0].data = new Array();
+var indice_data = 0;
+
+while ((i < l.length))
+{
+    if(l[i] === "[")
+    { var i2 = i;
+      while(l[i2] != "]")
+      {i2 = i2 + 1;
+      }
+      while(l[i] === "[")
+      {
+       i = i + 1;
+      }
+     chaine = l.substring(i,i2);
+     //alert(chaine);
+     
+     var chaine2 = chaine.split(", ");
+     var label = chaine2[0];
+     var nombre = parseInt(chaine2[1]);
+     options.series[0].data[indice_data] = new Array(label, nombre);
+     indice_data = indice_data + 1;
+    }
+i = i + 1;
+}
+
+
+$(document).ready(function() {
+    var chart = new Highcharts.Chart(options);
+});
+
+
 </script>
 
 {% endblock %}
