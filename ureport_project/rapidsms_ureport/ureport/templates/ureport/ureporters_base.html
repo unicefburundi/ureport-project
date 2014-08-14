@@ -180,9 +180,16 @@ $("#id_enddate").datepicker({ dateFormat: 'dd/mm/yy' ,changeYear: true ,changeMo
 
 </div>
 
-<div id="container" style="width:100%; height:400px;">
+
+
+<div id="data_container">
 {{group_statistics}}
 </div>
+
+<div id="container" style="width:100%; height:400px;">
+
+</div>
+
 
 <script type="text/javascript">
     // Attach a submit handler to the form
@@ -194,29 +201,21 @@ $("#excel_submit" ).click(function(){
 
     // Send the data using post
     var posting = $.post( url, { excel_file : term }, {csrfmiddlewaretoken:'{{csrf_token}}' });
-
 });
 
 
 
 
-a=0;
-//alert(a);
-a = document.getElementById("container");
-//alert(a);
-l = a.innerHTML;
-alert(l);
-var options = new Object();
 
-options.chart = new Object();
-options.chart.renderTo = 'container';
-options.chart.type = 'pie';
 
-options.series = new Array();
-options.series[0] = new Object();
-options.series[0].name = 'U-reporters';
 
-options.series[0].data = new Array();
+
+function draw_pie_chart()
+{
+//This function draws a pie chart. It uses datas contained in "data_container" div.
+var returned_data = document.getElementById("data_container").innerHTML;
+
+alert(returned_data);
 
 var chaine = "", nombre = 0;
 var i = 0;
@@ -233,19 +232,18 @@ options.series[0].name = 'U-reporters';
 options.series[0].data = new Array();
 var indice_data = 0;
 
-while ((i < l.length))
+while ((i < returned_data.length))
 {
-    if(l[i] === "[")
+    if(returned_data[i] === "[")
     { var i2 = i;
-      while(l[i2] != "]")
+      while(returned_data[i2] != "]")
       {i2 = i2 + 1;
       }
-      while(l[i] === "[")
+      while(returned_data[i] === "[")
       {
        i = i + 1;
       }
-     chaine = l.substring(i,i2);
-     //alert(chaine);
+     chaine = returned_data.substring(i,i2);
      
      var chaine2 = chaine.split(", ");
      var label = chaine2[0];
@@ -256,11 +254,18 @@ while ((i < l.length))
 i = i + 1;
 }
 
+new Highcharts.Chart(options);
+
+}
+
 
 $(document).ready(function() {
-    var chart = new Highcharts.Chart(options);
+    draw_pie_chart();
 });
 
+//setInterval(function(){
+//draw_pie_chart();
+//},3000);
 
 </script>
 
