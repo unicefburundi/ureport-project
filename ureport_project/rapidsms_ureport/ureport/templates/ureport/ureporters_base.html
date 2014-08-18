@@ -34,7 +34,8 @@ $("#id_enddate").datepicker({ dateFormat: 'dd/mm/yy' ,changeYear: true ,changeMo
                 	<td>Search Ureporters :</td>
                 	<td>{{ filter_forms.0.searchx }}</td>
                 	<td>Filter By Group :</td>
-                	<td>{{ filter_forms.4.visible_fields.0 }}</td>
+                <!--	<td>{{ filter_forms.4.visible_fields.0 }}</td> -->
+                    <td>{{ filter_forms.4.group }}</td>
                 </tr>
                 <tr>
                 	<td>Filter By Gender :</td>
@@ -215,7 +216,7 @@ function draw_pie_chart()
 //This function draws a pie chart. It uses datas contained in "data_container" div.
 var returned_data = document.getElementById("data_container").innerHTML;
 
-alert(returned_data);
+//alert(returned_data);
 
 var chaine = "", nombre = 0;
 var i = 0;

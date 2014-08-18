@@ -31,7 +31,7 @@ from contact.forms import MultipleDistictFilterForm, GenderFilterForm, FilterGro
 from unregister.forms import BlacklistForm
 from ureport.models import Ureporter, UreportContact
 from ureport.views.utils.paginator import ureport_paginate
-from ureport.forms import UreporterSearchForm, AgeFilterForm
+from ureport.forms import UreporterSearchForm, AgeFilterForm, FilterByGroupForm
 from django.views.decorators.csrf import csrf_protect
 from django.utils.safestring import SafeString
 from django.contrib.auth.models import Group
@@ -441,7 +441,8 @@ def ureporters(request):
         contactsform=ExcelTestUploadForm,
         message=message,
         results_title='uReporters',
-        filter_forms=[ UreporterSearchForm,  GenderFilterForm, AgeFilterForm, MultipleDistictFilterForm, FilterGroupsForm ],
+        #filter_forms=[ UreporterSearchForm,  GenderFilterForm, AgeFilterForm, MultipleDistictFilterForm, FilterGroupsForm ],
+        filter_forms=[ UreporterSearchForm,  GenderFilterForm, AgeFilterForm, MultipleDistictFilterForm, FilterByGroupForm ],
         action_forms=[MassTextForm, AssignGroupForm, BlacklistForm,  AssignToNewPollForm,RemoveGroupForm,TemplateMessage , ExportToExcelForm],
         objects_per_page=25,
         base_template='ureport/ureporters_base.html',

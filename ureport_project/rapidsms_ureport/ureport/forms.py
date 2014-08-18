@@ -713,6 +713,20 @@ class UreporterSearchForm(FilterForm):
         return query
 
 
+class FilterByGroupForm(FilterForm):
+    choices = ((-1, 'No Group'),) + tuple([(int(g.pk), g.name) for g in Group.objects.all().order_by('name')])
+    group = forms.ChoiceField(label='', choices = choices, required=False)
+
+    def filter(self, request, queryset):
+        group = self.cleaned_data['group']
+        filtered_group = Group.objects.filter(pk=group)
+        number_of_rows = filtered_group.count()
+        if number_of_rows > 0:
+            filtered_group_name = filtered_group[0].name
+            return queryset.filter(group=filtered_group_name) 
+        else:
+            return queryset
+
 class AgeFilterForm(FilterForm):
     """ filter contacts by their age """
     flag = forms.ChoiceField(label='', choices=(('', '-----'), ('==', 'Equal to'), ('>', 'Greater than'), ('<', 'Less than'), ('b', 'Between'),('None', 'N/A')), required=False)
