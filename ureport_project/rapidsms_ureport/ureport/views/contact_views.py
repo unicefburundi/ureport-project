@@ -451,28 +451,3 @@ def ureporters(request):
         paginator_func=ureport_paginate,
         columns=columns,
         )
-
-
-def ureporters_info(request):
-    # import ipdb; ipdb.set_trace()
-    queryset = get_contacts2(request=request)
-    groups = Group.objects.all()
-    data_list = []
-    for group_name in groups :
-        data_dict = {}
-        data_dict["group_name"] = group_name.name
-        data_dict["ureporters_in"] = queryset.filter(group=group_name).count()
-        data_dict["girls_in"] = queryset.filter(Q(group=group_name) & Q(gender='F')).count()
-        data_dict["boys_in"] = queryset.filter(Q(group=group_name) & Q(gender='M')).count()
-        data_dict["Nuls"] = queryset.filter(Q(group=group_name) & Q(gender__isnull=True)).count()
-        data_list.append(data_dict)
-    data_dict_for_nuls = {}
-    data_dict_for_nuls["group_name"] = "No group"
-    data_dict_for_nuls["ureporters_in"] = queryset.filter(group__isnull=True).count()
-    data_dict_for_nuls["girls_in"] = queryset.filter(Q(group__isnull=True) & Q(gender='F')).count()
-    data_dict_for_nuls["boys_in"] = queryset.filter(Q(group__isnull=True) & Q(gender='M')).count()
-    data_dict_for_nuls["Nuls"] = queryset.filter(Q(group__isnull=True) & Q(gender__isnull=True)).count()
-    data_list.append(data_dict_for_nuls)
-    jsonData = JsonResponses(data_list)
-    
-    return render(request, 'ureport/ureporters_info.html', {'object_list': jsonData})
