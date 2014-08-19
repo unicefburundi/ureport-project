@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
@@ -20,7 +20,6 @@ from rapidsms.models import Connection, Contact
 from poll.models import Poll
 from generic.sorters import SimpleSorter
 from ureport.forms import ReplyTextForm, EditReporterForm, SignupForm, ExcelUploadForm, MassTextForm, AssignToNewPollForm, TemplateMessage, ExcelTestUploadForm, ExportToExcelForm
-from ureport.utils import JsonResponses
 from unregister.models import Blacklist
 from django.conf import settings
 from rapidsms.contrib.locations.models import Location
@@ -33,9 +32,6 @@ from ureport.models import Ureporter, UreportContact
 from ureport.views.utils.paginator import ureport_paginate
 from ureport.forms import UreporterSearchForm, AgeFilterForm, FilterByGroupForm, FilterByLocationForm
 from django.views.decorators.csrf import csrf_protect
-from django.utils.safestring import SafeString
-from django.contrib.auth.models import Group
-from django.db.models import Q
 
 
 @csrf_protect
@@ -75,7 +71,7 @@ def ureporter_profile(request, connection_pk):
                                     'connection__contact__reporting_location__name').iterator()
         headers = ['Message', 'Direction', 'Date', 'District']
 
-        return ExcelResponse(data=data)
+        return ExcelResponse(data=data, headers=headers)
     columns = [
                ('Message', True, 'text', SimpleSorter()),
                ('connection', True, 'connection', SimpleSorter()),

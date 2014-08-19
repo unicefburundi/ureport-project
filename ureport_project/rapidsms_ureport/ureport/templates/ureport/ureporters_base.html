@@ -57,7 +57,14 @@ $("#id_enddate").datepicker({ dateFormat: 'dd/mm/yy' ,changeYear: true ,changeMo
                 </tr>
             </table>
             </div>
-            <br/>
+            <div class="raw">
+                <div id="data_container">
+                    {{group_statistics}}
+                </div>
+                <br />
+                <div id="container" style="width:100%; height:500px;">
+                </div>
+            </div>
         {% endblock %}
 
  {% block action_forms %}
@@ -182,17 +189,6 @@ $("#id_enddate").datepicker({ dateFormat: 'dd/mm/yy' ,changeYear: true ,changeMo
 
 </div>
 
-
-
-<div id="data_container">
-{{group_statistics}}
-</div>
-
-<div id="container" style="width:100%; height:400px;">
-
-</div>
-
-
 <script type="text/javascript">
     // Attach a submit handler to the form
 $("#excel_submit" ).click(function(){
@@ -204,13 +200,6 @@ $("#excel_submit" ).click(function(){
     // Send the data using post
     var posting = $.post( url, { excel_file : term }, {csrfmiddlewaretoken:'{{csrf_token}}' });
 });
-
-
-
-
-
-
-
 
 function draw_pie_chart()
 {
@@ -226,7 +215,6 @@ var options = new Object();
 options.chart = new Object();
 options.chart.renderTo = 'container';
 options.chart.type = 'pie';
-
 options.series = new Array();
 options.series[0] = new Object();
 options.series[0].name = 'U-reporters';
@@ -246,7 +234,7 @@ while ((i < returned_data.length))
        i = i + 1;
       }
      chaine = returned_data.substring(i,i2);
-     
+
      var chaine2 = chaine.split(", ");
      var label = chaine2[0];
      var nombre = parseInt(chaine2[1]);
