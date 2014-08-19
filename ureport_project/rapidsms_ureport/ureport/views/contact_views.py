@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.shortcuts import get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
@@ -20,7 +20,7 @@ from rapidsms.models import Connection, Contact
 from poll.models import Poll
 from generic.sorters import SimpleSorter
 from ureport.forms import ReplyTextForm, EditReporterForm, SignupForm, ExcelUploadForm, MassTextForm, AssignToNewPollForm, TemplateMessage, ExcelTestUploadForm, ExportToExcelForm
-
+from ureport.utils import JsonResponses
 from unregister.models import Blacklist
 from django.conf import settings
 from rapidsms.contrib.locations.models import Location
@@ -31,8 +31,11 @@ from contact.forms import MultipleDistictFilterForm, GenderFilterForm, FilterGro
 from unregister.forms import BlacklistForm
 from ureport.models import Ureporter, UreportContact
 from ureport.views.utils.paginator import ureport_paginate
-from ureport.forms import UreporterSearchForm, AgeFilterForm
+from ureport.forms import UreporterSearchForm, AgeFilterForm, FilterByGroupForm, FilterByLocationForm
 from django.views.decorators.csrf import csrf_protect
+from django.utils.safestring import SafeString
+from django.contrib.auth.models import Group
+from django.db.models import Q
 
 
 @csrf_protect
@@ -438,7 +441,7 @@ def ureporters(request):
         contactsform=ExcelTestUploadForm,
         message=message,
         results_title='uReporters',
-        filter_forms=[ UreporterSearchForm,  GenderFilterForm, AgeFilterForm, MultipleDistictFilterForm, FilterGroupsForm ],
+        filter_forms=[ UreporterSearchForm,  GenderFilterForm, AgeFilterForm, MultipleDistictFilterForm, FilterGroupsForm, FilterByGroupForm, FilterByLocationForm ],
         action_forms=[MassTextForm, AssignGroupForm, BlacklistForm,  AssignToNewPollForm,RemoveGroupForm,TemplateMessage , ExportToExcelForm],
         objects_per_page=25,
         base_template='ureport/ureporters_base.html',
