@@ -34,13 +34,15 @@ $("#id_enddate").datepicker({ dateFormat: 'dd/mm/yy' ,changeYear: true ,changeMo
                 	<td>Search Ureporters :</td>
                 	<td>{{ filter_forms.0.searchx }}</td>
                 	<td>Filter By Group :</td>
-                	<td>{{ filter_forms.4.visible_fields.0 }}</td>
+                <!--	<td>{{ filter_forms.4.visible_fields.0 }}</td> -->
+                    <td>{{ filter_forms.5.group }}</td>
                 </tr>
                 <tr>
                 	<td>Filter By Gender :</td>
                 	<td>{{ filter_forms.1.gender }}</td>
                 	<td>Filter By District :</td>
-                	<td>{{ filter_forms.3.visible_fields.0}}</td>
+                <!--	<td>{{ filter_forms.3.visible_fields.0}}</td>  -->
+                    <td>{{ filter_forms.6.the_selected_location }}</td>
                 </tr>
                 <tr>
                 	<td>Filter By Age :</td>
@@ -215,7 +217,7 @@ function draw_pie_chart()
 //This function draws a pie chart. It uses datas contained in "data_container" div.
 var returned_data = document.getElementById("data_container").innerHTML;
 
-alert(returned_data);
+//alert(returned_data);
 
 var chaine = "", nombre = 0;
 var i = 0;
@@ -265,6 +267,8 @@ $(document).ready(function() {
 
 //setInterval(function(){
 //draw_pie_chart();
+//var a = "{{group_statistics}}".replace(/&quot;/g,"\"");
+//alert(a);
 //},3000);
 
 </script>

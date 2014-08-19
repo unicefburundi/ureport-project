@@ -4,8 +4,8 @@ from contact.models import MessageFlag
 from rapidsms.models import Contact
 from poll.models import ResponseCategory
 from ureport.models.models import UPoll as Poll, PollAttribute, Ureporter
-#from ureport.models import UPoll as Poll, PollAttribute
-#from .models import UPoll as Poll, PollAttribute
+from django.core import serializers
+import json
 from script.models import ScriptStep, Script
 from django.db.models import Count
 from ureport.models.database_views import UreportContact
@@ -19,11 +19,10 @@ from django.db.models import Q
 import datetime
 import re
 from uganda_common.models import Access
-
-#from rapidsms.router.db.models import * #Switching to db router, this time for good
-
+from django.http import HttpResponse
+from django.db.models.query import QuerySet
 #router_setting = getattr(settings, 'RAPIDSMS_ROUTER', None)
-#
+from django.core.serializers.json import DjangoJSONEncoder
 #if(router_setting == "rapidsms.router.db.DatabaseRouter"):
 #    from rapidsms.router.db.models import *
 
@@ -333,3 +332,15 @@ def normalize_query(query_string,
                     findterms=re.compile(r'"([^"]+)"|(\S+)').findall,
                     normspace=re.compile(r'\s{2,}').sub):
     return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
+
+
+class JsonResponses(HttpResponse):
+    def __init__(self, object):
+        if isinstance(object, QuerySet):
+            content = serializers.serialize('json', object)
+        else:
+            content = json.dumps(
+                object, indent=2, cls=DjangoJSONEncoder,
+                ensure_ascii=False)
+        super(JsonResponses, self).__init__(
+            content, content_type='application/json')
