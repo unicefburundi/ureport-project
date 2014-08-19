@@ -727,6 +727,23 @@ class FilterByGroupForm(FilterForm):
         else:
             return queryset
 
+class FilterByLocationForm(FilterForm):
+    choices = ((-1, 'No Province'),) + tuple([(int(location.pk), location.name) for location in Location.objects.filter(type__slug='district').order_by('name')])
+
+
+    the_selected_location = forms.ChoiceField(label='', choices = choices, required=False)
+
+    def filter(self, request, queryset):
+        province = self.cleaned_data['the_selected_location']
+        filtered_location = Location.objects.filter(pk=province)
+        number_of_rows = filtered_location.count()
+        if number_of_rows > 0:
+            filtered_location_name = filtered_location[0].name
+            return queryset.filter(province=filtered_location_name)
+        else:
+            return queryset
+
+
 class AgeFilterForm(FilterForm):
     """ filter contacts by their age """
     flag = forms.ChoiceField(label='', choices=(('', '-----'), ('==', 'Equal to'), ('>', 'Greater than'), ('<', 'Less than'), ('b', 'Between'),('None', 'N/A')), required=False)
