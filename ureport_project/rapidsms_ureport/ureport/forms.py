@@ -714,34 +714,34 @@ class UreporterSearchForm(FilterForm):
 
 
 class FilterByGroupForm(FilterForm):
-    choices = ((-1, 'No Group'),) + tuple([(int(g.pk), g.name) for g in Group.objects.all().order_by('name')])
+    choices = (('', '-----'),(-1, 'No Group'),) + tuple([(int(g.pk), g.name) for g in Group.objects.all().order_by('name')])
     group = forms.ChoiceField(label='', choices = choices, required=False)
 
     def filter(self, request, queryset):
         group = self.cleaned_data['group']
-        filtered_group = Group.objects.filter(pk=group)
-        number_of_rows = filtered_group.count()
-        if number_of_rows > 0:
-            filtered_group_name = filtered_group[0].name
-            return queryset.filter(group=filtered_group_name) 
-        else:
+        if group == '':
             return queryset
+        if int(group) == -1 :
+            return queryset.filter(group__isnull=True)
+        elif int(group) > -1:
+            filtered_group = Group.objects.filter(pk=group)
+            return queryset.filter(group=filtered_group[0].name)
 
 class FilterByLocationForm(FilterForm):
-    choices = ((-1, 'No Province'),) + tuple([(int(location.pk), location.name) for location in Location.objects.filter(type__slug='district').order_by('name')])
+    choices = (('', '-----'),(-1, 'No Province'),) + tuple([(int(location.pk), location.name) for location in Location.objects.filter(type__slug='district').order_by('name')])
 
 
     the_selected_location = forms.ChoiceField(label='', choices = choices, required=False)
 
     def filter(self, request, queryset):
         province = self.cleaned_data['the_selected_location']
-        filtered_location = Location.objects.filter(pk=province)
-        number_of_rows = filtered_location.count()
-        if number_of_rows > 0:
-            filtered_location_name = filtered_location[0].name
-            return queryset.filter(province=filtered_location_name)
-        else:
+        if province == '':
             return queryset
+        if int(province) == -1:
+            return queryset.filter(province__isnull=True)
+        elif int(province) > -1:
+            filtered_location = Location.objects.filter(pk=province)
+            return queryset.filter(province=filtered_location[0].name)
 
 
 class AgeFilterForm(FilterForm):
