@@ -17,7 +17,7 @@ from generic.sorters import SimpleSorter
 from rapidsms.models import Connection
 from contact.models import Flag, MessageFlag
 
-from ureport.forms import SendMessageForm, SearchMessagesForm, ForwardMessageForm
+from ureport.forms import SendMessageForm, ForwardMessageForm
 from ureport.models import MessageAttribute, MessageDetail
 from contact.forms import FlaggedMessageForm
 from ureport.views.utils.tags import _get_responses
