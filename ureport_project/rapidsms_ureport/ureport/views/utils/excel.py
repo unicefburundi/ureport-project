@@ -17,7 +17,7 @@ import datetime
 def parse_header_row(worksheet, fields):
     #This method build a dictionary in which keys are the valid names of columns of the uploaded excel file (excel file of user profiles)
     #and values are columns.
-    #Fields is a list of words which can be names of columns of the excel file which contains user profiles 
+    #Fields is a list of words which can be names of columns of the excel file which contains user profiles
     field_cols = {}
     for col in range(worksheet.ncols):
         value = str(worksheet.cell(0, col).value).strip()
@@ -45,8 +45,6 @@ def parse_telephone_number(row, worksheet, cols):
 
 def parse_name(row, worksheet, cols):
     v=worksheet.cell(row, cols['name']).value
-    print("v")
-    print(v)
     try:
         name = str(worksheet.cell(row, cols['company name'
         ]).value).strip()
@@ -249,9 +247,9 @@ def handle_excel_file_update(file, fields):
 								invalid.append(raw_num)
 								print(2)
 								print(raw_num)
-                                   
 
-                            
+
+
                             #If the phone number is valid, we update properties of the user to whom belongs this phone number
                             #after putting it on the list of valid phone numbers
 							if raw_num not in invalid:
@@ -261,17 +259,17 @@ def handle_excel_file_update(file, fields):
 								name = parse_name(row, worksheet, columns_name)
 								if len(name)>95:
 									name = name[0:95]
-								the_contact.name=name					
+								the_contact.name=name
 
 							if "province" in columns_name:
 								province = parse_district(row, worksheet, columns_name)
-								province = province.capitalize()
+								province = province.title()
 								location = Location.objects.filter(name=province)
 								if location :
 									location=location[0]
 								else :
 									location = Location.objects.create(name=province)
-								the_contact.reporting_location = location 
+								the_contact.reporting_location = location
 
 							if "commune" in columns_name:
 								commune = parse_commune(row, worksheet, columns_name)
@@ -312,8 +310,8 @@ def handle_excel_file_update(file, fields):
 								right_group = Group.objects.get_or_create(name=group_name)
 
 								the_contact.groups.add(right_group[0])
-         
-           
+
+
 				the_contact.save()
 
 				contacts.append(raw_num)
