@@ -1,4 +1,4 @@
-{% extends "generic/base.html" %}
+{% extends "generic/generic_base.html" %}
 {% block title %}
     Messages - {{ block.super }}
 {% endblock %}
@@ -12,13 +12,13 @@
     <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}ureport/stylesheets/modal.css"/>
 {% endblock %}
 {% block javascripts %}
-   
+
 {% endblock %}
 {% block content %}
 <a href="/massmessages/" style="font-size:12pt">Show Mass Messages &gt;&gt;</a>
 {{ block.super }}
     <div class="buttons">
-    <a href="{% url ureport.views.create_flags %}" style="float:left">
+    <a href="{% url 'ureport.views.create_flags' %}" style="float:left">
       <img border="0" src="/static/rapidsms/icons/silk/add.png" alt=""/>Add New Flag
     </a>
     <a style="float:right;" href="?export=true">Export To Excel</a>
