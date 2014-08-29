@@ -47,6 +47,8 @@ def messages(request):
                                   SimpleSorter()), ('Response', False, 'response', None)]
 
     queryset = get_messages(request=request)
+    if not request.user.is_superuser:
+        queryset = queryset.exclude(application="script")
     if access:
         queryset = queryset.filter(connection__contact__groups__in=access.groups.all())
     return generic(
@@ -81,7 +83,7 @@ def autoreg_messages(request):
                 SimpleSorter()), ('Type', True, 'application',
                                   SimpleSorter()), ('Response', False, 'response', None)]
 
-    queryset = get_autoreg_messages(request=request).filter(connection__contact__groups__in=request.user.groups.values_list('id'))
+    queryset = get_autoreg_messages(request=request)
     if access:
         queryset = queryset.filter(connection__contact__groups__in=access.groups.all())
     return generic(

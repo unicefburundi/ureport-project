@@ -25,7 +25,7 @@
                 <tr>  <td>Search Messages :</td> <td>{{ filter_forms.0.search }}</td>  <td>Filter By District :</td> <td>{{ filter_forms.1.district }}</td>        </tr>
 
                 <tr>
-                    <td> 
+                    <td>
                     <a href="javascript:void(0)" onclick="filter(this)" class="btn-primary btn btn-large">Update</a>
 
                    </td>
@@ -48,7 +48,9 @@
 <a href="/massmessages/" style="font-size:12pt">Show Mass Messages |</a>
 <a href="/unsolicitized_messages/" style="font-size:12pt">Show Unsolicitized Messages |</a>
 <a href="/poll_messages/" style="font-size:12pt">Show Poll Messages |</a>
+{% if user.is_superuser %}
 <a href="/autoreg_messages/" style="font-size:12pt">Show Autoreg Messages |</a>
+{% endif %}
 <a href="/quitmessages/" style="font-size:12pt">Show Quit Messages |</a>
 {{ block.super }}
 {% endblock %}
