@@ -1,6 +1,6 @@
-import rapidsms
+import logging
 import datetime
-
+from django.core.mail import send_mail
 from rapidsms.apps.base import AppBase
 from contact.models import Flag, MessageFlag
 from poll.models import Poll
@@ -13,7 +13,7 @@ from ureport.models import MessageAttribute, MessageDetail, Settings
 from .utils import get_language, get_scripts, all_optin_words
 
 WORD_TEMPLATE = r"(.*\b(%s)\b.*)"
-
+log = logging.getLogger(__name__)
 class App(AppBase):
     def handle (self, message):
         language = get_language(message)
@@ -28,12 +28,12 @@ class App(AppBase):
             prog = ScriptProgress.objects.create(script = Script.objects.get(pk = lang_scripts[language][1]), connection = message.connection)
             prog.language = language
             prog.save()
-        
+
         #registering twice should not be allowed, user is informed
         elif message.text.lower().strip() in all_optin_words():
             message.respond(getattr(settings,'OPTED_IN_CONFIRMATION','')[language])
             return True
-        
+
         #message flagging sfuff
         else:
             #alerts (needs further investigations)
@@ -42,7 +42,7 @@ class App(AppBase):
                 if alert_setting.value == "true":
                     alert, _ = MessageAttribute.objects.get_or_create(name = "alert")
                     msg_a = MessageDetail.objects.create(message = message.db_message, attribute = alert, value = 'true')
-            
+
             #user can toggle their preferred language
             for lang, lang_verbose in getattr(settings, 'LANGUAGES', None):
                 if message.connection.contact and message.text.lower() == lang:
@@ -54,7 +54,7 @@ class App(AppBase):
 
         #message flagging (needs further investigation)
         flags = Flag.objects.exclude(rule = None).exclude(rule_regex = None)
-
+        log.debug("[ureport-app] [%s] Checking for flags..." % message.connection.identity)
         pattern_list = [[re.compile(flag.rule_regex, re.I), flag] for flag in flags if flag.rule ]
         for reg in pattern_list:
             match = reg[0].search(message.text)
@@ -64,6 +64,10 @@ class App(AppBase):
                 else:
                     msg = message
                 mf = MessageFlag.objects.create(message = msg,flag = reg[1])
+                alert_group = Group.objects.get_or_create(name="alert_%s" % reg[1])
+                for user_to_alert in alert_group.user_set.all():
+                    if user_to_alert.mail:
+                        send_mail('A u-reporter with ID %s Sent Message to Ureport' % message.connection_id , message.text, "Ureport Alerts<alerts@unicefburundi.bi>",[user_to_alert.mail], fail_silently=True)
                 print mf
 
         #if no rule_regex default to name this is just for backward compatibility ... it will soon die an unnatural death
@@ -83,6 +87,6 @@ class App(AppBase):
                     flag = Flag.objects.get(name=[d for d in list(match.groups()) if d][1])
                 except (Flag.DoesNotExist, IndexError):
                     flag = None
-                MessageFlag.objects.create(message = db_message, flag=flag) 
-             
+                MessageFlag.objects.create(message = db_message, flag=flag)
+
         return False
