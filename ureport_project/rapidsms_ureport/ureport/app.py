@@ -11,6 +11,8 @@ import re
 from django.conf import settings
 from ureport.models import MessageAttribute, MessageDetail, Settings
 from .utils import get_language, get_scripts, all_optin_words
+from django.core.mail import EmailMessage
+from django.contrib.auth.models import Group
 
 WORD_TEMPLATE = r"(.*\b(%s)\b.*)"
 
@@ -65,6 +67,19 @@ class App(AppBase):
                     msg = message
                 mf = MessageFlag.objects.create(message = msg,flag = reg[1])
                 print mf
+
+                alert_group = Group.objects.filter(name="Alert_%s"%(reg[1].name))
+                if alert_group.count() > 0:
+                    alert_group = alert_group[0]
+                    alert_contacts = Contact.objects.filter(groups__name = alert_group.name)
+                    for conta in alert_contacts:
+                        if conta.user:
+                            if conta.user.email:
+                                print(conta.user.email)
+                                email_adress = "%s"%conta.user.email
+                                email = EmailMessage('The object', 'The content', to=[email_adress])
+                                email.send()
+
 
         #if no rule_regex default to name this is just for backward compatibility ... it will soon die an unnatural death
 
