@@ -11,9 +11,10 @@ import re
 from django.conf import settings
 from ureport.models import MessageAttribute, MessageDetail, Settings
 from .utils import get_language, get_scripts, all_optin_words
+from django.contrib.auth.models import Group
 
 WORD_TEMPLATE = r"(.*\b(%s)\b.*)"
-log = logging.getLogger(__name__)
+
 class App(AppBase):
     def handle (self, message):
         language = get_language(message)
@@ -54,7 +55,6 @@ class App(AppBase):
 
         #message flagging (needs further investigation)
         flags = Flag.objects.exclude(rule = None).exclude(rule_regex = None)
-        log.debug("[ureport-app] [%s] Checking for flags..." % message.connection.identity)
         pattern_list = [[re.compile(flag.rule_regex, re.I), flag] for flag in flags if flag.rule ]
         for reg in pattern_list:
             match = reg[0].search(message.text)
