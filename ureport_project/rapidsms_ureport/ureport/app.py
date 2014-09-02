@@ -14,7 +14,7 @@ from .utils import get_language, get_scripts, all_optin_words
 
 from django.core.mail import EmailMessage
 
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 
 WORD_TEMPLATE = r"(.*\b(%s)\b.*)"
 
@@ -61,6 +61,7 @@ class App(AppBase):
         pattern_list = [[re.compile(flag.rule_regex, re.I), flag] for flag in flags if flag.rule ]
         for reg in pattern_list:
             match = reg[0].search(message.text)
+            import ipdb; ipdb.set_trace()
             if match:
                 if hasattr(message, 'db_message'):
                     msg = message.db_message
@@ -73,17 +74,15 @@ class App(AppBase):
                         #send_mail('A u-reporter with ID %s Sent Message to Ureport' % message.connection_id , message.text, "Ureport #Alerts<alerts@unicefburundi.bi>",[user_to_alert.mail], fail_silently=True)
                 print mf
 
-                alert_group = Group.objects.filter(name="Alert_%s"%(reg[1].name))
-                if alert_group.count() > 0:
-                    alert_group = alert_group[0]
-                    alert_contacts = Contact.objects.filter(groups__name = alert_group.name)
-                    for conta in alert_contacts:
-                        if conta.user:
-                            if conta.user.email:
-                                print(conta.user.email)
-                                email_adress = "%s"%conta.user.email
-                                email = EmailMessage('The object', 'The content', to=[email_adress])
-                                email.send()
+                alert_group = Group.objects.get(name="alert_%s"%(reg[1].name))
+                if alert_group :
+                    alert_users = User.objects.filter(groups__name = alert_group.name)
+                    for user in alert_users:
+                        if user.email:
+                            print(user.email)
+                            email_adress = "%s" % user.email
+                            email = EmailMessage('The object', 'The content', to=[email_adress])
+                            email.send()
 
 
         #if no rule_regex default to name this is just for backward compatibility ... it will soon die an unnatural death
