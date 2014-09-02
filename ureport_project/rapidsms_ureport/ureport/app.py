@@ -61,27 +61,22 @@ class App(AppBase):
         pattern_list = [[re.compile(flag.rule_regex, re.I), flag] for flag in flags if flag.rule ]
         for reg in pattern_list:
             match = reg[0].search(message.text)
-            import ipdb; ipdb.set_trace()
+            print match
             if match:
+                msg = None
                 if hasattr(message, 'db_message'):
                     msg = message.db_message
                 else:
                     msg = message
-                mf = MessageFlag.objects.create(message = msg,flag = reg[1])
-                #alert_group = Group.objects.get_or_create(name="alert_%s" % reg[1])
-                #for user_to_alert in alert_group.user_set.all():
-                    #if user_to_alert.mail:
-                        #send_mail('A u-reporter with ID %s Sent Message to Ureport' % message.connection_id , message.text, "Ureport #Alerts<alerts@unicefburundi.bi>",[user_to_alert.mail], fail_silently=True)
-                print mf
-
+                MessageFlag.objects.create(message = msg,flag = reg[1])
                 alert_group = Group.objects.get(name="alert_%s"%(reg[1].name))
+                print alert_group
                 if alert_group :
-                    alert_users = User.objects.filter(groups__name = alert_group.name)
-                    for user in alert_users:
+                    for user in alert_group.user_set.all():
                         if user.email:
-                            print(user.email)
+                            print user.email
                             email_adress = "%s" % user.email
-                            email = EmailMessage('The object', 'The content', to=[email_adress])
+                            email = EmailMessage('Ureport Alert on %s ' % reg[1].name , 'A u-reporter with ID << %s >> sent a message << %s >> related to the << %s >> flag' % (message.connection , message.text, reg[1].name), to=[email_adress])
                             email.send()
 
 
