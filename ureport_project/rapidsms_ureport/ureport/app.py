@@ -72,7 +72,7 @@ class App(AppBase):
                 if alert_group :
                     for user in alert_group.user_set.all():
                         if user.email:
-                            email = EmailMessage('Ureport Alert on %s ' % reg[1].name , 'A u-reporter with ID << %s >> sent a message << %s >> related to the << %s >> flag' % (message.connection , message.text, reg[1].name), to=[user.email])
+                            email = EmailMessage('A U-report message that may relate to %s has been received. Please contact the U-report Platform Administrator to view & respond to this message.' % reg[1].name, to=[user.email])
                             email.send()
 
 
