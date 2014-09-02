@@ -61,7 +61,6 @@ class App(AppBase):
         pattern_list = [[re.compile(flag.rule_regex, re.I), flag] for flag in flags if flag.rule ]
         for reg in pattern_list:
             match = reg[0].search(message.text)
-            print match
             if match:
                 msg = None
                 if hasattr(message, 'db_message'):
@@ -70,13 +69,10 @@ class App(AppBase):
                     msg = message
                 MessageFlag.objects.create(message = msg,flag = reg[1])
                 alert_group = Group.objects.get(name="alert_%s"%(reg[1].name))
-                print alert_group
                 if alert_group :
                     for user in alert_group.user_set.all():
                         if user.email:
-                            print user.email
-                            email_adress = "%s" % user.email
-                            email = EmailMessage('Ureport Alert on %s ' % reg[1].name , 'A u-reporter with ID << %s >> sent a message << %s >> related to the << %s >> flag' % (message.connection , message.text, reg[1].name), to=[email_adress])
+                            email = EmailMessage('Ureport Alert on %s ' % reg[1].name , 'A u-reporter with ID << %s >> sent a message << %s >> related to the << %s >> flag' % (message.connection , message.text, reg[1].name), to=[user.email])
                             email.send()
 
 
