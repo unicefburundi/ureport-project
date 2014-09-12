@@ -96,5 +96,22 @@ class App(AppBase):
 
                 MessageFlag.objects.create(message = db_message, flag=flag)
 
+        #Case of a Contact who wants to be added in an other group
+        #The message must be made of two words in this form "ADD GROUPNAME"
+        message_text_splited = message.text.split()
+        if(len(message_text_splited) == 2):
+            the_concerned_group_name = message_text_splited[1]
+
+            #We check if the second word of the message text is a name of an existing group
+            the_concerned_group = Group.objects.filter(name="%s"%the_concerned_group_name)
+            if(len(the_concerned_group)>0):
+                the_concerned_group = the_concerned_group[0]
+                if message.connection.contact:
+                    the_contact = message.connection.contact
+                    #If this U-reporter is not already in this group, we put him in it
+                    if(not (the_concerned_group in the_contact.groups.all())):
+                        the_contact.groups.add(the_concerned_group)
+
+        
         return False
 
