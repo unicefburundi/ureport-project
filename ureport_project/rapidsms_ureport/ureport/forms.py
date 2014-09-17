@@ -485,7 +485,8 @@ class NewPollForm(forms.Form): # pragma: no cover
     name = forms.CharField(max_length=32, required=True)
 
     def __init__(self, data=None, **kwargs):
-        self.request = kwargs.pop('request')
+        if 'request' in kwargs:
+            request = kwargs.pop('request')
         if data:
             forms.Form.__init__(self, data, **kwargs)
         else:
@@ -906,6 +907,7 @@ class ExportToExcelForm(ActionForm):
     action_label = "Generate the excel file"
 
     def perform(self, request, results):
+        import ipdb; ipdb.set_trace()
         data = results.values()
         return ExcelResults(
                     data=data,
