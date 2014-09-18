@@ -907,7 +907,6 @@ class ExportToExcelForm(ActionForm):
     action_label = "Generate the excel file"
 
     def perform(self, request, results):
-        import ipdb; ipdb.set_trace()
         data = results.values()
         return ExcelResults(
                     data=data,
